@@ -16,6 +16,16 @@ class MyApp extends StatelessWidget {
           child: Text('otw on progress....'),
         ),
       ),
+      backgroundColor: Colors.white,
+      floatingActionButton: FloatingActionButton(
+        child: Icon(
+          Icons.menu_rounded,
+          color: Colors.white,
+          size: 25.0,
+        ),
+        onPressed: () {},
+        backgroundColor: Colors.black,
+      ),
     );
   }
 }

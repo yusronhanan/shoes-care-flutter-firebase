@@ -11,20 +11,54 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Center(
-        child: Container(
-          child: Text('otw on progress....'),
-        ),
-      ),
+      // appBar: AppBar(
+      //   title: Text('supposed to ber login'),
+      // ),
+      // body: Container(
+      //   padding: EdgeInsets.only(top: 215, left: 30),
+      //   child: Text.rich(TextSpan(children: <TextSpan>[
+      //     TextSpan(
+      //         text: 'Shoes',
+      //         style: TextStyle(
+      //             fontSize: 25,
+      //             fontStyle: FontStyle.italic,
+      //             fontWeight: FontWeight.w700)),
+      //     TextSpan(
+      //         text: ' &',
+      //         style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
+      //     TextSpan(
+      //         text: 'Care',
+      //         style: TextStyle(
+      //             fontSize: 25,
+      //             fontStyle: FontStyle.italic,
+      //             fontWeight: FontWeight.w700)),
+      //   ])),
+      // ),
+      body: Container(
+          margin: EdgeInsets.only(top: 215, left: 30),
+          height: 100,
+          width: 200,
+          // decoration: BoxDecoration(
+          //   border: Border.all(width: 2.0),
+          // ),
+          child: Image.network(
+              'https://i.pinimg.com/originals/58/1d/47/581d477ba2f9ef3126c961fc7e47a350.png')),
+
       backgroundColor: Colors.white,
-      floatingActionButton: FloatingActionButton(
-        child: Icon(
-          Icons.menu_rounded,
-          color: Colors.white,
-          size: 25.0,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 600.0),
+        child: FloatingActionButton(
+          child: Icon(
+            Icons.menu_rounded,
+            color: Colors.black,
+            size: 25.0,
+          ),
+          backgroundColor: Colors.white,
+          onPressed: () {},
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.all(Radius.circular(17))),
         ),
-        onPressed: () {},
-        backgroundColor: Colors.black,
       ),
     );
   }

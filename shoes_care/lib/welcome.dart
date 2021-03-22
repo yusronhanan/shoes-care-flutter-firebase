@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 
-class WelcomePage extends StatelessWidget {
+class WelPage extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState() {
+    return WelcomePage();
+  }
+}
+
+class WelcomePage extends State<WelPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,6 +30,7 @@ class WelcomePage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
                   width: 250,
+                  // ignore: deprecated_member_use
                   child: FlatButton(
                     child: Text('Sign In',
                         style: TextStyle(fontSize: 20, color: Colors.white)),
@@ -40,6 +48,7 @@ class WelcomePage extends StatelessWidget {
                     borderRadius: BorderRadius.all(Radius.circular(8)),
                   ),
                   width: 250,
+                  // ignore: deprecated_member_use
                   child: FlatButton(
                     child: Text('Sign Up',
                         style: TextStyle(fontSize: 20, color: Colors.green)),
@@ -48,28 +57,28 @@ class WelcomePage extends StatelessWidget {
                     },
                   ),
                 ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  // crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Text(
-                      'Language : ',
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.normal),
-                    ),
-                    SizedBox(
-                      width: 8,
-                    ),
-                    FlatButton(
-                      onPressed: () {},
-                      child: Text(
-                        'English',
-                        style: TextStyle(
-                            fontSize: 18, fontWeight: FontWeight.bold),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   mainAxisAlignment: MainAxisAlignment.center,
+                //   // crossAxisAlignment: CrossAxisAlignment.stretch,
+                //   children: <Widget>[
+                //     Text(
+                //       'Language : ',
+                //       style: TextStyle(
+                //           fontSize: 18, fontWeight: FontWeight.normal),
+                //     ),
+                //     SizedBox(
+                //       width: 8,
+                //     ),
+                //     FlatButton(
+                //       onPressed: () {},
+                //       child: Text(
+                //         'English',
+                //         style: TextStyle(
+                //             fontSize: 18, fontWeight: FontWeight.bold),
+                //       ),
+                //     ),
+                //   ],
+                // ),
                 SizedBox(
                   height: 50,
                 )

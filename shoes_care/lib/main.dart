@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_care/welcome.dart';
+import 'package:shoes_care/register.dart';
 
 void main() {
   runApp(MaterialApp(
@@ -20,6 +21,7 @@ class MyApp extends StatelessWidget {
       ),
       routes: {
         '/': (context) => WelPage(), //AnimatedBottomBar()
+        '/register': (context) => RegisterPage(), //AnimatedBottomBar()
       },
     );
     // return Scaffold(

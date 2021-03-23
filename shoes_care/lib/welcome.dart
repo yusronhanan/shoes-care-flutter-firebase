@@ -52,7 +52,7 @@ class WelcomePage extends State<WelPage> {
                     child: Text('Sign In',
                         style: TextStyle(fontSize: 20, color: Colors.white)),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/grocerry/auth');
+                      Navigator.pushNamed(context, '/login');
                     },
                   ),
                 ),
@@ -68,7 +68,7 @@ class WelcomePage extends State<WelPage> {
                     child: Text('Sign Up',
                         style: TextStyle(fontSize: 20, color: Colors.black)),
                     onPressed: () {
-                      Navigator.pushNamed(context, '/grocerry/auth');
+                      Navigator.pushNamed(context, '/register');
                     },
                   ),
                 ),

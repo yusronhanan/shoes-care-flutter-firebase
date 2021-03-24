@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 
-class RegisterPage extends StatefulWidget {
+class LoginPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return RegPageState();
+    return LogPageState();
   }
 }
 
-class RegPageState extends State<RegisterPage> {
+class LogPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -18,7 +18,7 @@ class RegPageState extends State<RegisterPage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 646,
+              height: 409,
               decoration: BoxDecoration(
                   boxShadow: [
                     new BoxShadow(
@@ -50,10 +50,10 @@ class RegPageState extends State<RegisterPage> {
                         // ignore: deprecated_member_use
                         child: FlatButton(
                           onPressed: () {
-                            Navigator.pushNamed(context, '/login');
+                            Navigator.pushNamed(context, '/register');
                           },
                           child: Text(
-                            'Sign In',
+                            'Sign Up',
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.grey,
@@ -67,7 +67,7 @@ class RegPageState extends State<RegisterPage> {
                         child: FlatButton(
                           onPressed: () {},
                           child: Text(
-                            'Sign Up',
+                            'Sign In',
                             style: TextStyle(
                               fontSize: 20,
                               color: Color(0xff9e2229),
@@ -97,62 +97,10 @@ class RegPageState extends State<RegisterPage> {
                     padding: EdgeInsets.only(
                         left: 16, right: 16, top: 32, bottom: 8),
                     child: TextField(
-                      style: TextStyle(fontSize: 18),
-                      keyboardType: TextInputType.text,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: InputDecoration(
-                        hintText: 'Name',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: TextField(
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
                         hintText: 'E-Mail Address',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: TextField(
-                      keyboardType: TextInputType.phone,
-                      style: TextStyle(fontSize: 18),
-                      decoration: InputDecoration(
-                        hintText: 'Phone Number',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: TextField(
-                      keyboardType: TextInputType.streetAddress,
-                      style: TextStyle(fontSize: 18),
-                      decoration: InputDecoration(
-                        hintText: 'Address',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),

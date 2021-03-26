@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_care/authentication_service.dart';
+import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -8,6 +10,11 @@ class RegisterPage extends StatefulWidget {
 }
 
 class RegPageState extends State<RegisterPage> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +104,7 @@ class RegPageState extends State<RegisterPage> {
                     padding: EdgeInsets.only(
                         left: 16, right: 16, top: 32, bottom: 8),
                     child: TextField(
+                      controller: nameController,
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
@@ -115,6 +123,7 @@ class RegPageState extends State<RegisterPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -132,6 +141,7 @@ class RegPageState extends State<RegisterPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: phoneNumController,
                       keyboardType: TextInputType.phone,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -149,6 +159,7 @@ class RegPageState extends State<RegisterPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: addressController,
                       keyboardType: TextInputType.streetAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -166,6 +177,7 @@ class RegPageState extends State<RegisterPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: passwordController,
                       obscureText: true,
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
@@ -189,7 +201,17 @@ class RegPageState extends State<RegisterPage> {
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () {
-                            Navigator.pushNamed(context, '/grocerry/verify');
+                            print(nameController.text +
+                                emailController.text +
+                                phoneNumController.text +
+                                addressController.text +
+                                passwordController.text);
+                            context.read<AuthenticationService>().signUp(
+                                name: nameController.text,
+                                email: emailController.text,
+                                phoneNum: phoneNumController.text,
+                                address: addressController.text,
+                                password: passwordController.text);
                           },
                           icon: Icon(Icons.arrow_forward),
                         ),

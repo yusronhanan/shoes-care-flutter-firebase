@@ -1,9 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:shoes_care/login.dart';
 import 'package:shoes_care/welcome.dart';
 import 'package:shoes_care/register.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:shoes_care/authentication_service.dart';
+// import 'package:cloud_firestore/cloud_firestore.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MaterialApp(
     home: MyApp(),
   ));
@@ -13,69 +20,52 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      title: 'UI Kit',
-      theme: ThemeData(
-        brightness: Brightness.light,
-        primarySwatch: Colors.amber,
-      ),
-      routes: {
-        '/': (context) => WelPage(), //AnimatedBottomBar()
-        '/register': (context) => RegisterPage(), //AnimatedBottomBar()
-        '/login': (context) => LoginPage(),
-      },
-    );
-    // return Scaffold(
-    //   // appBar: AppBar(
-    //   //   title: Text('supposed to ber login'),
-    //   // ),
-    //   // body: Container(
-    //   //   padding: EdgeInsets.only(top: 215, left: 30),
-    //   //   child: Text.rich(TextSpan(children: <TextSpan>[
-    //   //     TextSpan(
-    //   //         text: 'Shoes',
-    //   //         style: TextStyle(
-    //   //             fontSize: 25,
-    //   //             fontStyle: FontStyle.italic,
-    //   //             fontWeight: FontWeight.w700)),
-    //   //     TextSpan(
-    //   //         text: ' &',
-    //   //         style: TextStyle(fontSize: 25, fontWeight: FontWeight.w900)),
-    //   //     TextSpan(
-    //   //         text: 'Care',
-    //   //         style: TextStyle(
-    //   //             fontSize: 25,
-    //   //             fontStyle: FontStyle.italic,
-    //   //             fontWeight: FontWeight.w700)),
-    //   //   ])),
-    //   // ),
-    //   body: Container(
-    //       margin: EdgeInsets.only(top: 215, left: 30),
-    //       height: 100,
-    //       width: 200,
-    //       // decoration: BoxDecoration(
-    //       //   border: Border.all(width: 2.0),
-    //       // ),
-    //       child: Image.network(
-    //           'https://i.pinimg.com/originals/58/1d/47/581d477ba2f9ef3126c961fc7e47a350.png')),
+    return MultiProvider(
+        providers: [
+          Provider<AuthenticationService>(
+            create: (_) => AuthenticationService(FirebaseAuth.instance),
+          ),
+          StreamProvider(
+            create: (context) =>
+                context.read<AuthenticationService>().authStateChanges,
+          ),
+        ],
+        child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'UI Kit',
+          routes: {
+            //can not '/'. will cause error
+            '/welcome': (context) => WelPage(), //AnimatedBottomBar()
+            '/register': (context) => RegisterPage(), //AnimatedBottomBar()
+            '/login': (context) => LoginPage(),
+          },
+          theme: ThemeData(
+            brightness: Brightness.light,
+            primarySwatch: Colors.amber,
+          ),
+          home: AuthenticationWrapper(),
+        ));
+  }
+}
 
-    //   backgroundColor: Colors.white,
-    //   floatingActionButton: Padding(
-    //     padding: const EdgeInsets.only(bottom: 600.0),
-    //     child: FloatingActionButton(
-    //       child: Icon(
-    //         Icons.menu_rounded,
-    //         color: Colors.black,
-    //         size: 25.0,
-    //       ),
-    //       backgroundColor: Colors.white,
-    //       onPressed: () {},
-    //       elevation: 0,
-    //       shape: RoundedRectangleBorder(
-    //           borderRadius: BorderRadius.all(Radius.circular(17))),
-    //     ),
-    //   ),
-    // );
+class AuthenticationWrapper extends StatelessWidget {
+  const AuthenticationWrapper({
+    Key key,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    final firebaseUser = context.watch<User>();
+
+    if (firebaseUser != null) {
+      //temporary. it should return to hoempage
+      // return WelPage();
+      // Navigator.pushNamed(context, '/welcome');
+      return WelPage();
+    } else {
+      //temporary. it should return warning
+      // Navigator.pushNamed(context, '/register');
+      return LoginPage();
+    }
   }
 }

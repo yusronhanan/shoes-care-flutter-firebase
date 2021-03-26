@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "216018940848",
+    "project_id": "shoescare-b222a",
+    "storage_bucket": "shoescare-b222a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:216018940848:android:59f434843bc340cea05c75",
+        "android_client_info": {
+          "package_name": "com.example.shoes_care"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "216018940848-iu0loq8nnlsc2eb7ho69glt903q5ls30.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyB9lKchPbR511dQ6Q8tr0POcCcIxK9ZSUE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "216018940848-iu0loq8nnlsc2eb7ho69glt903q5ls30.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

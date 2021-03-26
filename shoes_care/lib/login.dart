@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_care/authentication_service.dart';
+import 'package:provider/provider.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -8,6 +10,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class LogPageState extends State<LoginPage> {
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -97,6 +102,7 @@ class LogPageState extends State<LoginPage> {
                     padding: EdgeInsets.only(
                         left: 16, right: 16, top: 32, bottom: 8),
                     child: TextField(
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -114,6 +120,7 @@ class LogPageState extends State<LoginPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: passwordController,
                       obscureText: true,
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
@@ -137,7 +144,11 @@ class LogPageState extends State<LoginPage> {
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () {
-                            Navigator.pushNamed(context, '/grocerry/verify');
+                            print(
+                                emailController.text + passwordController.text);
+                            context.read<AuthenticationService>().signIn(
+                                email: emailController.text,
+                                password: passwordController.text);
                           },
                           icon: Icon(Icons.arrow_forward),
                         ),

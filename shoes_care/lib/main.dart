@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_care/home.dart';
 import 'package:shoes_care/login.dart';
 import 'package:shoes_care/welcome.dart';
 import 'package:shoes_care/register.dart';
@@ -35,6 +36,7 @@ class MyApp extends StatelessWidget {
           title: 'UI Kit',
           routes: {
             //can not '/'. will cause error
+            '/home': (context) => HomePage(),
             '/welcome': (context) => WelPage(), //AnimatedBottomBar()
             '/register': (context) => RegisterPage(), //AnimatedBottomBar()
             '/login': (context) => LoginPage(),
@@ -61,11 +63,11 @@ class AuthenticationWrapper extends StatelessWidget {
       //temporary. it should return to hoempage
       // return WelPage();
       // Navigator.pushNamed(context, '/welcome');
-      return WelPage();
+      return HomePage();
     } else {
       //temporary. it should return warning
       // Navigator.pushNamed(context, '/register');
-      return LoginPage();
+      return HomePage();
     }
   }
 }

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_care/welcome.dart';
 import 'package:shoes_care/home.dart';
 import 'package:shoes_care/login.dart';
-import 'package:shoes_care/welcome.dart';
 import 'package:shoes_care/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -34,12 +34,13 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'UI Kit',
+          initialRoute: '/welcome',
           routes: {
             //can not '/'. will cause error
-            '/home': (context) => HomePage(),
-            '/welcome': (context) => WelPage(), //AnimatedBottomBar()
+            '/welcome': (context) => WelPage(),
             '/register': (context) => RegisterPage(), //AnimatedBottomBar()
             '/login': (context) => LoginPage(),
+            '/home': (context) => HomePage(),
           },
           theme: ThemeData(
             brightness: Brightness.light,

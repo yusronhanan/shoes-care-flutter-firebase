@@ -7,7 +7,8 @@ class ProfilePage extends StatefulWidget {
   }
 }
 
- @override
+class ProfilePageState extends state<ProfilePage>{
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
         children: (

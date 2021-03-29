@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_care/profile.dart';
 import 'package:shoes_care/welcome.dart';
 import 'package:shoes_care/home.dart';
 import 'package:shoes_care/login.dart';
@@ -38,9 +39,10 @@ class MyApp extends StatelessWidget {
           routes: {
             //can not '/'. will cause error
             '/welcome': (context) => WelPage(),
-            '/register': (context) => RegisterPage(), //AnimatedBottomBar()
+            '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
             '/home': (context) => HomePage(),
+            'profie': (context) => ProfilePage(),
           },
           theme: ThemeData(
             brightness: Brightness.light,

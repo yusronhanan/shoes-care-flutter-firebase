@@ -72,28 +72,6 @@ class WelcomePage extends State<WelPage> {
                     },
                   ),
                 ),
-                // Row(
-                //   mainAxisAlignment: MainAxisAlignment.center,
-                //   // crossAxisAlignment: CrossAxisAlignment.stretch,
-                //   children: <Widget>[
-                //     Text(
-                //       'Language : ',
-                //       style: TextStyle(
-                //           fontSize: 18, fontWeight: FontWeight.normal),
-                //     ),
-                //     SizedBox(
-                //       width: 8,
-                //     ),
-                //     FlatButton(
-                //       onPressed: () {},
-                //       child: Text(
-                //         'English',
-                //         style: TextStyle(
-                //             fontSize: 18, fontWeight: FontWeight.bold),
-                //       ),
-                //     ),
-                //   ],
-                // ),
                 SizedBox(
                   height: 50,
                 )

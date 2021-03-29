@@ -1,15 +1,18 @@
-class Admin {
+import 'package:shoes_care/model/user.dart';
+
+class Admin extends User {
   Admin(
       {this.adminId,
       this.adminName,
-      this.adminEmail,
-      this.adminPassword,
+      email,
+      password,
       this.adminPhone,
-      this.adminAddress});
+      this.adminAddress})
+      : super(email: email, password: password);
   String adminId;
   String adminName;
-  String adminEmail;
-  String adminPassword;
+  // String adminEmail;
+  // String adminPassword;
   String adminPhone;
   String adminAddress;
 
@@ -21,13 +24,13 @@ class Admin {
     return adminName;
   }
 
-  String get getAdminEmail {
-    return adminEmail;
-  }
+  // String get getAdminEmail {
+  //   return super.email;
+  // }
 
-  String get getAdminPassword {
-    return adminPassword;
-  }
+  // String get getAdminPassword {
+  //   return super.password;
+  // }
 
   String get getAdminPhone {
     return adminPhone;
@@ -45,13 +48,13 @@ class Admin {
     adminName = newAdminName;
   }
 
-  set setAdminEmail(String newAdminEmail) {
-    adminEmail = newAdminEmail;
-  }
+  // set setAdminEmail(String newAdminEmail) {
+  //   super.setEmail
+  // }
 
-  set setAdminPassword(String newAdminPassword) {
-    adminPassword = newAdminPassword;
-  }
+  // set setAdminPassword(String newAdminPassword) {
+  //   adminPassword = newAdminPassword;
+  // }
 
   set setAdminPhone(String newAdminPhone) {
     adminPhone = newAdminPhone;

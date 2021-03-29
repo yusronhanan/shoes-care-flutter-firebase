@@ -1,15 +1,18 @@
-class Customer {
+import 'package:shoes_care/model/user.dart';
+
+class Customer extends User {
   Customer(
       {this.customerId,
       this.customerName,
-      this.customerEmail,
-      this.customerPassword,
+      email,
+      password,
       this.customerPhone,
-      this.customerAddress});
+      this.customerAddress})
+      : super(email: email, password: password);
   String customerId;
   String customerName;
-  String customerEmail;
-  String customerPassword;
+  // String customerEmail;
+  // String customerPassword;
   String customerPhone;
   String customerAddress;
 
@@ -21,13 +24,13 @@ class Customer {
     return customerName;
   }
 
-  String get getCustomerEmail {
-    return customerEmail;
-  }
+  // String get getCustomerEmail {
+  //   return customerEmail;
+  // }
 
-  String get getCustomerPassword {
-    return customerPassword;
-  }
+  // String get getCustomerPassword {
+  //   return customerPassword;
+  // }
 
   String get getCustomerPhone {
     return customerPhone;
@@ -45,13 +48,13 @@ class Customer {
     customerName = newCustomerName;
   }
 
-  set setCustomerEmail(String newCustomerEmail) {
-    customerEmail = newCustomerEmail;
-  }
+  // set setCustomerEmail(String newCustomerEmail) {
+  //   super.setEmail(newCustomerEmail);
+  // }
 
-  set setCustomerPassword(String newCustomerPassword) {
-    customerPassword = newCustomerPassword;
-  }
+  // set setCustomerPassword(String newCustomerPassword) {
+  //   customerPassword = newCustomerPassword;
+  // }
 
   set setCustomerPhone(String newCustomerPhone) {
     customerPhone = newCustomerPhone;

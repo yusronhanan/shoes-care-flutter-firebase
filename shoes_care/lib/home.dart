@@ -25,9 +25,9 @@ class HomePage extends StatefulWidget {
 class HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   List<Widget> _widgetOptions = <Widget>[
-    // History(),
+    // MyOrder(),
+    // Home(),
     // Profile(),
-    // Setting(),
   ];
   void _onItemTap(int index) {
     setState(() {
@@ -158,11 +158,11 @@ class HomePageState extends State<HomePage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.history,
+              Icons.shopping_cart_rounded,
               color: Colors.white,
             ),
             title: Text(
-              'History',
+              'Transaction',
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -174,7 +174,7 @@ class HomePageState extends State<HomePage> {
               color: Colors.white,
             ),
             title: Text(
-              'Profile',
+              'Home',
               style: TextStyle(
                 color: Colors.white,
               ),
@@ -182,11 +182,11 @@ class HomePageState extends State<HomePage> {
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              Icons.settings,
+              Icons.home,
               color: Colors.white,
             ),
             title: Text(
-              'Settings',
+              'Profile',
               style: TextStyle(
                 color: Colors.white,
               ),

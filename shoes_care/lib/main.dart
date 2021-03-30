@@ -35,14 +35,14 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'UI Kit',
-          initialRoute: '/welcome',
+          initialRoute: '/profile',
           routes: {
             //can not '/'. will cause error
             '/welcome': (context) => WelPage(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
             '/home': (context) => HomePage(),
-            'profie': (context) => ProfilePage(),
+            '/profie': (context) => ProfilePage(),
           },
           theme: ThemeData(
             brightness: Brightness.light,
@@ -66,11 +66,11 @@ class AuthenticationWrapper extends StatelessWidget {
       //temporary. it should return to hoempage
       // return WelPage();
       // Navigator.pushNamed(context, '/welcome');
-      return HomePage();
+      return ProfilePage();
     } else {
       //temporary. it should return warning
       // Navigator.pushNamed(context, '/register');
-      return HomePage();
+      return ProfilePage();
     }
   }
 }

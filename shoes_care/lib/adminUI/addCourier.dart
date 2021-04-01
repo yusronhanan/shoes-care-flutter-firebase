@@ -242,7 +242,7 @@ class RegPageState extends State<AddCourierPage> {
                               print("Add snackbar/notif fail: $error");
                             });
                           },
-                          icon: Icon(Icons.arrow_forward),
+                          icon: Icon(Icons.add),
                         ),
                       )),
                 ],

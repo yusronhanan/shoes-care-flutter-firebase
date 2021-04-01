@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_care/adminUI/addCourier.dart';
+import 'package:shoes_care/adminUI/allCourier.dart';
 import 'package:shoes_care/customerUI/profile.dart';
-import 'package:shoes_care/model/user.dart';
 import 'package:shoes_care/welcome.dart';
 import 'package:shoes_care/customerUI/home.dart';
 import 'package:shoes_care/login.dart';
@@ -37,16 +37,17 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'UI Kit',
-          initialRoute: '/customer/profile',
+          initialRoute: '/allCourier',
           routes: {
             //can not '/'. will cause error
             '/welcome': (context) => WelPage(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
             '/home': (context) => HomePage(),
-            '/customer/profile': (context) => ProfilePage(),
+            '/customerUI/customer': (context) => ProfilePage(),
             //for role admin
             '/addCourier': (context) => AddCourierPage(),
+            '/allCourier': (context) => AllCourierPage(),
           },
           theme: ThemeData(
             brightness: Brightness.light,
@@ -64,17 +65,16 @@ class AuthenticationWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // final firebaseUser = context.watch<User>();
+    final firebaseUser = context.watch<User>();
 
-    // if (firebaseUser != null) {
-    //temporary. it should return to hoempage
-    // return WelPage();
-    // Navigator.pushNamed(context, '/welcome');
-    return AddCourierPage();
-    // } else {
-    //   //temporary. it should return warning
-    //   // Navigator.pushNamed(context, '/register');
-    //   return ProfilePage();
-    // }
+    if (firebaseUser != null) {
+      //temporary. it should return to hoempage
+      return HomePage();
+      // Navigator.pushNamed(context, '/welcome');
+    } else {
+      //   //temporary. it should return warning
+      // Navigator.pushNamed(context, '/register');
+      return WelPage();
+    }
   }
 }

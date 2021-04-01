@@ -5,11 +5,11 @@ import 'package:shoes_care/model/courier.dart';
 class AddCourierPage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return RegPageState();
+    return AddCourierPageState();
   }
 }
 
-class RegPageState extends State<AddCourierPage> {
+class AddCourierPageState extends State<AddCourierPage> {
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController phoneNumController = TextEditingController();

@@ -74,7 +74,7 @@ class Courier extends User {
   set setCourierNOPOL(String newCourierNOPOL) {
     courierNOPOL = newCourierNOPOL;
   }
-
+//firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
     String createUserWithEmailAndPassword = await super.createUser();

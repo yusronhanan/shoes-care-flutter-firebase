@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/adminUI/allCourier.dart';
+// import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/customerUI/profile.dart';
 
 var assetImage = AssetImage('assets/high.jpg');
@@ -29,7 +30,7 @@ class HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   //Nav Bar routing
   List<Widget> _widgetOptions = <Widget>[
-    HomePage(),
+    AllCourierPage(), //MyOrderPage(),
     HomePage(),
     ProfilePage(),
   ];

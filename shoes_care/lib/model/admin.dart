@@ -1,4 +1,5 @@
 import 'package:shoes_care/model/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Admin extends User {
   Admin(
@@ -7,7 +8,8 @@ class Admin extends User {
       email,
       password,
       this.adminPhone,
-      this.adminAddress})
+      this.adminAddress,
+      this.adminPosition})
       : super(email: email, password: password);
   String adminId;
   String adminName;
@@ -15,6 +17,12 @@ class Admin extends User {
   // String adminPassword;
   String adminPhone;
   String adminAddress;
+  String adminPosition;
+
+String get getAdminPosition {
+  return adminPosition;
+  }
+
 
   String get getAdminId {
     return adminId;
@@ -40,6 +48,10 @@ class Admin extends User {
     return adminAddress;
   }
 
+  set setAdminPosition(String newAdminPosition) {
+  adminPosition = newAdminPosition;
+  }
+
   set setAdminId(String newAdminId) {
     adminId = newAdminId;
   }
@@ -62,5 +74,85 @@ class Admin extends User {
 
   set setAdminAddress(String newAdminAddress) {
     adminAddress = newAdminAddress;
+  }
+//firebase management
+  Future<bool> get insert async {
+    //insert to firebase (create)
+    String createUserWithEmailAndPassword = await super.createUser();
+    if (createUserWithEmailAndPassword != null &&
+        createUserWithEmailAndPassword == "User Created") {
+      // if success create user with email and password: since email and password w/ collection data is in different configuration
+      CollectionReference collection =
+          FirebaseFirestore.instance.collection('admin');
+
+      collection.add({
+        "admin_address": adminAddress,
+        "admin_email": super.email,
+        "admin_name": adminName,
+        "admin_phone": adminPhone,
+        "admin_position": adminPosition,
+      }).then((value) {
+        adminId = value.id;
+        print("$value Added");
+        return true;
+      }).catchError((error) {
+        print("Failed to add admin: $error");
+        return false;
+      });
+    } else {
+      print("Failed to add admin: $createUserWithEmailAndPassword");
+      return false;
+    }
+    return false;
+  }
+
+  set syncData(String adminId) {
+    //sync data w/ firebase and return all attribute data
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('admin');
+    collection.doc(adminId).get().then((doc) {
+      adminAddress = doc['admin_address'];
+      super.setEmail(doc['admin_email']);
+      // String courierPassword;
+      adminName = doc['admin_name'];
+      adminPhone = doc['admin_phone'];
+      adminPosition = doc['admin_position'];
+    });
+  }
+
+  bool get update {
+    //update current object data to firebase (replace firestore data w/ current object data)
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('admin');
+    collection.doc(adminId).update({
+      "admin_address": adminAddress,
+      "admin_email": super.email,
+      "admin_name": adminName,
+      "admin_phone": adminPhone,
+      "admin_position": adminPosition,
+      //TO DO: need to update email and password in firebase authentication too
+    }).then((value) {
+      print("Updated");
+      return true;
+    }).catchError((error) {
+      print("Failed to update admin: $error");
+      return false;
+    });
+    return false;
+  }
+
+  bool get delete {
+    //delete data from firebase
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('admin');
+    collection.doc(adminId).delete().then((value) {
+      //TO DO: need to delete email and password in firebase authentication too
+      print("Deleted");
+      return true;
+    }).catchError((error) {
+      print("Failed to delete admin: $error");
+      return false;
+    });
+    return false;
   }
 }

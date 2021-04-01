@@ -237,8 +237,15 @@ class RegPageState extends State<AddCourierPage> {
                                 courierAddress: addressController.text,
                                 courierNOPOL: nopolController.text);
                             newCourier.insert.then((value) {
+                              //TO DO ADD SNACKBAR NOTIF
+                              // if(value){
+                              //snackbar success
+                              // } else{
+                              //snackbar fail
+                              // }
                               print("Add snackbar/notif success: $value");
                             }).catchError((error) {
+                              //snackbar fail
                               print("Add snackbar/notif fail: $error");
                             });
                           },

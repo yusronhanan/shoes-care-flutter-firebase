@@ -27,11 +27,11 @@ class User {
     return password;
   }
 
-  set setEmail(String newEmail) {
+  void setEmail(String newEmail) {
     email = newEmail;
   }
 
-  set setPassword(String newPassword) {
+  void setPassword(String newPassword) {
     password = newPassword;
   }
 }

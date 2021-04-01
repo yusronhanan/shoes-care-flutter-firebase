@@ -91,6 +91,7 @@ class Courier extends User {
         "courier_name": courierName,
         "courier_phone": courierPhone,
       }).then((value) {
+        courierId = value.id;
         print("$value Added");
         return true;
       }).catchError((error) {
@@ -101,6 +102,56 @@ class Courier extends User {
       print("Failed to add user: $createUserWithEmailAndPassword");
       return false;
     }
+    return false;
+  }
+
+  set syncData(String courierId) {
+    //sync data w/ firebase and return all attribute data
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('courier');
+    collection.doc(courierId).get().then((doc) {
+      courierName = doc['courier_name'];
+      super.setEmail(doc['courier_email']);
+      // String courierPassword;
+      courierPhone = doc['courier_phone'];
+      courierAddress = doc['courier_address'];
+      courierNOPOL = doc['courier_NOPOL'];
+    });
+  }
+
+  bool get update {
+    //update current object data to firebase (replace firestore data w/ current object data)
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('courier');
+    collection.doc(courierId).update({
+      "courier_name": courierName,
+      "courier_email": super.getEmail,
+      "courier_phone": courierPhone,
+      "courier_address": courierAddress,
+      "courier_NOPOL": courierNOPOL,
+      //TO DO: need to update email and password in firebase authentication too
+    }).then((value) {
+      print("Updated");
+      return true;
+    }).catchError((error) {
+      print("Failed to update courier: $error");
+      return false;
+    });
+    return false;
+  }
+
+  bool get delete {
+    //delete data from firebase
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('courier');
+    collection.doc(courierId).delete().then((value) {
+      //TO DO: need to delete email and password in firebase authentication too
+      print("Deleted");
+      return true;
+    }).catchError((error) {
+      print("Failed to delete courier: $error");
+      return false;
+    });
     return false;
   }
 }

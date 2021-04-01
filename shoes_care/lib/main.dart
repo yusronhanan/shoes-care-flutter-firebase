@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_care/adminUI/addCourier.dart';
-import 'package:shoes_care/profile.dart';
+import 'package:shoes_care/customerUI/profile.dart';
+import 'package:shoes_care/model/user.dart';
 import 'package:shoes_care/welcome.dart';
-import 'package:shoes_care/home.dart';
+import 'package:shoes_care/customerUI/home.dart';
 import 'package:shoes_care/login.dart';
 import 'package:shoes_care/register.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -43,7 +44,7 @@ class MyApp extends StatelessWidget {
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
             '/home': (context) => HomePage(),
-            '/profie': (context) => ProfilePage(),
+            '/customerUI/customer': (context) => ProfilePage(),
             //for role admin
             '/addCourier': (context) => AddCourierPage(),
           },

@@ -1,19 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shoes_care/authentication_service.dart';
-import 'package:provider/provider.dart';
-import 'package:shoes_care/app_theme.dart';
 
-class LoginPage extends StatefulWidget {
+class ProfilePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return LogPageState();
+    return ProfilePageState();
   }
 }
 
-class LogPageState extends State<LoginPage> {
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-
+class ProfilePageState extends State<ProfilePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,19 +18,10 @@ class LogPageState extends State<LoginPage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 409,
+              height: 646,
               decoration: BoxDecoration(
-                  boxShadow: [
-                    new BoxShadow(
-                      color: Colors.black26,
-                      offset: new Offset(0.0, 2.0),
-                      blurRadius: 25.0,
-                    )
-                  ],
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                      bottomLeft: Radius.circular(32),
-                      bottomRight: Radius.circular(32))),
+                color: Colors.white,
+              ),
               alignment: Alignment.topCenter,
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.start,
@@ -54,39 +39,13 @@ class LogPageState extends State<LoginPage> {
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
                         // ignore: deprecated_member_use
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/register');
-                          },
-                          child: Text(
-                            'Sign Up',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: EdgeInsets.all(16),
-                        // ignore: deprecated_member_use
-                        child: FlatButton(
-                          onPressed: () {},
-                          child: Text(
-                            'Sign In',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: AppTheme.maroon,
-                            ),
-                          ),
-                        ),
                       ),
                     ],
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 16, top: 8),
                     child: Text(
-                      'Welcome to Shoes n Care.',
+                      'My Account',
                       style:
                           TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                     ),
@@ -103,7 +62,24 @@ class LogPageState extends State<LoginPage> {
                     padding: EdgeInsets.only(
                         left: 16, right: 16, top: 32, bottom: 8),
                     child: TextField(
-                      controller: emailController,
+                      style: TextStyle(fontSize: 18),
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.words,
+                      decoration: InputDecoration(
+                        hintText: 'CurrentName',
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: TextField(
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -121,7 +97,40 @@ class LogPageState extends State<LoginPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
-                      controller: passwordController,
+                      keyboardType: TextInputType.phone,
+                      style: TextStyle(fontSize: 18),
+                      decoration: InputDecoration(
+                        hintText: 'Phone Number',
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: TextField(
+                      keyboardType: TextInputType.streetAddress,
+                      style: TextStyle(fontSize: 18),
+                      decoration: InputDecoration(
+                        hintText: 'Address',
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: TextField(
                       obscureText: true,
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
@@ -141,18 +150,7 @@ class LogPageState extends State<LoginPage> {
                       child: Container(
                         margin: EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                            color: AppTheme.maroon, shape: BoxShape.circle),
-                        child: IconButton(
-                          color: Colors.white,
-                          onPressed: () {
-                            print(
-                                emailController.text + passwordController.text);
-                            context.read<AuthenticationService>().signIn(
-                                email: emailController.text,
-                                password: passwordController.text);
-                          },
-                          icon: Icon(Icons.arrow_forward),
-                        ),
+                            color: Color(0xff9e2229), shape: BoxShape.circle),
                       )),
                 ],
               ),

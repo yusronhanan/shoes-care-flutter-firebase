@@ -77,7 +77,7 @@ class RegPageState extends State<RegisterPage> {
                             'Sign Up',
                             style: TextStyle(
                               fontSize: 20,
-                              color: Color(0xff9e2229),
+                              color: AppTheme.maroon,
                             ),
                           ),
                         ),
@@ -197,7 +197,7 @@ class RegPageState extends State<RegisterPage> {
                       child: Container(
                         margin: EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                            color: Color(0xff9e2229), shape: BoxShape.circle),
+                            color: AppTheme.maroon, shape: BoxShape.circle),
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () {

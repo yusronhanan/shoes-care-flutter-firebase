@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_care/app_theme.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -18,7 +19,7 @@ class ProfilePageState extends State<ProfilePage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 646,
+              height: MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: Colors.white,
               ),
@@ -47,15 +48,13 @@ class ProfilePageState extends State<ProfilePage> {
                     child: Text(
                       'My Account',
                       style:
-                          TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                          TextStyle(fontSize: 35, fontWeight: FontWeight.bold),
                     ),
                   ),
                   Container(
                     margin: EdgeInsets.only(left: 16, top: 8),
                     child: Text(
-                      'Let\'s get started',
-                      style: TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.normal),
+                      '',
                     ),
                   ),
                   Padding(
@@ -155,6 +154,18 @@ class ProfilePageState extends State<ProfilePage> {
                 ],
               ),
             ),
+            Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  margin: EdgeInsets.all(16),
+                  decoration: BoxDecoration(
+                      color: AppTheme.maroon, shape: BoxShape.circle),
+                  child: IconButton(
+                    color: Colors.white,
+                    onPressed: () {},
+                    icon: Icon(Icons.arrow_forward),
+                  ),
+                )),
           ],
         ));
   }

@@ -29,7 +29,7 @@ class HomePageState extends State<HomePage> {
   int _selectedIndex = 0;
   //Nav Bar routing
   List<Widget> _widgetOptions = <Widget>[
-    MyOrderPage(),
+    HomePage(),
     HomePage(),
     ProfilePage(),
   ];

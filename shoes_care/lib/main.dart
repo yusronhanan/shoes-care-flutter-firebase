@@ -37,14 +37,14 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'UI Kit',
-          initialRoute: '/addCourier',
+          initialRoute: '/customer/profile',
           routes: {
             //can not '/'. will cause error
             '/welcome': (context) => WelPage(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
             '/home': (context) => HomePage(),
-            '/customerUI/customer': (context) => ProfilePage(),
+            '/customer/profile': (context) => ProfilePage(),
             //for role admin
             '/addCourier': (context) => AddCourierPage(),
           },

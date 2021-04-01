@@ -161,6 +161,7 @@ class HomePageState extends State<HomePage> {
               Icons.shopping_cart_rounded,
               color: Colors.white,
             ),
+            // ignore: deprecated_member_use
             title: Text(
               'Transaction',
               style: TextStyle(
@@ -173,6 +174,7 @@ class HomePageState extends State<HomePage> {
               Icons.person,
               color: Colors.white,
             ),
+            // ignore: deprecated_member_use
             title: Text(
               'Home',
               style: TextStyle(
@@ -185,6 +187,7 @@ class HomePageState extends State<HomePage> {
               Icons.home,
               color: Colors.white,
             ),
+            // ignore: deprecated_member_use
             title: Text(
               'Profile',
               style: TextStyle(

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_care/adminUI/addCourier.dart';
 import 'package:shoes_care/profile.dart';
 import 'package:shoes_care/welcome.dart';
 import 'package:shoes_care/home.dart';
@@ -35,7 +36,7 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'UI Kit',
-          initialRoute: '/profile',
+          initialRoute: '/addCourier',
           routes: {
             //can not '/'. will cause error
             '/welcome': (context) => WelPage(),
@@ -43,6 +44,8 @@ class MyApp extends StatelessWidget {
             '/login': (context) => LoginPage(),
             '/home': (context) => HomePage(),
             '/profie': (context) => ProfilePage(),
+            //for role admin
+            '/addCourier': (context) => AddCourierPage(),
           },
           theme: ThemeData(
             brightness: Brightness.light,
@@ -60,17 +63,17 @@ class AuthenticationWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final firebaseUser = context.watch<User>();
+    // final firebaseUser = context.watch<User>();
 
-    if (firebaseUser != null) {
-      //temporary. it should return to hoempage
-      // return WelPage();
-      // Navigator.pushNamed(context, '/welcome');
-      return ProfilePage();
-    } else {
-      //temporary. it should return warning
-      // Navigator.pushNamed(context, '/register');
-      return ProfilePage();
-    }
+    // if (firebaseUser != null) {
+    //temporary. it should return to hoempage
+    // return WelPage();
+    // Navigator.pushNamed(context, '/welcome');
+    return AddCourierPage();
+    // } else {
+    //   //temporary. it should return warning
+    //   // Navigator.pushNamed(context, '/register');
+    //   return ProfilePage();
+    // }
   }
 }

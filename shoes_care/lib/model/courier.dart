@@ -1,4 +1,5 @@
 import 'package:shoes_care/model/user.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Courier extends User {
   Courier(
@@ -72,5 +73,34 @@ class Courier extends User {
 
   set setCourierNOPOL(String newCourierNOPOL) {
     courierNOPOL = newCourierNOPOL;
+  }
+
+  Future<bool> get insert async {
+    //insert to firebase (create)
+    String createUserWithEmailAndPassword = await super.createUser();
+    if (createUserWithEmailAndPassword != null &&
+        createUserWithEmailAndPassword == "User Created") {
+      // if success create user with email and password: since email and password w/ collection data is in different configuration
+      CollectionReference collection =
+          FirebaseFirestore.instance.collection('courier');
+
+      collection.add({
+        "courier_NOPOL": courierNOPOL,
+        "courier_address": courierAddress,
+        "courier_email": super.email,
+        "courier_name": courierName,
+        "courier_phone": courierPhone,
+      }).then((value) {
+        print("$value Added");
+        return true;
+      }).catchError((error) {
+        print("Failed to add user: $error");
+        return false;
+      });
+    } else {
+      print("Failed to add user: $createUserWithEmailAndPassword");
+      return false;
+    }
+    return false;
   }
 }

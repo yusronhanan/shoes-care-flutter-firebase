@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/authentication_service.dart';
-import 'package:shoes_care/app_theme.dart';
 import 'package:provider/provider.dart';
 
 class RegisterPage extends StatefulWidget {

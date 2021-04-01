@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/customerUI/profile.dart';
 
 var assetImage = AssetImage('assets/high.jpg');
 var high = Image(
@@ -23,12 +25,15 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
+  //set index for the NavBar
   int _selectedIndex = 0;
+  //Nav Bar routing
   List<Widget> _widgetOptions = <Widget>[
-    // MyOrder(),
-    // Home(),
-    // Profile(),
+    MyOrderPage(),
+    HomePage(),
+    ProfilePage(),
   ];
+  //
   void _onItemTap(int index) {
     setState(() {
       _selectedIndex = index;
@@ -127,33 +132,8 @@ class HomePageState extends State<HomePage> {
           Container(), // some bottom content
         ],
       ),
-      // body: ListView(
-      //   children: <Widget>[
-      //     Column(
-      //         mainAxisAlignment: MainAxisAlignment.center,
-      //         crossAxisAlignment: CrossAxisAlignment.center,
-      //         children: <Widget>[
-      //           Container(
-      //               height: 200,
-      //               width: 300,
-      //               decoration: BoxDecoration(
-      //                 border: Border.all(
-      //                   width: 3.0,
-      //                 ),
-      //                 borderRadius: BorderRadius.all(Radius.circular(20)),
-      //               )),
-      //           Container(
-      //               height: 200,
-      //               width: 300,
-      //               decoration: BoxDecoration(
-      //                 border: Border.all(width: 3.0),
-      //                 borderRadius: BorderRadius.all(Radius.circular(20)),
-      //               )),
-      //         ]),
-      //   ],
-      // ),
+      //Bottom Nav Bar
       bottomNavigationBar: BottomNavigationBar(
-        // color: Colors.black,
         backgroundColor: Colors.black,
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -198,14 +178,6 @@ class HomePageState extends State<HomePage> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTap,
-        // child: Row(
-        //   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        //   children: <Widget>[
-        //     IconButton(icon: Icon(Icons.history),onPressed: (){},color: Colors.white,),
-        //     IconButton(icon: Icon(Icons.person),onPressed: (){},color: Colors.white,),
-        //     IconButton(icon: Icon(Icons.settings),onPressed: (){},color: Colors.white,),
-        //   ],
-        // ),
       ),
     );
   }

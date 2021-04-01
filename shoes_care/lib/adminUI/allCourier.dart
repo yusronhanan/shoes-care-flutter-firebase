@@ -22,10 +22,11 @@ class AllCourierPageState extends State<AllCourierPage> {
             rowsPerPage: 2,
             showCheckboxColumn: false,
             columns: [
-              DataColumn(label: Text('Header A')),
-              DataColumn(label: Text('Header B')),
-              DataColumn(label: Text('Header C')),
-              DataColumn(label: Text('Header D')),
+              DataColumn(label: Text('Name')),
+              DataColumn(label: Text('Email')),
+              DataColumn(label: Text('Phone Number')),
+              DataColumn(label: Text('Address')),
+              DataColumn(label: Text('NOPOL')),
             ],
             source: _DataSource(context),
           ),
@@ -37,27 +38,36 @@ class AllCourierPageState extends State<AllCourierPage> {
 
 class _Row {
   _Row(
-    this.valueA,
-    this.valueB,
-    this.valueC,
-    this.valueD,
+    this.courierId,
+    this.courierName,
+    this.courierEmail,
+    this.courierPhone,
+    this.courierAddress,
+    this.courierNOPOL,
   );
 
-  final String valueA;
-  final String valueB;
-  final String valueC;
-  final int valueD;
+  final String courierId;
+  final String courierName;
+  final String courierEmail;
+  final String courierPhone;
+  final String courierAddress;
+  final String courierNOPOL;
 
   bool selected = false;
 }
 
 class _DataSource extends DataTableSource {
   _DataSource(this.context) {
+    //TO DO: LOAD DATA FROM FIRESTORE HERE
     _rows = <_Row>[
-      _Row('Cell A1', 'CellB1', 'CellC1', 1),
-      _Row('Cell A2', 'CellB2', 'CellC2', 2),
-      _Row('Cell A3', 'CellB3', 'CellC3', 3),
-      _Row('Cell A4', 'CellB4', 'CellC4', 4),
+      _Row('DOC_ID1', 'Dummy1', 'dummy1@gmail.com', '0800001', 'Dummy 1 Street',
+          'D 001 DK'),
+      _Row('DOC_ID2', 'Dummy2', 'dummy2@gmail.com', '0800002', 'Dummy 2 Street',
+          'D 002 B'),
+      _Row('DOC_ID3', 'Dummy3', 'dummy3@gmail.com', '0800003', 'Dummy 3 Street',
+          'D 003 C'),
+      _Row('DOC_ID4', 'Dummy4', 'dummy4@gmail.com', '0800004', 'Dummy 4 Street',
+          'D 004 A'),
     ];
   }
 
@@ -83,10 +93,11 @@ class _DataSource extends DataTableSource {
       //   }
       // },
       cells: [
-        DataCell(Text(row.valueA)),
-        DataCell(Text(row.valueB)),
-        DataCell(Text(row.valueC)),
-        DataCell(Text(row.valueD.toString())),
+        DataCell(Text(row.courierName)),
+        DataCell(Text(row.courierEmail)),
+        DataCell(Text(row.courierPhone)),
+        DataCell(Text(row.courierAddress)),
+        DataCell(Text(row.courierNOPOL)),
       ],
     );
   }

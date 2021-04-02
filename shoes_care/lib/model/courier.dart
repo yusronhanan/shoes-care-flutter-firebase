@@ -165,4 +165,12 @@ class Courier extends User {
     courierName = snapshot["courier_name"];
     courierPhone = snapshot["courier_phone"];
   }
+  // formatting for upload to Firbase when creating the trip
+  Map<String, dynamic> toJson() => {
+        "courier_name": courierName,
+        "courier_email": super.getEmail,
+        "courier_phone": courierPhone,
+        "courier_address": courierAddress,
+        "courier_NOPOL": courierNOPOL,
+      };
 }

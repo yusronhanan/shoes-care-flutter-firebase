@@ -50,11 +50,11 @@ Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
           ),
         ),
         onTap: () {
-          // Navigator.push(
-          //   context,
-          //   MaterialPageRoute(
-          //       builder: (context) => DetailCourierView(courier: courier)),
-          // );
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => DetailCourierView(courier: courier)),
+          );
         },
       ),
     ),

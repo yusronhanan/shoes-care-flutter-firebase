@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_care/adminUI/addCourier.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
+import 'package:shoes_care/app_theme.dart';
 // import 'package:shoes_care/customerUI/profile.dart';
 import 'package:shoes_care/welcome.dart';
 // import 'package:shoes_care/customerUI/home.dart';
@@ -18,6 +19,10 @@ Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   runApp(MaterialApp(
+    theme: ThemeData(
+      // ignore: deprecated_member_use
+      cursorColor: AppTheme.maroon,
+    ),
     home: MyApp(),
   ));
 }

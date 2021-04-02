@@ -108,11 +108,11 @@ class Customer extends User {
     });
   }
 
-  void syncDataByEmail(String customerEmail) {
+  Future<void> syncDataByEmail(String customerEmail) async {
     //sync data w/ firebase and return all attribute data
     CollectionReference collection =
         FirebaseFirestore.instance.collection('customer');
-    collection
+    await collection
         .where('customer_email', isEqualTo: customerEmail)
         .get()
         .then((QuerySnapshot querySnapshot) => {

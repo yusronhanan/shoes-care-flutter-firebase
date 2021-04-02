@@ -77,7 +77,7 @@ class HomeController extends StatelessWidget {
 
     if (firebaseUser != null) {
       //temporary. it should return to hoempage
-      return Home();
+      return Home(index: 1);
     } else {
       //   //temporary. it should return warning
       return WelPage();

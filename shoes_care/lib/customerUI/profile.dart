@@ -1,7 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/authentication_service.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_care/model/customer.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -16,9 +18,31 @@ class ProfilePageState extends State<ProfilePage> {
   final TextEditingController phoneNumController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  void _fetchUserData() async {
+    // do something
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User user = auth.currentUser;
+    // final uid = user.uid;
+    final email = user.email;
+    // here you write the codes to input the data into firestore
+    Customer myProfileData = Customer(
+        customerId: "",
+        customerName: "",
+        email: email,
+        password: "",
+        customerPhone: "",
+        customerAddress: "");
+    await myProfileData.syncDataByEmail(email);
+    nameController.text = myProfileData.getCustomerName;
+    emailController.text = myProfileData.getEmail;
+    phoneNumController.text = myProfileData.getCustomerPhone;
+    addressController.text = myProfileData.getCustomerAddress;
+  }
 
   @override
   Widget build(BuildContext context) {
+    _fetchUserData();
+
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -137,6 +161,7 @@ class ProfilePageState extends State<ProfilePage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      maxLines: 3,
                       controller: addressController,
                       keyboardType: TextInputType.streetAddress,
                       style: TextStyle(fontSize: 18),

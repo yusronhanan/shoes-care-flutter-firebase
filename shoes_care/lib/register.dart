@@ -35,7 +35,7 @@ class RegPageState extends State<RegisterPage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 646,
+              height: 700,
               decoration: BoxDecoration(
                   boxShadow: [
                     new BoxShadow(
@@ -169,6 +169,7 @@ class RegPageState extends State<RegisterPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      maxLines: 3,
                       controller: addressController,
                       keyboardType: TextInputType.streetAddress,
                       style: TextStyle(fontSize: 18),

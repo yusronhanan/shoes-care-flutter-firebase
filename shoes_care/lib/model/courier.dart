@@ -106,7 +106,7 @@ class Courier extends User {
     return false;
   }
 
-  set syncData(String courierId) {
+  void syncDataById(String courierId) {
     //sync data w/ firebase and return all attribute data
     CollectionReference collection =
         FirebaseFirestore.instance.collection('courier');
@@ -118,6 +118,26 @@ class Courier extends User {
       courierAddress = doc['courier_address'];
       courierNOPOL = doc['courier_NOPOL'];
     });
+  }
+
+  void syncDataByEmail(String courierEmail) {
+    //sync data w/ firebase and return all attribute data
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('courier');
+    collection
+        .where('courier_email', isEqualTo: courierEmail)
+        .get()
+        .then((QuerySnapshot querySnapshot) => {
+              querySnapshot.docs.forEach((doc) {
+                courierId = doc.reference.id; // get document id
+                courierName = doc['courier_name'];
+                super.setEmail(doc['courier_email']);
+                // String courierPassword;
+                courierPhone = doc['courier_phone'];
+                courierAddress = doc['courier_address'];
+                courierNOPOL = doc['courier_NOPOL'];
+              })
+            });
   }
 
   bool get update {

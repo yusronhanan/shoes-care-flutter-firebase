@@ -16,6 +16,15 @@ class RegPageState extends State<RegisterPage> {
   final TextEditingController phoneNumController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+
+  setEmpty() {
+    nameController.clear();
+    emailController.clear();
+    phoneNumController.clear();
+    addressController.clear();
+    passwordController.clear();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -213,6 +222,7 @@ class RegPageState extends State<RegisterPage> {
                                 phoneNum: phoneNumController.text,
                                 address: addressController.text,
                                 password: passwordController.text);
+                            setEmpty();
                           },
                           icon: Icon(Icons.arrow_forward),
                         ),

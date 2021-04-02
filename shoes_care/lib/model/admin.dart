@@ -19,10 +19,9 @@ class Admin extends User {
   String adminAddress;
   String adminPosition;
 
-String get getAdminPosition {
-  return adminPosition;
+  String get getAdminPosition {
+    return adminPosition;
   }
-
 
   String get getAdminId {
     return adminId;
@@ -49,7 +48,7 @@ String get getAdminPosition {
   }
 
   set setAdminPosition(String newAdminPosition) {
-  adminPosition = newAdminPosition;
+    adminPosition = newAdminPosition;
   }
 
   set setAdminId(String newAdminId) {
@@ -75,6 +74,7 @@ String get getAdminPosition {
   set setAdminAddress(String newAdminAddress) {
     adminAddress = newAdminAddress;
   }
+
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
@@ -106,7 +106,7 @@ String get getAdminPosition {
     return false;
   }
 
-  set syncData(String adminId) {
+  void syncDataById(String adminId) {
     //sync data w/ firebase and return all attribute data
     CollectionReference collection =
         FirebaseFirestore.instance.collection('admin');
@@ -118,6 +118,26 @@ String get getAdminPosition {
       adminPhone = doc['admin_phone'];
       adminPosition = doc['admin_position'];
     });
+  }
+
+  void syncDataByEmail(String adminEmail) {
+    //sync data w/ firebase and return all attribute data
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('admin');
+    collection
+        .where('admin_email', isEqualTo: adminEmail)
+        .get()
+        .then((QuerySnapshot querySnapshot) => {
+              querySnapshot.docs.forEach((doc) {
+                adminId = doc.reference.id; // get document id
+                adminName = doc['admin_name'];
+                super.setEmail(doc['admin_email']);
+                // String adminPassword;
+                adminPhone = doc['admin_phone'];
+                adminAddress = doc['admin_address'];
+                adminPosition = doc['admin_position'];
+              })
+            });
   }
 
   bool get update {

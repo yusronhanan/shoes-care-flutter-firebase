@@ -1,5 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/model/customer.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -9,6 +11,32 @@ class ProfilePage extends StatefulWidget {
 }
 
 class ProfilePageState extends State<ProfilePage> {
+  final TextEditingController nameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final TextEditingController phoneNumController = TextEditingController();
+  final TextEditingController addressController = TextEditingController();
+  final TextEditingController passwordController = TextEditingController();
+
+  // updateData() {
+  //   final FirebaseAuth auth = FirebaseAuth.instance;
+  //   final User user = auth.currentUser;
+  //   // final uid = user.uid;
+  //   final email = user.email;
+  //   // here you write the codes to input the data into firestore
+  //   Customer myProfileData = Customer(
+  //       customerId: "",
+  //       customerName: "",
+  //       email: email,
+  //       password: "",
+  //       customerPhone: "",
+  //       customerAddress: "");
+  //   myProfileData.syncDataByEmail(email);
+  //   nameController.text = myProfileData.getCustomerName;
+  //   emailController.text = myProfileData.getEmail;
+  //   phoneNumController.text = myProfileData.getCustomerPhone;
+  //   addressController.text = myProfileData.getCustomerAddress;
+  // }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -61,6 +89,7 @@ class ProfilePageState extends State<ProfilePage> {
                     padding: EdgeInsets.only(
                         left: 16, right: 16, top: 32, bottom: 8),
                     child: TextField(
+                      controller: nameController,
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
@@ -79,6 +108,7 @@ class ProfilePageState extends State<ProfilePage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: emailController,
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -96,6 +126,7 @@ class ProfilePageState extends State<ProfilePage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: phoneNumController,
                       keyboardType: TextInputType.phone,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -113,6 +144,7 @@ class ProfilePageState extends State<ProfilePage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: addressController,
                       keyboardType: TextInputType.streetAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -130,6 +162,7 @@ class ProfilePageState extends State<ProfilePage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      controller: passwordController,
                       obscureText: true,
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,

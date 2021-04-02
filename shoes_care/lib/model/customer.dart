@@ -76,10 +76,10 @@ class Customer extends User {
           FirebaseFirestore.instance.collection('customer');
 
       collection.add({
-      "customer_address": customerAddress,
-      "customer_email": super.email,
-      "customer_name": customerName,
-      "customer_phone": customerPhone,
+        "customer_address": customerAddress,
+        "customer_email": super.email,
+        "customer_name": customerName,
+        "customer_phone": customerPhone,
       }).then((value) {
         customerId = value.id;
         print("$value Added");
@@ -95,17 +95,36 @@ class Customer extends User {
     return false;
   }
 
-  set syncData(String customerId) {
+  void syncDataById(String customerId) {
     //sync data w/ firebase and return all attribute data
     CollectionReference collection =
         FirebaseFirestore.instance.collection('customer');
     collection.doc(customerId).get().then((doc) {
       customerName = doc['customer_name'];
       super.setEmail(doc['customer_email']);
-      // String courierPassword;
+      // String customerPassword;
       customerPhone = doc['customer_phone'];
       customerAddress = doc['customer_address'];
     });
+  }
+
+  void syncDataByEmail(String customerEmail) {
+    //sync data w/ firebase and return all attribute data
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('customer');
+    collection
+        .where('customer_email', isEqualTo: customerEmail)
+        .get()
+        .then((QuerySnapshot querySnapshot) => {
+              querySnapshot.docs.forEach((doc) {
+                customerId = doc.reference.id; // get document id
+                customerName = doc['customer_name'];
+                super.setEmail(doc['customer_email']);
+                // String customerPassword;
+                customerPhone = doc['customer_phone'];
+                customerAddress = doc['customer_address'];
+              })
+            });
   }
 
   bool get update {

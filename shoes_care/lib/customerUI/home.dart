@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:shoes_care/adminUI/allCourier.dart';
+// import 'package:shoes_care/adminUI/allCourier.dart';
 // import 'package:shoes_care/app_theme.dart';
-import 'package:shoes_care/customerUI/profile.dart';
+// import 'package:shoes_care/customerUI/profile.dart';
 
 var assetImage = AssetImage('assets/high.jpg');
 var high = Image(
@@ -26,21 +26,6 @@ class HomePage extends StatefulWidget {
 }
 
 class HomePageState extends State<HomePage> {
-  //set index for the NavBar
-  int _selectedIndex = 0;
-  //Nav Bar routing
-  List<Widget> _widgetOptions = <Widget>[
-    AllCourierPage(), //MyOrderPage(),
-    HomePage(),
-    ProfilePage(),
-  ];
-  //
-  void _onItemTap(int index) {
-    setState(() {
-      _selectedIndex = index;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -134,52 +119,6 @@ class HomePageState extends State<HomePage> {
         ],
       ),
       //Bottom Nav Bar
-      bottomNavigationBar: BottomNavigationBar(
-        backgroundColor: Colors.black,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.shopping_cart_rounded,
-              color: Colors.white,
-            ),
-            // ignore: deprecated_member_use
-            title: Text(
-              'Transaction',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.person,
-              color: Colors.white,
-            ),
-            // ignore: deprecated_member_use
-            title: Text(
-              'Home',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: Colors.white,
-            ),
-            // ignore: deprecated_member_use
-            title: Text(
-              'Profile',
-              style: TextStyle(
-                color: Colors.white,
-              ),
-            ),
-          ),
-        ],
-        currentIndex: _selectedIndex,
-        onTap: _onItemTap,
-      ),
     );
   }
 }

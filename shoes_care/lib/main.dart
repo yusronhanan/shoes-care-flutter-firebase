@@ -2,14 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_care/adminUI/addCourier.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
-import 'package:shoes_care/customerUI/profile.dart';
+// import 'package:shoes_care/customerUI/profile.dart';
 import 'package:shoes_care/welcome.dart';
-import 'package:shoes_care/customerUI/home.dart';
+// import 'package:shoes_care/customerUI/home.dart';
 import 'package:shoes_care/login.dart';
 import 'package:shoes_care/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shoes_care/authentication_service.dart';
+import 'package:shoes_care/customerUI/navigation_view.dart';
+
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> main() async {
@@ -37,14 +39,16 @@ class MyApp extends StatelessWidget {
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
           title: 'UI Kit',
-          initialRoute: '/allCourier',
+          initialRoute: '/home',
           routes: {
+            '/home': (context) => HomeController(),
+
             //can not '/'. will cause error
-            '/welcome': (context) => WelPage(),
+            // '/welcome': (context) => WelPage(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
-            '/home': (context) => HomePage(),
-            '/customerUI/customer': (context) => ProfilePage(),
+            // '/home': (context) => HomePage(),
+            // '/customerUI/customer': (context) => ProfilePage(),
             //for role admin
             '/addCourier': (context) => AddCourierPage(),
             '/allCourier': (context) => AllCourierPage(),
@@ -53,23 +57,22 @@ class MyApp extends StatelessWidget {
             brightness: Brightness.light,
             primarySwatch: Colors.amber,
           ),
-          home: AuthenticationWrapper(),
+          home: HomeController(),
         ));
   }
 }
 
-class AuthenticationWrapper extends StatelessWidget {
-  const AuthenticationWrapper({
+class HomeController extends StatelessWidget {
+  const HomeController({
     Key key,
   }) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User>();
 
     if (firebaseUser != null) {
       //temporary. it should return to hoempage
-      return HomePage();
+      return Home();
       // Navigator.pushNamed(context, '/welcome');
     } else {
       //   //temporary. it should return warning

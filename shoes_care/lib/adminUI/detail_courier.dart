@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+// import 'package:shoes_care/adminUI/allCourier.dart';
+import 'package:shoes_care/customerUI/navigation_view.dart';
 import 'package:shoes_care/model/courier.dart';
 
 // import 'edit_notes_view.dart';
@@ -28,14 +30,12 @@ class _DetailCourierViewState extends State<DetailCourierView> {
           slivers: <Widget>[
             SliverAppBar(
               title: Text('Courier Details'),
-              backgroundColor: Colors.green,
-              expandedHeight: 350.0,
-              flexibleSpace: FlexibleSpaceBar(),
+              backgroundColor: Colors.white,
               actions: <Widget>[
                 IconButton(
                   icon: Icon(
                     Icons.settings,
-                    color: Colors.white,
+                    color: Colors.black,
                     size: 30,
                   ),
                   padding: const EdgeInsets.only(right: 15),
@@ -47,10 +47,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
             ),
             SliverList(
               delegate: SliverChildListDelegate([
-                courierDetails(),
-                totalBudgetCard(),
-                daysOutCard(),
-                notesCard(context),
+                courierForm(),
                 Container(
                   height: 200,
                 )
@@ -62,155 +59,223 @@ class _DetailCourierViewState extends State<DetailCourierView> {
     );
   }
 
-  Widget daysOutCard() {
-    return Card(
-      color: Colors.amberAccent,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-          children: <Widget>[
-            Text("AA", style: TextStyle(fontSize: 75)),
-            Text("days until your courier", style: TextStyle(fontSize: 25))
-          ],
-        ),
-      ),
-    );
-  }
+  Widget courierForm() {
+    final String idController = widget.courier.getCourierId;
 
-  Widget courierDetails() {
+    final TextEditingController nameController =
+        TextEditingController(text: widget.courier.getCourierName);
+    final TextEditingController emailController =
+        TextEditingController(text: widget.courier.getEmail);
+    final TextEditingController phoneNumController =
+        TextEditingController(text: widget.courier.getCourierPhone);
+    final TextEditingController addressController =
+        TextEditingController(text: widget.courier.getCourierAddress);
+    final TextEditingController nopolController =
+        TextEditingController(text: widget.courier.getCourierNOPOL);
+
+    // widget.courier.courierName
     return Card(
       child: Column(
         children: <Widget>[
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Text(
-                  widget.courier.courierName,
-                  style: TextStyle(fontSize: 30, color: Colors.green[900]),
+          Container(
+            height: 800,
+            decoration: BoxDecoration(
+                boxShadow: [
+                  new BoxShadow(
+                    color: Colors.black26,
+                    offset: new Offset(0.0, 2.0),
+                    blurRadius: 25.0,
+                  )
+                ],
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(32),
+                    bottomRight: Radius.circular(32))),
+            alignment: Alignment.topCenter,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: <Widget>[
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    Container(
+                      margin: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.rectangle,
+                        borderRadius: BorderRadius.all(Radius.circular(8)),
+                      ),
+                      // ignore: deprecated_member_use
+                      // child: FlatButton(
+                      //   onPressed: () {
+                      //     // Navigator.pushNamed(context, '/allCourierData');
+                      //   },
+                      //   child: Text(
+                      //     'All Courier Data',
+                      //     style: TextStyle(
+                      //       fontSize: 20,
+                      //       color: Colors.grey,
+                      //     ),
+                      //   ),
+                      // ),
+                    ),
+                    // Container(
+                    //   margin: EdgeInsets.all(16),
+                    //   // ignore: deprecated_member_use
+                    //   child: FlatButton(
+                    //     onPressed: () {},
+                    //     child: Text(
+                    //       'Sign Up',
+                    //       style: TextStyle(
+                    //         fontSize: 20,
+                    //         color: Color(0xff9e2229),
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                  ],
                 ),
-              ),
-            ],
-          ),
-          Row(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(left: 8.0, bottom: 8.0),
-                child: Text("${widget.courier.getCourierAddress}"),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget totalBudgetCard() {
-    return Card(
-      color: Colors.blue,
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text("Daily Budget",
-                    style: TextStyle(fontSize: 15, color: Colors.white)),
-              ],
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                // Flexible(
-                //   child: AutoSizeText(
-                //     "\$$_budget",
-                //     style: TextStyle(fontSize: 100),
-                //     maxLines: 1,
-                //   ),
-                // ),
-              ],
-            ),
-          ),
-          Row(
-            children: <Widget>[
-              Expanded(
-                child: Container(
-                  color: Colors.blue[900],
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                        vertical: 10.0, horizontal: 20),
-                    child: Text(
-                      "\$${widget.courier.getCourierPhone} total",
-                      style: TextStyle(color: Colors.white, fontSize: 20),
+                Container(
+                  margin: EdgeInsets.only(left: 16, top: 8),
+                  child: Text(
+                    'Edit Courier',
+                    style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),
+                  child: TextField(
+                    controller: nameController,
+                    style: TextStyle(fontSize: 18),
+                    keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.words,
+                    decoration: InputDecoration(
+                      hintText: 'Name',
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
                     ),
                   ),
                 ),
-              )
-            ],
-          )
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                  child: TextField(
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
+                    style: TextStyle(fontSize: 18),
+                    decoration: InputDecoration(
+                      hintText: 'E-Mail Address',
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                  child: TextField(
+                    controller: phoneNumController,
+                    keyboardType: TextInputType.phone,
+                    style: TextStyle(fontSize: 18),
+                    decoration: InputDecoration(
+                      hintText: 'Phone Number',
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                  child: TextField(
+                    maxLines: 3,
+                    controller: addressController,
+                    keyboardType: TextInputType.streetAddress,
+                    style: TextStyle(fontSize: 18),
+                    decoration: InputDecoration(
+                      hintText: 'Address',
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                  child: TextField(
+                    controller: nopolController,
+                    style: TextStyle(fontSize: 18),
+                    keyboardType: TextInputType.text,
+                    decoration: InputDecoration(
+                      hintText: 'NOPOL',
+                      enabledBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                      focusedBorder: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(8),
+                          borderSide: BorderSide(color: Colors.grey)),
+                    ),
+                  ),
+                ),
+                Align(
+                    alignment: Alignment.centerRight,
+                    child: Container(
+                      margin: EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                          color: Color(0xff9e2229), shape: BoxShape.circle),
+                      child: IconButton(
+                        color: Colors.white,
+                        onPressed: () {
+                          print(idController +
+                              nameController.text +
+                              emailController.text +
+                              phoneNumController.text +
+                              addressController.text +
+                              nopolController.text);
+
+                          final newCourier = Courier(
+                              courierId: idController,
+                              courierName: nameController.text,
+                              email: emailController.text,
+                              password: "",
+                              courierPhone: phoneNumController.text,
+                              courierAddress: addressController.text,
+                              courierNOPOL: nopolController.text);
+                          if (newCourier.update) {
+                            print("Add snackbar/notif success: true");
+                          } else {
+                            //snackbar fail
+                            print("Add snackbar/notif fail: false");
+                          }
+                        },
+                        icon: Icon(Icons.edit),
+                      ),
+                    )),
+              ],
+            ),
+          ),
         ],
       ),
     );
-  }
-
-  Widget notesCard(context) {
-    return Hero(
-      tag: "CourierNotes-${widget.courier.getCourierId}",
-      transitionOnUserGestures: true,
-      child: Card(
-        color: Colors.deepPurpleAccent,
-        child: InkWell(
-          child: Column(
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(top: 10.0, left: 10.0),
-                child: Row(
-                  children: <Widget>[
-                    Text("Courier Notes",
-                        style: TextStyle(fontSize: 24, color: Colors.white)),
-                  ],
-                ),
-              ),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  children: setNoteText(),
-                ),
-              )
-            ],
-          ),
-          onTap: () {
-            //   Navigator.push(
-            //       context,
-            //       MaterialPageRoute(
-            //           builder: (context) =>
-            //               EditNotesView(courier: widget.courier)));
-          },
-        ),
-      ),
-    );
-  }
-
-  List<Widget> setNoteText() {
-    if (widget.courier.courierAddress == null) {
-      return [
-        Padding(
-          padding: const EdgeInsets.only(right: 8.0),
-          child: Icon(Icons.add_circle_outline, color: Colors.grey[300]),
-        ),
-        Text("Click To Add Notes", style: TextStyle(color: Colors.grey[300])),
-      ];
-    } else {
-      return [
-        Text(widget.courier.getCourierAddress,
-            style: TextStyle(color: Colors.grey[300]))
-      ];
-    }
   }
 
   void _courierEditModalBottomSheet(context) {
@@ -218,14 +283,13 @@ class _DetailCourierViewState extends State<DetailCourierView> {
       context: context,
       builder: (BuildContext bc) {
         return Container(
-          height: MediaQuery.of(context).size.height * .60,
+          height: MediaQuery.of(context).size.height * .20,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
             child: Column(
               children: <Widget>[
                 Row(
                   children: <Widget>[
-                    Text("Edit Courier"),
                     Spacer(),
                     IconButton(
                       icon: Icon(
@@ -234,23 +298,19 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                         size: 25,
                       ),
                       onPressed: () {
+                        // TO DO: BACK TO ALL COURIER PAGE
                         Navigator.of(context).pop();
                       },
                     )
                   ],
                 ),
                 Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(
-                      widget.courier.courierName,
-                      style: TextStyle(fontSize: 30, color: Colors.green[900]),
+                      "Are you sure you want to delete it?",
+                      style: TextStyle(fontSize: 20, color: Colors.black),
                     ),
-                  ],
-                ),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    // ignore: deprecated_member_use
                   ],
                 ),
                 Row(
@@ -262,9 +322,11 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                       color: Colors.red,
                       textColor: Colors.white,
                       onPressed: () async {
-                        await deleteCourier(context);
-                        Navigator.of(context).pushNamedAndRemoveUntil(
-                            '/home', (Route<dynamic> route) => false);
+                        // await deleteCourier(context);
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => Home()),
+                        );
                       },
                     )
                   ],

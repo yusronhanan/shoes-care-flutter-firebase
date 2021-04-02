@@ -161,6 +161,7 @@ class AddCourierPageState extends State<AddCourierPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
+                      maxLines: 3,
                       controller: addressController,
                       keyboardType: TextInputType.streetAddress,
                       style: TextStyle(fontSize: 18),

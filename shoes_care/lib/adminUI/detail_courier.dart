@@ -242,9 +242,18 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                               courierNOPOL: nopolController.text);
                           if (newCourier.update) {
                             print("Add snackbar/notif success: true");
+                            var snackBar =
+                                SnackBar(content: Text('Yay! It Success.'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           } else {
                             //snackbar fail
                             print("Add snackbar/notif fail: false");
+                            var snackBar = SnackBar(
+                                content:
+                                    Text('Oh sorry. It fail, try again !'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           }
                         },
                         icon: Icon(Icons.edit),
@@ -520,6 +529,10 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                       textColor: Colors.white,
                       onPressed: () async {
                         await deleteCourier(context);
+                        var snackBar =
+                            SnackBar(content: Text('Yay! It Success.'));
+                        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                        // TO DO: MAKE SURE ITS BACK TO ALL COURIER
                         Navigator.push(
                           context,
                           MaterialPageRoute(builder: (context) => Home()),

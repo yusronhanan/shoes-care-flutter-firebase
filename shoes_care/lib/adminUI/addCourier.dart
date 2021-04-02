@@ -10,12 +10,20 @@ class AddCourierPage extends StatefulWidget {
 }
 
 class AddCourierPageState extends State<AddCourierPage> {
-  final TextEditingController nameController = TextEditingController();
-  final TextEditingController emailController = TextEditingController();
-  final TextEditingController phoneNumController = TextEditingController();
-  final TextEditingController addressController = TextEditingController();
-  final TextEditingController passwordController = TextEditingController();
-  final TextEditingController nopolController = TextEditingController();
+  TextEditingController nameController = TextEditingController();
+  TextEditingController emailController = TextEditingController();
+  TextEditingController phoneNumController = TextEditingController();
+  TextEditingController addressController = TextEditingController();
+  TextEditingController passwordController = TextEditingController();
+  TextEditingController nopolController = TextEditingController();
+  setEmpty() {
+    nameController.clear();
+    emailController.clear();
+    phoneNumController.clear();
+    addressController.clear();
+    passwordController.clear();
+    nopolController.clear();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -238,16 +246,22 @@ class AddCourierPageState extends State<AddCourierPage> {
                                 courierAddress: addressController.text,
                                 courierNOPOL: nopolController.text);
                             newCourier.insert.then((value) {
-                              //TO DO ADD SNACKBAR NOTIF
-                              // if(value){
-                              //snackbar success
-                              // } else{
-                              //snackbar fail
-                              // }
                               print("Add snackbar/notif success: $value");
+                              // ignore: deprecated_member_use
+                              var snackBar =
+                                  SnackBar(content: Text('Yay! It Success.'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                              setEmpty();
                             }).catchError((error) {
                               //snackbar fail
                               print("Add snackbar/notif fail: $error");
+                              // ignore: deprecated_member_use
+                              var snackBar = SnackBar(
+                                  content:
+                                      Text('Oh sorry. It fail, try again !'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
                             });
                           },
                           icon: Icon(Icons.add),

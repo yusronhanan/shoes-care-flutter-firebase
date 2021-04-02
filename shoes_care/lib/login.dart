@@ -144,12 +144,13 @@ class LogPageState extends State<LoginPage> {
                             color: AppTheme.maroon, shape: BoxShape.circle),
                         child: IconButton(
                           color: Colors.white,
-                          onPressed: () {
+                          onPressed: () async {
                             print(
                                 emailController.text + passwordController.text);
                             context.read<AuthenticationService>().signIn(
                                 email: emailController.text,
                                 password: passwordController.text);
+                            Navigator.of(context).pushReplacementNamed('/home');
                           },
                           icon: Icon(Icons.arrow_forward),
                         ),

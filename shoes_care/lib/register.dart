@@ -223,6 +223,13 @@ class RegPageState extends State<RegisterPage> {
                                 address: addressController.text,
                                 password: passwordController.text);
                             setEmpty();
+                            Navigator.of(context)
+                                .pushReplacementNamed('/welcome');
+                            var snackBar = SnackBar(
+                                content: Text(
+                                    'Yay! It Success. Now you can Sign in'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
                           },
                           icon: Icon(Icons.arrow_forward),
                         ),

@@ -1,7 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
-import 'package:shoes_care/model/customer.dart';
+import 'package:shoes_care/authentication_service.dart';
+import 'package:provider/provider.dart';
 
 class ProfilePage extends StatefulWidget {
   @override
@@ -17,32 +17,25 @@ class ProfilePageState extends State<ProfilePage> {
   final TextEditingController addressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
-  // updateData() {
-  //   final FirebaseAuth auth = FirebaseAuth.instance;
-  //   final User user = auth.currentUser;
-  //   // final uid = user.uid;
-  //   final email = user.email;
-  //   // here you write the codes to input the data into firestore
-  //   Customer myProfileData = Customer(
-  //       customerId: "",
-  //       customerName: "",
-  //       email: email,
-  //       password: "",
-  //       customerPhone: "",
-  //       customerAddress: "");
-  //   myProfileData.syncDataByEmail(email);
-  //   nameController.text = myProfileData.getCustomerName;
-  //   emailController.text = myProfileData.getEmail;
-  //   phoneNumController.text = myProfileData.getCustomerPhone;
-  //   addressController.text = myProfileData.getCustomerAddress;
-  // }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
           backgroundColor: Colors.white,
+          actions: <Widget>[
+            IconButton(
+              icon: Icon(
+                Icons.logout,
+                color: Colors.black,
+                size: 30,
+              ),
+              padding: const EdgeInsets.only(right: 15),
+              onPressed: () {
+                context.read<AuthenticationService>().signOut();
+              },
+            ),
+          ],
         ),
         body: ListView(
           children: <Widget>[

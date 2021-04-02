@@ -49,7 +49,7 @@ class MyApp extends StatelessWidget {
             '/home': (context) => HomeController(),
 
             //can not '/'. will cause error
-            // '/welcome': (context) => WelPage(),
+            '/welcome': (context) => WelPage(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
             // '/home': (context) => HomePage(),

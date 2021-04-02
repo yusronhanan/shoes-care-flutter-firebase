@@ -74,6 +74,7 @@ class Courier extends User {
   set setCourierNOPOL(String newCourierNOPOL) {
     courierNOPOL = newCourierNOPOL;
   }
+
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
@@ -153,5 +154,15 @@ class Courier extends User {
       return false;
     });
     return false;
+  }
+
+  // creating a Trip object from a firebase snapshot
+  Courier.fromSnapshot(DocumentSnapshot snapshot) {
+    courierId = snapshot.id;
+    courierNOPOL = snapshot["courier_NOPOL"];
+    courierAddress = snapshot["courier_address"];
+    super.setEmail(snapshot["courier_email"]);
+    courierName = snapshot["courier_name"];
+    courierPhone = snapshot["courier_phone"];
   }
 }

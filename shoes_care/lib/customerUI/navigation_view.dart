@@ -25,20 +25,22 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     // final newTrip = new Trip(null, null, null, null, null, null);
     return Scaffold(
-      // appBar: AppBar(
-      // title: Text("Travel Budget App"),
-      // actions: <Widget>[
-      //   IconButton(
-      //     icon: Icon(Icons.add),
-      //     onPressed: () {
-      //       Navigator.push(
-      //           context,
-      //           MaterialPageRoute(builder: (context) => NewTripLocationView(trip: newTrip,)),
-      //       );
-      //     },
-      //   ),
-      // ],
-      // ),
+      appBar: AppBar(
+        backgroundColor: Colors.black, foregroundColor: AppTheme.maroon,
+        toolbarHeight: 10,
+        // title: Text("Travel Budget App"),
+        // actions: <Widget>[
+        //   IconButton(
+        //     icon: Icon(Icons.add),
+        //     onPressed: () {
+        //       Navigator.push(
+        //           context,
+        //           MaterialPageRoute(builder: (context) => NewTripLocationView(trip: newTrip,)),
+        //       );
+        //     },
+        //   ),
+        // ],
+      ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
           selectedItemColor: AppTheme.maroon,

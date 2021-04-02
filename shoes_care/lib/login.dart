@@ -107,7 +107,7 @@ class LogPageState extends State<LoginPage> {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'E-Mail Address',
+                        labelText: 'E-Mail Address',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -126,7 +126,7 @@ class LogPageState extends State<LoginPage> {
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        hintText: 'Password',
+                        labelText: 'Password',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),

@@ -45,7 +45,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
           actions: <Widget>[
             IconButton(
               icon: Icon(
-                Icons.settings,
+                Icons.delete,
                 color: Colors.black,
                 size: 30,
               ),
@@ -133,7 +133,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                     keyboardType: TextInputType.text,
                     textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
-                      hintText: 'Name',
+                      labelText: 'Name',
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(color: Colors.grey)),
@@ -151,7 +151,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                     keyboardType: TextInputType.emailAddress,
                     style: TextStyle(fontSize: 18),
                     decoration: InputDecoration(
-                      hintText: 'E-Mail Address',
+                      labelText: 'E-Mail Address',
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(color: Colors.grey)),
@@ -169,7 +169,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                     keyboardType: TextInputType.phone,
                     style: TextStyle(fontSize: 18),
                     decoration: InputDecoration(
-                      hintText: 'Phone Number',
+                      labelText: 'Phone Number',
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(color: Colors.grey)),
@@ -188,7 +188,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                     keyboardType: TextInputType.streetAddress,
                     style: TextStyle(fontSize: 18),
                     decoration: InputDecoration(
-                      hintText: 'Address',
+                      labelText: 'Address',
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(color: Colors.grey)),
@@ -206,7 +206,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                     style: TextStyle(fontSize: 18),
                     keyboardType: TextInputType.text,
                     decoration: InputDecoration(
-                      hintText: 'NOPOL',
+                      labelText: 'NOPOL',
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(color: Colors.grey)),
@@ -359,7 +359,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
   //                   keyboardType: TextInputType.text,
   //                   textCapitalization: TextCapitalization.words,
   //                   decoration: InputDecoration(
-  //                     hintText: 'Name',
+  //                     labelText: 'Name',
   //                     enabledBorder: OutlineInputBorder(
   //                         borderRadius: BorderRadius.circular(8),
   //                         borderSide: BorderSide(color: Colors.grey)),
@@ -377,7 +377,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
   //                   keyboardType: TextInputType.emailAddress,
   //                   style: TextStyle(fontSize: 18),
   //                   decoration: InputDecoration(
-  //                     hintText: 'E-Mail Address',
+  //                     labelText: 'E-Mail Address',
   //                     enabledBorder: OutlineInputBorder(
   //                         borderRadius: BorderRadius.circular(8),
   //                         borderSide: BorderSide(color: Colors.grey)),
@@ -395,7 +395,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
   //                   keyboardType: TextInputType.phone,
   //                   style: TextStyle(fontSize: 18),
   //                   decoration: InputDecoration(
-  //                     hintText: 'Phone Number',
+  //                     labelText: 'Phone Number',
   //                     enabledBorder: OutlineInputBorder(
   //                         borderRadius: BorderRadius.circular(8),
   //                         borderSide: BorderSide(color: Colors.grey)),
@@ -414,7 +414,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
   //                   keyboardType: TextInputType.streetAddress,
   //                   style: TextStyle(fontSize: 18),
   //                   decoration: InputDecoration(
-  //                     hintText: 'Address',
+  //                     labelText: 'Address',
   //                     enabledBorder: OutlineInputBorder(
   //                         borderRadius: BorderRadius.circular(8),
   //                         borderSide: BorderSide(color: Colors.grey)),
@@ -432,7 +432,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
   //                   style: TextStyle(fontSize: 18),
   //                   keyboardType: TextInputType.text,
   //                   decoration: InputDecoration(
-  //                     hintText: 'NOPOL',
+  //                     labelText: 'NOPOL',
   //                     enabledBorder: OutlineInputBorder(
   //                         borderRadius: BorderRadius.circular(8),
   //                         borderSide: BorderSide(color: Colors.grey)),

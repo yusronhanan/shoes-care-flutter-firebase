@@ -59,7 +59,10 @@ class _AllCourierState extends State<AllCourierPage> {
   }
 
   getDataStreamSnapshots() async {
-    var data = await FirebaseFirestore.instance.collection('courier').get();
+    var data = await FirebaseFirestore.instance
+        .collection('courier')
+        .orderBy('courier_name')
+        .get();
     setState(() {
       _allResults = data.docs;
     });

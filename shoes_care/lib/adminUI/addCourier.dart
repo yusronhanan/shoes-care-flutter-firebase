@@ -119,7 +119,7 @@ class AddCourierPageState extends State<AddCourierPage> {
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
-                        hintText: 'Name',
+                        labelText: 'Name',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -137,7 +137,7 @@ class AddCourierPageState extends State<AddCourierPage> {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'E-Mail Address',
+                        labelText: 'E-Mail Address',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -155,7 +155,7 @@ class AddCourierPageState extends State<AddCourierPage> {
                       keyboardType: TextInputType.phone,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'Phone Number',
+                        labelText: 'Phone Number',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -174,7 +174,7 @@ class AddCourierPageState extends State<AddCourierPage> {
                       keyboardType: TextInputType.streetAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'Address',
+                        labelText: 'Address',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -193,7 +193,7 @@ class AddCourierPageState extends State<AddCourierPage> {
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        hintText: 'Password',
+                        labelText: 'Password',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -211,7 +211,7 @@ class AddCourierPageState extends State<AddCourierPage> {
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        hintText: 'NOPOL',
+                        labelText: 'NOPOL',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),

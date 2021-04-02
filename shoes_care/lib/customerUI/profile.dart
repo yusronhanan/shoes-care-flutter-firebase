@@ -19,7 +19,7 @@ class ProfilePageState extends State<ProfilePage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: MediaQuery.of(context).size.height,
+              height: 700, //MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: Colors.white,
               ),
@@ -65,7 +65,7 @@ class ProfilePageState extends State<ProfilePage> {
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
-                        hintText: 'CurrentName',
+                        labelText: 'Name',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -82,7 +82,7 @@ class ProfilePageState extends State<ProfilePage> {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'E-Mail Address',
+                        labelText: 'E-Mail Address',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -99,7 +99,7 @@ class ProfilePageState extends State<ProfilePage> {
                       keyboardType: TextInputType.phone,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'Phone Number',
+                        labelText: 'Phone Number',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -116,7 +116,7 @@ class ProfilePageState extends State<ProfilePage> {
                       keyboardType: TextInputType.streetAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        hintText: 'Address',
+                        labelText: 'Address',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -134,7 +134,9 @@ class ProfilePageState extends State<ProfilePage> {
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
-                        hintText: 'Password',
+                        labelText: 'Password',
+                        helperText:
+                            'Let this empty if you don\'t want to update your password',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -147,25 +149,18 @@ class ProfilePageState extends State<ProfilePage> {
                   Align(
                       alignment: Alignment.centerRight,
                       child: Container(
-                        margin: EdgeInsets.all(16),
+                        margin: EdgeInsets.only(left: 16, right: 16),
                         decoration: BoxDecoration(
-                            color: Color(0xff9e2229), shape: BoxShape.circle),
+                            color: AppTheme.maroon, shape: BoxShape.circle),
+                        child: IconButton(
+                          color: Colors.white,
+                          onPressed: () {},
+                          icon: Icon(Icons.save),
+                        ),
                       )),
                 ],
               ),
             ),
-            Align(
-                alignment: Alignment.centerRight,
-                child: Container(
-                  margin: EdgeInsets.all(16),
-                  decoration: BoxDecoration(
-                      color: AppTheme.maroon, shape: BoxShape.circle),
-                  child: IconButton(
-                    color: Colors.white,
-                    onPressed: () {},
-                    icon: Icon(Icons.arrow_forward),
-                  ),
-                )),
           ],
         ));
   }

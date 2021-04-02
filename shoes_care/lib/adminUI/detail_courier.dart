@@ -240,21 +240,15 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                               courierPhone: phoneNumController.text,
                               courierAddress: addressController.text,
                               courierNOPOL: nopolController.text);
-                          if (newCourier.update) {
-                            print("Add snackbar/notif success: true");
-                            var snackBar =
-                                SnackBar(content: Text('Yay! It Success.'));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          } else {
-                            //snackbar fail
-                            print("Add snackbar/notif fail: false");
-                            var snackBar = SnackBar(
-                                content:
-                                    Text('Oh sorry. It fail, try again !'));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
-                          }
+                          newCourier.update;
+                          print("Add snackbar/notif success: true");
+                          Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) => Home(index: 0)));
+                          var snackBar =
+                              SnackBar(content: Text('Yay! It Success.'));
+                          ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         icon: Icon(Icons.edit),
                       ),
@@ -504,7 +498,6 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                         size: 25,
                       ),
                       onPressed: () {
-                        // TO DO: BACK TO ALL COURIER PAGE
                         Navigator.of(context).pop();
                       },
                     )
@@ -534,9 +527,9 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         // TO DO: MAKE SURE ITS BACK TO ALL COURIER
                         Navigator.push(
-                          context,
-                          MaterialPageRoute(builder: (context) => Home()),
-                        );
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Home(index: 0)));
                       },
                     )
                   ],

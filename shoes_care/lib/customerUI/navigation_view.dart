@@ -7,6 +7,8 @@ import 'package:shoes_care/customerUI/profile.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
 
 class Home extends StatefulWidget {
+  final int index;
+  Home({this.index});
   @override
   State<StatefulWidget> createState() {
     return _HomeState();
@@ -23,6 +25,11 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
+    setState(() {
+      if (widget.index != null) {
+        _currentIndex = widget.index;
+      }
+    });
     // final newTrip = new Trip(null, null, null, null, null, null);
     return Scaffold(
       appBar: AppBar(

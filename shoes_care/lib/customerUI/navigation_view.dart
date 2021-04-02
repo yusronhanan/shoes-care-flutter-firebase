@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_care/app_theme.dart';
 
 import 'package:shoes_care/customerUI/home.dart';
 // import 'package:shoes_care/app_theme.dart';
@@ -40,23 +41,29 @@ class _HomeState extends State<Home> {
       // ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
+          selectedItemColor: AppTheme.maroon,
+          backgroundColor: Colors.black,
           onTap: onTabTapped,
           currentIndex: _currentIndex,
+          unselectedItemColor: Colors.white,
           items: [
             BottomNavigationBarItem(
-              icon: new Icon(Icons.shopping_cart_rounded),
+              icon:
+                  new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
               // ignore: deprecated_member_use
-              title: new Text("Order"),
+              title:
+                  new Text("Order"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.home),
+              icon: new Icon(Icons.home), //, color: Colors.white
               // ignore: deprecated_member_use
-              title: new Text("Home"),
+              title: new Text("Home"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.person),
+              icon: new Icon(Icons.person), //, color: Colors.white
               // ignore: deprecated_member_use
-              title: new Text("Profile"),
+              title:
+                  new Text("Profile"), //,style: TextStyle(color: Colors.white,)
             ),
           ]),
     );

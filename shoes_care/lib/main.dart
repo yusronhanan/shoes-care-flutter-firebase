@@ -73,10 +73,8 @@ class HomeController extends StatelessWidget {
     if (firebaseUser != null) {
       //temporary. it should return to hoempage
       return Home();
-      // Navigator.pushNamed(context, '/welcome');
     } else {
       //   //temporary. it should return warning
-      // Navigator.pushNamed(context, '/register');
       return WelPage();
     }
   }

@@ -6,8 +6,9 @@ import 'package:shoes_care/customerUI/home.dart';
 import 'package:shoes_care/customerUI/profile.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
 
+// ignore: must_be_immutable
 class Home extends StatefulWidget {
-  final int index;
+  int index;
   Home({this.index});
   @override
   State<StatefulWidget> createState() {
@@ -28,8 +29,10 @@ class _HomeState extends State<Home> {
     setState(() {
       if (widget.index != null) {
         _currentIndex = widget.index;
+        widget.index = null;
       }
     });
+
     // final newTrip = new Trip(null, null, null, null, null, null);
     return Scaffold(
       appBar: AppBar(

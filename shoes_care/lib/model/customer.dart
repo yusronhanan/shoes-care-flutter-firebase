@@ -137,6 +137,7 @@ class Customer extends User {
       "customer_name": customerName,
       "customer_phone": customerPhone,
       //TO DO: need to update email and password in firebase authentication too
+      //if customerPassword != ""{}
     }).then((value) {
       print("Updated");
       return true;

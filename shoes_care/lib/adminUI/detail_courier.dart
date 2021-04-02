@@ -128,12 +128,12 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                   padding:
                       EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),
                   child: TextField(
-                    controller: nameController,
+                    readOnly: true,
+                    controller: emailController,
+                    keyboardType: TextInputType.emailAddress,
                     style: TextStyle(fontSize: 18),
-                    keyboardType: TextInputType.text,
-                    textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
-                      labelText: 'Name',
+                      labelText: 'E-Mail Address',
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(color: Colors.grey)),
@@ -145,13 +145,14 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                 ),
                 Padding(
                   padding:
-                      EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                      EdgeInsets.only(left: 16, right: 16, top: 32, bottom: 8),
                   child: TextField(
-                    controller: emailController,
-                    keyboardType: TextInputType.emailAddress,
+                    controller: nameController,
                     style: TextStyle(fontSize: 18),
+                    keyboardType: TextInputType.text,
+                    textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
-                      labelText: 'E-Mail Address',
+                      labelText: 'Name',
                       enabledBorder: OutlineInputBorder(
                           borderRadius: BorderRadius.circular(8),
                           borderSide: BorderSide(color: Colors.grey)),

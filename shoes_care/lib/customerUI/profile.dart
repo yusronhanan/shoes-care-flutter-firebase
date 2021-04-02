@@ -18,6 +18,7 @@ class ProfilePageState extends State<ProfilePage> {
   final TextEditingController phoneNumController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  String customerId = "";
   void _fetchUserData() async {
     // do something
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -33,6 +34,7 @@ class ProfilePageState extends State<ProfilePage> {
         customerPhone: "",
         customerAddress: "");
     await myProfileData.syncDataByEmail(email);
+    customerId = myProfileData.getCustomerId;
     nameController.text = myProfileData.getCustomerName;
     emailController.text = myProfileData.getEmail;
     phoneNumController.text = myProfileData.getCustomerPhone;
@@ -103,15 +105,15 @@ class ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: 16, right: 16, top: 32, bottom: 8),
+                    padding:
+                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
-                      controller: nameController,
+                      controller: emailController,
+                      readOnly: true,
+                      keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
-                      keyboardType: TextInputType.text,
-                      textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
-                        labelText: 'Name',
+                        labelText: 'E-Mail Address',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -122,14 +124,15 @@ class ProfilePageState extends State<ProfilePage> {
                     ),
                   ),
                   Padding(
-                    padding:
-                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    padding: EdgeInsets.only(
+                        left: 16, right: 16, top: 32, bottom: 8),
                     child: TextField(
-                      controller: emailController,
-                      keyboardType: TextInputType.emailAddress,
+                      controller: nameController,
                       style: TextStyle(fontSize: 18),
+                      keyboardType: TextInputType.text,
+                      textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
-                        labelText: 'E-Mail Address',
+                        labelText: 'Name',
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -205,7 +208,26 @@ class ProfilePageState extends State<ProfilePage> {
                             color: AppTheme.maroon, shape: BoxShape.circle),
                         child: IconButton(
                           color: Colors.white,
-                          onPressed: () {},
+                          onPressed: () {
+                            print(nameController.text +
+                                emailController.text +
+                                phoneNumController.text +
+                                addressController.text +
+                                passwordController.text);
+
+                            Customer profileCust = Customer(
+                                customerId: customerId,
+                                customerName: nameController.text,
+                                customerAddress: addressController.text,
+                                email: emailController.text,
+                                customerPhone: phoneNumController.text,
+                                password: passwordController.text);
+                            profileCust.update;
+                            var snackBar =
+                                SnackBar(content: Text('Yay! It Success.'));
+                            ScaffoldMessenger.of(context)
+                                .showSnackBar(snackBar);
+                          },
                           icon: Icon(Icons.save),
                         ),
                       )),

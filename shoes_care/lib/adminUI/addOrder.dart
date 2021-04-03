@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 // import 'package:provider/provider.dart';
 import 'package:shoes_care/model/order.dart';
+import 'package:intl/intl.dart';
 
 class AddOrderPage extends StatefulWidget {
   @override
@@ -21,7 +22,7 @@ class AddOrderPageState extends State<AddOrderPage> {
       TextEditingController();
 
   final TextEditingController orderStatusController = TextEditingController();
-  String orderDateTimeController = new DateTime.now().toString();
+  final TextEditingController orderDateTimeController = TextEditingController();
 
   setEmpty() {
     adminIdController.clear();
@@ -29,22 +30,25 @@ class AddOrderPageState extends State<AddOrderPage> {
     customerIdController.clear();
     menuOrderTypeController.clear();
     orderAddressController.clear();
-    orderDateTimeController = new DateTime.now().toString();
+    orderDateTimeController.clear();
     orderPickupTimeController.clear();
     orderStatusController.clear();
   }
 
   DateTime _startDate = DateTime.now();
-  DateTime _endDate = DateTime.now().add(Duration(days: 7));
+  DateTime _endDate = DateTime.now().add(Duration(days: 6));
 
   Future _selectDate() async {
     DateTime picked = await showDatePicker(
-        context: context,
-        initialDate: _startDate,
-        firstDate: new DateTime(DateTime.now().year - 50),
-        lastDate: new DateTime(DateTime.now().year + 50));
+      context: context,
+      initialDate: _startDate,
+      firstDate: DateTime.now().subtract(Duration(days: 0)),
+      lastDate: _endDate,
+    );
+
     if (picked != null)
-      setState(() => orderDateTimeController = picked.toString());
+      setState(() => orderDateTimeController.text =
+          DateFormat('dd/MM/yyyy').format(picked).toString());
   }
 
   @override
@@ -177,7 +181,7 @@ class AddOrderPageState extends State<AddOrderPage> {
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
                       controller: customerIdController,
-                      keyboardType: TextInputType.phone,
+                      keyboardType: TextInputType.text,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
                         labelText: 'Customer',
@@ -236,17 +240,30 @@ class AddOrderPageState extends State<AddOrderPage> {
                       },
                       child: IgnorePointer(
                         child: TextField(
+                          controller: orderDateTimeController,
                           readOnly: true,
                           style: TextStyle(fontSize: 18),
                           keyboardType: TextInputType.text,
                           decoration: InputDecoration(
-                            labelText: orderDateTimeController,
+                            labelText: "Order Pickup Date",
                             enabledBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(color: Colors.grey)),
                             focusedBorder: OutlineInputBorder(
                                 borderRadius: BorderRadius.circular(8),
                                 borderSide: BorderSide(color: Colors.grey)),
+                            prefixIcon: Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 12.0),
+                              child: Icon(Icons
+                                  .date_range), // myIcon is a 48px-wide widget.
+                            ),
+                            suffixIcon: Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 12.0),
+                              child: Icon(Icons
+                                  .arrow_drop_down), // myIcon is a 48px-wide widget.
+                            ),
                           ),
                         ),
                       ),
@@ -311,7 +328,8 @@ class AddOrderPageState extends State<AddOrderPage> {
                                 menuOrderType: menuOrderTypeController.text,
                                 orderAddress: orderAddressController.text,
                                 //TO DO: TAKE CARE OF IT
-                                orderDateTime: new DateTime.now(),
+                                orderDateTime: DateTime.parse(
+                                    orderDateTimeController.text),
                                 orderPickupTime: orderPickupTimeController.text,
                                 orderStatus: orderStatusController.text);
                             newOrder.insert.then((value) {
@@ -341,5 +359,11 @@ class AddOrderPageState extends State<AddOrderPage> {
             ),
           ],
         ));
+  }
+
+  @override
+  void dispose() {
+    orderDateTimeController.dispose();
+    super.dispose();
   }
 }

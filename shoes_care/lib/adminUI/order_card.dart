@@ -29,7 +29,7 @@ Widget buildOrderCard(BuildContext context, DocumentSnapshot document) {
                       '\n' +
                       order.getOrderAddress +
                       '\n' +
-                      DateFormat('MM/dd/yyyy')
+                      DateFormat('dd/MM/yyyy')
                           .format(order.getOrderDateTime)
                           .toString() +
                       '\n' +

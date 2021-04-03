@@ -23,6 +23,8 @@ class AddOrderPageState extends State<AddOrderPage> {
 
   final TextEditingController orderStatusController = TextEditingController();
   final TextEditingController orderDateTimeController = TextEditingController();
+  DateTime orderDateTimeValue = DateTime.now();
+  final TextEditingController paymentIdController = TextEditingController();
 
   setEmpty() {
     adminIdController.clear();
@@ -33,6 +35,8 @@ class AddOrderPageState extends State<AddOrderPage> {
     orderDateTimeController.clear();
     orderPickupTimeController.clear();
     orderStatusController.clear();
+    paymentIdController.clear();
+    orderDateTimeValue = DateTime.now();
   }
 
   DateTime _startDate = DateTime.now();
@@ -47,8 +51,11 @@ class AddOrderPageState extends State<AddOrderPage> {
     );
 
     if (picked != null)
-      setState(() => orderDateTimeController.text =
-          DateFormat('dd/MM/yyyy').format(picked).toString());
+      setState(() => {
+            orderDateTimeController.text =
+                DateFormat('dd/MM/yyyy').format(picked).toString(),
+            orderDateTimeValue = picked
+          });
   }
 
   @override
@@ -61,7 +68,7 @@ class AddOrderPageState extends State<AddOrderPage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 1000,
+              height: 1200,
               decoration: BoxDecoration(
                   boxShadow: [
                     new BoxShadow(
@@ -305,6 +312,24 @@ class AddOrderPageState extends State<AddOrderPage> {
                       ),
                     ),
                   ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: TextField(
+                      controller: paymentIdController,
+                      style: TextStyle(fontSize: 18),
+                      keyboardType: TextInputType.text,
+                      decoration: InputDecoration(
+                        labelText: 'Payment',
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
                   Align(
                       alignment: Alignment.centerRight,
                       child: Container(
@@ -314,12 +339,6 @@ class AddOrderPageState extends State<AddOrderPage> {
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () {
-                            print(adminIdController.text +
-                                courierIdController.text +
-                                customerIdController.text +
-                                menuOrderTypeController.text +
-                                orderAddressController.text);
-
                             final newOrder = Order(
                                 orderId: "",
                                 adminId: adminIdController.text,
@@ -328,10 +347,10 @@ class AddOrderPageState extends State<AddOrderPage> {
                                 menuOrderType: menuOrderTypeController.text,
                                 orderAddress: orderAddressController.text,
                                 //TO DO: TAKE CARE OF IT
-                                orderDateTime: DateTime.parse(
-                                    orderDateTimeController.text),
+                                orderDateTime: orderDateTimeValue,
                                 orderPickupTime: orderPickupTimeController.text,
-                                orderStatus: orderStatusController.text);
+                                orderStatus: orderStatusController.text,
+                                paymentId: paymentIdController.text);
                             newOrder.insert.then((value) {
                               print("Add snackbar/notif success: $value");
                               // ignore: deprecated_member_use

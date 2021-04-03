@@ -1,26 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/adminUI/allOrder.dart';
 
 import 'package:shoes_care/customerUI/home.dart';
 // import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/customerUI/profile.dart';
-import 'package:shoes_care/adminUI/allCourier.dart';
 
 // ignore: must_be_immutable
-class Home extends StatefulWidget {
+class CustomerHome extends StatefulWidget {
   int index;
-  Home({this.index});
+  CustomerHome({this.index});
   @override
   State<StatefulWidget> createState() {
-    return _HomeState();
+    return _CustomerHomeState();
   }
 }
 
-class _HomeState extends State<Home> {
+class _CustomerHomeState extends State<CustomerHome> {
   int _currentIndex = 1;
   final List<Widget> _children = [
-    AllCourierPage(), //MyOrderPage()
-    HomePage(),
+    AllOrderPage(), //MyOrderPage()
+    CustomerHomePage(),
     ProfilePage(),
   ];
 

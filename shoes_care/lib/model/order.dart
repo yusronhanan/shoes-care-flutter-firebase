@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class Order {
   Order(
       {this.orderId,
@@ -18,11 +19,11 @@ class Order {
   String paymentId;
   String menuOrderType;
   String orderAddress;
-  DateTime orderPickupTime;
+  String orderPickupTime;
   DateTime orderDateTime;
   String orderStatus;
 
-  String get getrderId {
+  String get getOrderId {
     return orderId;
   }
 
@@ -50,7 +51,7 @@ class Order {
     return orderAddress;
   }
 
-  DateTime get getOrderPickupTime {
+  String get getOrderPickupTime {
     return orderPickupTime;
   }
 
@@ -62,8 +63,8 @@ class Order {
     return orderStatus;
   }
 
-  set setrderId(String newrderId) {
-    orderId = newrderId;
+  set setOrderId(String newrOderId) {
+    orderId = newrOderId;
   }
 
   set setAdminId(String newAdminId) {
@@ -90,7 +91,7 @@ class Order {
     orderAddress = newOrderAddress;
   }
 
-  set setOrderPickupTime(DateTime newOrderPickupTime) {
+  set setOrderPickupTime(String newOrderPickupTime) {
     orderPickupTime = newOrderPickupTime;
   }
 
@@ -105,30 +106,30 @@ class Order {
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
-    
-      // if success create user with email and password: since email and password w/ collection data is in different configuration
-      CollectionReference collection =
-          FirebaseFirestore.instance.collection('order');
 
-      collection.add({
-        "admin_id": adminId,
-        "courier_id": courierId,
-        "customer_id": customerId,
-        "menuorder_type": menuOrderType,
-        "order_address": orderAddress,
-        "order_datetime": orderDateTime,
-        "order_pickuptime": orderPickupTime,
-        "order_status": orderStatus,
-        "payment_id": paymentId,
-      }).then((value) {
-        orderId = value.id;
-        print("$value Added");
-        return true;
-      }).catchError((error) {
-        print("Failed to add order: $error");
-        return false;
-      });
-    
+    // if success create user with email and password: since email and password w/ collection data is in different configuration
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('order');
+
+    collection.add({
+      "admin_id": adminId,
+      "courier_id": courierId,
+      "customer_id": customerId,
+      "menuorder_type": menuOrderType,
+      "order_address": orderAddress,
+      "order_datetime": orderDateTime,
+      "order_pickuptime": orderPickupTime,
+      "order_status": orderStatus,
+      "payment_id": paymentId,
+    }).then((value) {
+      orderId = value.id;
+      print("$value Added");
+      return true;
+    }).catchError((error) {
+      print("Failed to add order: $error");
+      return false;
+    });
+
     return false;
   }
 
@@ -189,4 +190,30 @@ class Order {
     });
     return false;
   }
+
+  // creating a Trip object from a firebase snapshot
+  Order.fromSnapshot(DocumentSnapshot snapshot) {
+    orderId = snapshot.id;
+    adminId = snapshot["admin_id"];
+    courierId = snapshot["courier_id"];
+    customerId = snapshot["customer_id"];
+    menuOrderType = snapshot["menuorder_type"];
+    orderAddress = snapshot["order_address"];
+    orderDateTime = snapshot["order_datetime"].toDate();
+    orderPickupTime = snapshot["order_pickuptime"];
+    orderStatus = snapshot["order_status"];
+    paymentId = snapshot["payment_id"];
+  }
+  // formatting for upload to Firbase when creating the trip
+  Map<String, dynamic> toJson() => {
+        "admin_id": adminId,
+        "courier_id": courierId,
+        "customer_id": customerId,
+        "menuorder_type": menuOrderType,
+        "order_address": orderAddress,
+        "order_datetime": orderDateTime,
+        "order_pickuptime": orderPickupTime,
+        "order_status": orderStatus,
+        "payment_id": paymentId,
+      };
 }

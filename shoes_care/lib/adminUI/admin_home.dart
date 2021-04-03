@@ -18,14 +18,14 @@ var logo = Image(
   image: assetImage,
 );
 
-class CustomerHomePage extends StatefulWidget {
+class AdminHomePage extends StatefulWidget {
   @override
   State<StatefulWidget> createState() {
-    return CustomerHomePageState();
+    return AdminHomePageState();
   }
 }
 
-class CustomerHomePageState extends State<CustomerHomePage> {
+class AdminHomePageState extends State<AdminHomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

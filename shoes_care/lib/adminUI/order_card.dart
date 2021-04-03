@@ -2,13 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 // import 'package:google_fonts/google_fonts.dart';
-// import 'package:intl/intl.dart';
-import 'package:shoes_care/model/courier.dart';
-import 'package:shoes_care/adminUI/detail_courier.dart';
+import 'package:intl/intl.dart';
+import 'package:shoes_care/model/order.dart';
+import 'package:shoes_care/adminUI/detail_order.dart';
 
-Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
-  // TO DO: FIX JOIN AND DISPLAY CARD DESIGN
-  final courier = Courier.fromSnapshot(document);
+Widget buildOrderCard(BuildContext context, DocumentSnapshot document) {
+  final order = Order.fromSnapshot(document);
 
   return new Container(
     child: Card(
@@ -18,15 +17,27 @@ Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
           child: Column(
             children: <Widget>[
               ListTile(
-                title: Text(courier.getCourierName),
+                title: Text(order.getOrderId),
                 subtitle: Text(
-                  courier.getEmail +
+                  order.getAdminId +
                       '\n' +
-                      courier.getCourierPhone +
+                      order.getCourierId +
                       '\n' +
-                      courier.getCourierAddress +
+                      order.getCustomerId +
                       '\n' +
-                      courier.getCourierNOPOL,
+                      order.getMenuOrderType +
+                      '\n' +
+                      order.getOrderAddress +
+                      '\n' +
+                      DateFormat('MM/dd/yyyy')
+                          .format(order.getOrderDateTime)
+                          .toString() +
+                      '\n' +
+                      order.getOrderPickupTime +
+                      '\n' +
+                      order.getOrderStatus +
+                      '\n' +
+                      order.getPaymentId,
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
               ),
@@ -41,7 +52,7 @@ Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                DetailCourierView(courier: courier)),
+                                DetailOrderView(order: order)),
                       );
                     },
                     child: const Text('Edit'),
@@ -51,13 +62,6 @@ Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
             ],
           ),
         ),
-        // onTap: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => DetailCourierView(courier: courier)),
-        //   );
-        // },
       ),
     ),
   );

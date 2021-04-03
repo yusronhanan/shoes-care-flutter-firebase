@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_care/adminUI/addCourier.dart';
+import 'package:shoes_care/adminUI/addOrder.dart';
+import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
 import 'package:shoes_care/app_theme.dart';
 // import 'package:shoes_care/customerUI/profile.dart';
@@ -11,7 +13,7 @@ import 'package:shoes_care/register.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shoes_care/authentication_service.dart';
-import 'package:shoes_care/customerUI/navigation_view.dart';
+import 'package:shoes_care/customerUI/customer_navigation_view.dart';
 
 // import 'package:cloud_firestore/cloud_firestore.dart';
 
@@ -57,6 +59,9 @@ class MyApp extends StatelessWidget {
             //for role admin
             '/addCourier': (context) => AddCourierPage(),
             '/allCourier': (context) => AllCourierPage(),
+
+            '/addOrder': (context) => AddOrderPage(),
+            '/allOrder': (context) => AllCourierPage(),
           },
           theme: ThemeData(
             brightness: Brightness.light,
@@ -76,8 +81,9 @@ class HomeController extends StatelessWidget {
     final firebaseUser = context.watch<User>();
 
     if (firebaseUser != null) {
-      //temporary. it should return to hoempage
-      return Home(index: 1);
+      //temporary. it should return to hoempage BASED ON LOGIN INFO (ADMIN, COURIER, CUSTOMER)
+      //change this to CustomerHome or AdminHome : soon CourierHome
+      return AdminHome(index: 1);
     } else {
       //   //temporary. it should return warning
       return WelPage();

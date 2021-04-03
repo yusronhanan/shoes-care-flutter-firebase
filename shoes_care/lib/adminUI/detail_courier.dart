@@ -2,9 +2,9 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 // import 'package:shoes_care/adminUI/allCourier.dart';
-import 'package:shoes_care/customerUI/navigation_view.dart';
 import 'package:shoes_care/model/courier.dart';
 
+import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 // import 'edit_notes_view.dart';
 // import 'package:intl/intl.dart';
 // import 'package:auto_size_text/auto_size_text.dart';
@@ -246,7 +246,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => Home(index: 0)));
+                                  builder: (context) => AdminHome(index: 0)));
                           var snackBar =
                               SnackBar(content: Text('Yay! It Success.'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -530,7 +530,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => Home(index: 0)));
+                                builder: (context) => AdminHome(index: 0)));
                       },
                     )
                   ],

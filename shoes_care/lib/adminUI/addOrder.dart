@@ -17,11 +17,11 @@ class AddOrderPageState extends State<AddOrderPage> {
   final TextEditingController customerIdController = TextEditingController();
   final TextEditingController menuOrderTypeController = TextEditingController();
   final TextEditingController orderAddressController = TextEditingController();
-  // orderDateTime: orderDateTimeController,
   final TextEditingController orderPickupTimeController =
       TextEditingController();
 
   final TextEditingController orderStatusController = TextEditingController();
+  String orderDateTimeController = new DateTime.now().toString();
 
   setEmpty() {
     adminIdController.clear();
@@ -29,9 +29,22 @@ class AddOrderPageState extends State<AddOrderPage> {
     customerIdController.clear();
     menuOrderTypeController.clear();
     orderAddressController.clear();
-    // orderDateTimeController.clear();
+    orderDateTimeController = new DateTime.now().toString();
     orderPickupTimeController.clear();
     orderStatusController.clear();
+  }
+
+  DateTime _startDate = DateTime.now();
+  DateTime _endDate = DateTime.now().add(Duration(days: 7));
+
+  Future _selectDate() async {
+    DateTime picked = await showDatePicker(
+        context: context,
+        initialDate: _startDate,
+        firstDate: new DateTime(DateTime.now().year - 50),
+        lastDate: new DateTime(DateTime.now().year + 50));
+    if (picked != null)
+      setState(() => orderDateTimeController = picked.toString());
   }
 
   @override
@@ -211,6 +224,31 @@ class AddOrderPageState extends State<AddOrderPage> {
                         focusedBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
+                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: InkWell(
+                      onTap: () {
+                        _selectDate(); // Call Function that has showDatePicker()
+                      },
+                      child: IgnorePointer(
+                        child: TextField(
+                          readOnly: true,
+                          style: TextStyle(fontSize: 18),
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: orderDateTimeController,
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                          ),
+                        ),
                       ),
                     ),
                   ),

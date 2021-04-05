@@ -5,6 +5,7 @@ import 'package:shoes_care/adminUI/allOrder.dart';
 import 'package:shoes_care/customerUI/home.dart';
 // import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/customerUI/profile.dart';
+import 'package:shoes_care/customerUI/My_order.dart';
 
 // ignore: must_be_immutable
 class CustomerHome extends StatefulWidget {
@@ -22,6 +23,7 @@ class _CustomerHomeState extends State<CustomerHome> {
     AllOrderPage(), //MyOrderPage()
     CustomerHomePage(),
     ProfilePage(),
+    my_Order(),
   ];
 
   @override

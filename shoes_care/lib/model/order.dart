@@ -165,7 +165,7 @@ class Order {
       "order_pickuptime": orderPickupTime,
       "order_status": orderStatus,
       "payment_id": paymentId,
-      //TO DO: need to update email and password in firebase authentication too
+      //TODO: need to update email and password in firebase authentication too
     }).then((value) {
       print("Updated");
       return true;
@@ -181,7 +181,7 @@ class Order {
     CollectionReference collection =
         FirebaseFirestore.instance.collection('order');
     collection.doc(orderId).delete().then((value) {
-      //TO DO: need to delete email and password in firebase authentication too
+      //TODO: need to delete email and password in firebase authentication too
       print("Deleted");
       return true;
     }).catchError((error) {

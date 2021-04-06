@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 class MenuOrder {
   MenuOrder(
       {this.menuOrderId,
@@ -45,24 +46,24 @@ class MenuOrder {
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
-    
-      // if success create user with email and password: since email and password w/ collection data is in different configuration
-      CollectionReference collection =
-          FirebaseFirestore.instance.collection('menuorder');
 
-      collection.add({
-        "menuorder_duration": menuOrderDuration,
-        "menuorder_price": menuOrderPrice,
-        "menuorder_type": menuOrderType,
-      }).then((value) {
-        menuOrderId = value.id;
-        print("$value Added");
-        return true;
-      }).catchError((error) {
-        print("Failed to add menuorder: $error");
-        return false;
-      });
-    
+    // if success create user with email and password: since email and password w/ collection data is in different configuration
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('menuorder');
+
+    collection.add({
+      "menuorder_duration": menuOrderDuration,
+      "menuorder_price": menuOrderPrice,
+      "menuorder_type": menuOrderType,
+    }).then((value) {
+      menuOrderId = value.id;
+      print("$value Added");
+      return true;
+    }).catchError((error) {
+      print("Failed to add menuorder: $error");
+      return false;
+    });
+
     return false;
   }
 
@@ -74,7 +75,7 @@ class MenuOrder {
       menuOrderDuration = doc['menuorder_duration'];
       menuOrderPrice = doc['menuorder_price'];
       menuOrderType = doc['menuorder_type'];
-      
+
       // String courierPassword;
     });
   }
@@ -87,7 +88,7 @@ class MenuOrder {
       "menuorder_duration": menuOrderDuration,
       "menuorder_price": menuOrderPrice,
       "menuorder_type": menuOrderType,
-      //TO DO: need to update email and password in firebase authentication too
+      //TODO: need to update email and password in firebase authentication too
     }).then((value) {
       print("Updated");
       return true;
@@ -103,7 +104,7 @@ class MenuOrder {
     CollectionReference collection =
         FirebaseFirestore.instance.collection('menuorder');
     collection.doc(menuOrderId).delete().then((value) {
-      //TO DO: need to delete email and password in firebase authentication too
+      //TODO: need to delete email and password in firebase authentication too
       print("Deleted");
       return true;
     }).catchError((error) {

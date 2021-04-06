@@ -20,10 +20,10 @@ class CustomerHome extends StatefulWidget {
 class _CustomerHomeState extends State<CustomerHome> {
   int _currentIndex = 1;
   final List<Widget> _children = [
-    AllOrderPage(), //MyOrderPage()
+    MyOrder(),
+    AllOrderPage(), //Should move to admin nav view
     CustomerHomePage(),
     ProfilePage(),
-    my_Order(),
   ];
 
   @override
@@ -65,8 +65,15 @@ class _CustomerHomeState extends State<CustomerHome> {
               icon:
                   new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
               // ignore: deprecated_member_use
-              title:
-                  new Text("Order"), //,style: TextStyle(color: Colors.white,)
+              title: new Text(
+                  "My Order"), //,style: TextStyle(color: Colors.white,)
+            ),
+            BottomNavigationBarItem(
+              icon:
+                  new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
+              // ignore: deprecated_member_use
+              title: new Text(
+                  "All Order"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.home), //, color: Colors.white

@@ -20,25 +20,26 @@ class Payment {
   set setPaymentName(String newPaymentName) {
     paymentName = newPaymentName;
   }
+
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
-    
-      // if success create user with email and password: since email and password w/ collection data is in different configuration
-      CollectionReference collection =
-          FirebaseFirestore.instance.collection('payment');
 
-      collection.add({
-        "payment_name": paymentName,
-      }).then((value) {
-        paymentId = value.id;
-        print("$value Added");
-        return true;
-      }).catchError((error) {
-        print("Failed to add payment: $error");
-        return false;
-      });
-    
+    // if success create user with email and password: since email and password w/ collection data is in different configuration
+    CollectionReference collection =
+        FirebaseFirestore.instance.collection('payment');
+
+    collection.add({
+      "payment_name": paymentName,
+    }).then((value) {
+      paymentId = value.id;
+      print("$value Added");
+      return true;
+    }).catchError((error) {
+      print("Failed to add payment: $error");
+      return false;
+    });
+
     return false;
   }
 
@@ -48,7 +49,7 @@ class Payment {
         FirebaseFirestore.instance.collection('payment');
     collection.doc(paymentId).get().then((doc) {
       paymentName = doc['payment_name'];
-      
+
       // String courierPassword;
     });
   }
@@ -59,7 +60,7 @@ class Payment {
         FirebaseFirestore.instance.collection('payment');
     collection.doc(paymentId).update({
       "payment_name": paymentName,
-      //TO DO: need to update email and password in firebase authentication too
+      //TODO: need to update email and password in firebase authentication too
     }).then((value) {
       print("Updated");
       return true;
@@ -75,7 +76,7 @@ class Payment {
     CollectionReference collection =
         FirebaseFirestore.instance.collection('payment');
     collection.doc(paymentId).delete().then((value) {
-      //TO DO: need to delete email and password in firebase authentication too
+      //TODO: need to delete email and password in firebase authentication too
       print("Deleted");
       return true;
     }).catchError((error) {

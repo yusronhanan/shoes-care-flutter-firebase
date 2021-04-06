@@ -150,7 +150,7 @@ class Courier extends User {
       "courier_phone": courierPhone,
       "courier_address": courierAddress,
       "courier_NOPOL": courierNOPOL,
-      //TO DO: need to update email and password in firebase authentication too
+      //TODO: need to update email and password in firebase authentication too
     }).then((value) {
       print("Updated");
       return true;
@@ -166,7 +166,7 @@ class Courier extends User {
     CollectionReference collection =
         FirebaseFirestore.instance.collection('courier');
     collection.doc(courierId).delete().then((value) {
-      //TO DO: need to delete email and password in firebase authentication too
+      //TODO: need to delete email and password in firebase authentication too
       print("Deleted");
       return true;
     }).catchError((error) {

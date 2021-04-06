@@ -25,7 +25,7 @@ class _DetailOrderViewState extends State<DetailOrderView> {
 
   @override
   Widget build(BuildContext context) {
-    // TO DO: FIX INPUT
+    // TODO: FIX INPUT
     final String idController = widget.order.getOrderId;
 
     final TextEditingController adminIdController =
@@ -280,7 +280,7 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                               customerId: customerIdController.text,
                               menuOrderType: menuOrderTypeController.text,
                               orderAddress: orderAddressController.text,
-                              //TO DO: TAKE CARE OF IT
+                              //TODO: TAKE CARE OF IT
                               orderDateTime: new DateTime.now(),
                               orderPickupTime: orderPickupTimeController.text,
                               orderStatus: orderStatusController.text);
@@ -350,7 +350,7 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                         var snackBar =
                             SnackBar(content: Text('Yay! It Success.'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        // TO DO: MAKE SURE ITS BACK TO ALL COURIER
+                        // TODO: MAKE SURE ITS BACK TO ALL COURIER
                         Navigator.push(
                             context,
                             MaterialPageRoute(

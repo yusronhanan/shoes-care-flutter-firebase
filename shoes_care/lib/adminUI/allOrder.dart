@@ -44,7 +44,7 @@ class _AllOrderState extends State<AllOrderPage> {
 
     if (_searchController.text != "") {
       for (var ss in _allResults) {
-        // TO DO: search by all attribute
+        // TODO: search by all attribute
         var title = Order.fromSnapshot(ss).orderStatus.toLowerCase();
 
         if (title.contains(_searchController.text.toLowerCase())) {

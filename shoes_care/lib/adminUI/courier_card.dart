@@ -7,7 +7,7 @@ import 'package:shoes_care/model/courier.dart';
 import 'package:shoes_care/adminUI/detail_courier.dart';
 
 Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
-  // TO DO: FIX JOIN AND DISPLAY CARD DESIGN
+  // TODO: FIX JOIN AND DISPLAY CARD DESIGN
   final courier = Courier.fromSnapshot(document);
 
   return new Container(

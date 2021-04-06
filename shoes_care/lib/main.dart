@@ -83,7 +83,7 @@ class HomeController extends StatelessWidget {
     if (firebaseUser != null) {
       //temporary. it should return to hoempage BASED ON LOGIN INFO (ADMIN, COURIER, CUSTOMER)
       //change this to CustomerHome or AdminHome : soon CourierHome
-      return AdminHome(index: 1);
+      return CustomerHome(index: 1);
     } else {
       //   //temporary. it should return warning
       return WelPage();

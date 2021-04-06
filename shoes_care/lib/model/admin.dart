@@ -150,7 +150,7 @@ class Admin extends User {
       "admin_name": adminName,
       "admin_phone": adminPhone,
       "admin_position": adminPosition,
-      //TO DO: need to update email and password in firebase authentication too
+      //TODO: need to update email and password in firebase authentication too
     }).then((value) {
       print("Updated");
       return true;
@@ -166,7 +166,7 @@ class Admin extends User {
     CollectionReference collection =
         FirebaseFirestore.instance.collection('admin');
     collection.doc(adminId).delete().then((value) {
-      //TO DO: need to delete email and password in firebase authentication too
+      //TODO: need to delete email and password in firebase authentication too
       print("Deleted");
       return true;
     }).catchError((error) {

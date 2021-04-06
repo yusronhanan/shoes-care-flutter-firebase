@@ -22,7 +22,7 @@ class _AdminHomeState extends State<AdminHome> {
   final List<Widget> _children = [
     AllCourierPage(), //MyOrderPage()
     AllOrderPage(),
-    //TO DO: AllCustomerPage(),
+    //TODO: AllCustomerPage(),
     AdminHomePage(),
     AdminProfilePage(),
   ];
@@ -76,7 +76,7 @@ class _AdminHomeState extends State<AdminHome> {
               title:
                   new Text("Order"), //,style: TextStyle(color: Colors.white,)
             ),
-            // TO DO: add AllCustomer()
+            // TODO: add AllCustomer()
             // BottomNavigationBarItem(
             //   icon: new Icon(Icons.person_add), //, color: Colors.white
             //   // ignore: deprecated_member_use

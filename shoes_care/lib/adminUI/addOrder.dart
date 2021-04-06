@@ -12,7 +12,7 @@ class AddOrderPage extends StatefulWidget {
 }
 
 class AddOrderPageState extends State<AddOrderPage> {
-  //TO DO: FIX INPUT
+  // TODO: FIX INPUT
   final TextEditingController adminIdController = TextEditingController();
   final TextEditingController courierIdController = TextEditingController();
   final TextEditingController customerIdController = TextEditingController();
@@ -346,7 +346,7 @@ class AddOrderPageState extends State<AddOrderPage> {
                                 customerId: customerIdController.text,
                                 menuOrderType: menuOrderTypeController.text,
                                 orderAddress: orderAddressController.text,
-                                //TO DO: TAKE CARE OF IT
+                                // TODO: TAKE CARE OF IT
                                 orderDateTime: orderDateTimeValue,
                                 orderPickupTime: orderPickupTimeController.text,
                                 orderStatus: orderStatusController.text,

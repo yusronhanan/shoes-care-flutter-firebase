@@ -136,7 +136,7 @@ class Customer extends User {
       "customer_email": super.email,
       "customer_name": customerName,
       "customer_phone": customerPhone,
-      //TO DO: need to update email and password in firebase authentication too
+      //TODO: need to update email and password in firebase authentication too
       //if customerPassword != ""{}
     }).then((value) {
       print("Updated");
@@ -153,7 +153,7 @@ class Customer extends User {
     CollectionReference collection =
         FirebaseFirestore.instance.collection('customer');
     collection.doc(customerId).delete().then((value) {
-      //TO DO: need to delete email and password in firebase authentication too
+      //TODO: need to delete email and password in firebase authentication too
       print("Deleted");
       return true;
     }).catchError((error) {

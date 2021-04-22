@@ -24,6 +24,8 @@ class AddOrderPageState extends State<AddOrderPage> {
   final TextEditingController orderStatusController = TextEditingController();
   final TextEditingController orderDateTimeController = TextEditingController();
   DateTime orderDateTimeValue = DateTime.now();
+  //TODO change it in edit form, refer to firestore value
+  // String paymentIdController = 'Cash'; //INITIAL DEFAULT
   final TextEditingController paymentIdController = TextEditingController();
 
   setEmpty() {
@@ -36,6 +38,7 @@ class AddOrderPageState extends State<AddOrderPage> {
     orderPickupTimeController.clear();
     orderStatusController.clear();
     paymentIdController.clear();
+    // paymentIdController = 'Cash';
     orderDateTimeValue = DateTime.now();
   }
 
@@ -147,40 +150,94 @@ class AddOrderPageState extends State<AddOrderPage> {
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: 16, right: 16, top: 32, bottom: 8),
-                    child: TextField(
-                      controller: courierIdController,
-                      keyboardType: TextInputType.emailAddress,
-                      style: TextStyle(fontSize: 18),
-                      decoration: InputDecoration(
-                        labelText: 'Courier',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
+                    padding:
+                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: new Row(
+                      children: <Widget>[
+                        new Expanded(
+                            child: new TextField(
+                          controller: courierIdController,
+                          readOnly: true,
+                          style: TextStyle(fontSize: 18),
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: 'Courier',
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            prefixIcon: Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 12.0),
+                              child: Icon(Icons
+                                  .motorcycle), // myIcon is a 48px-wide widget.
+                            ),
+                            suffixIcon: PopupMenuButton<String>(
+                              icon: const Icon(Icons.arrow_drop_down),
+                              onSelected: (String value) {
+                                courierIdController.text = value;
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return <String>['Paijo', 'Joko', 'Zaki', 'Arif']
+                                    .map<PopupMenuItem<String>>((String value) {
+                                  return new PopupMenuItem(
+                                      child: new Text(value), value: value);
+                                }).toList();
+                              },
+                            ),
+                          ),
+                        )),
+                      ],
                     ),
                   ),
                   Padding(
-                    padding: EdgeInsets.only(
-                        left: 16, right: 16, top: 32, bottom: 8),
-                    child: TextField(
-                      controller: adminIdController,
-                      style: TextStyle(fontSize: 18),
-                      keyboardType: TextInputType.text,
-                      textCapitalization: TextCapitalization.words,
-                      decoration: InputDecoration(
-                        labelText: 'Admin',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
+                    //TODO delete. it should be automatically based on user login
+                    padding:
+                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: new Row(
+                      children: <Widget>[
+                        new Expanded(
+                            child: new TextField(
+                          controller: adminIdController,
+                          readOnly: true,
+                          style: TextStyle(fontSize: 18),
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: 'Admin',
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            prefixIcon: Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 12.0),
+                              child: Icon(Icons
+                                  .admin_panel_settings), // myIcon is a 48px-wide widget.
+                            ),
+                            suffixIcon: PopupMenuButton<String>(
+                              icon: const Icon(Icons.arrow_drop_down),
+                              onSelected: (String value) {
+                                adminIdController.text = value;
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return <String>[
+                                  'Admin 1',
+                                  'Admin 2',
+                                  'Admin 3',
+                                  'Admin 4'
+                                ].map<PopupMenuItem<String>>((String value) {
+                                  return new PopupMenuItem(
+                                      child: new Text(value), value: value);
+                                }).toList();
+                              },
+                            ),
+                          ),
+                        )),
+                      ],
                     ),
                   ),
                   Padding(
@@ -204,19 +261,48 @@ class AddOrderPageState extends State<AddOrderPage> {
                   Padding(
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: TextField(
-                      controller: menuOrderTypeController,
-                      keyboardType: TextInputType.streetAddress,
-                      style: TextStyle(fontSize: 18),
-                      decoration: InputDecoration(
-                        labelText: 'Menu Order Type',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
+                    child: new Row(
+                      children: <Widget>[
+                        new Expanded(
+                            child: new TextField(
+                          controller: menuOrderTypeController,
+                          readOnly: true,
+                          style: TextStyle(fontSize: 18),
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: 'Menu Order Type',
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            prefixIcon: Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 12.0),
+                              child: Icon(Icons
+                                  .water_damage), // myIcon is a 48px-wide widget.
+                            ),
+                            suffixIcon: PopupMenuButton<String>(
+                              icon: const Icon(Icons.arrow_drop_down),
+                              onSelected: (String value) {
+                                menuOrderTypeController.text = value;
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return <String>[
+                                  'Fast Cleaning',
+                                  'Deep Cleaning',
+                                  'Unyellowing and Whitening',
+                                  'Leather Care'
+                                ].map<PopupMenuItem<String>>((String value) {
+                                  return new PopupMenuItem(
+                                      child: new Text(value), value: value);
+                                }).toList();
+                              },
+                            ),
+                          ),
+                        )),
+                      ],
                     ),
                   ),
                   Padding(
@@ -279,55 +365,133 @@ class AddOrderPageState extends State<AddOrderPage> {
                   Padding(
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: TextField(
-                      controller: orderPickupTimeController,
-                      style: TextStyle(fontSize: 18),
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText: 'Order Pickup Time',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
+                    child: new Row(
+                      children: <Widget>[
+                        new Expanded(
+                            child: new TextField(
+                          controller: orderPickupTimeController,
+                          readOnly: true,
+                          style: TextStyle(fontSize: 18),
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: 'Order Pickup Time',
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            prefixIcon: Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 12.0),
+                              child: Icon(Icons
+                                  .access_time), // myIcon is a 48px-wide widget.
+                            ),
+                            suffixIcon: PopupMenuButton<String>(
+                              icon: const Icon(Icons.arrow_drop_down),
+                              onSelected: (String value) {
+                                orderPickupTimeController.text = value;
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return <String>[
+                                  '10:00',
+                                  '13:00',
+                                  '17:00',
+                                  '20:00'
+                                ].map<PopupMenuItem<String>>((String value) {
+                                  return new PopupMenuItem(
+                                      child: new Text(value), value: value);
+                                }).toList();
+                              },
+                            ),
+                          ),
+                        )),
+                      ],
                     ),
                   ),
                   Padding(
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: TextField(
-                      controller: orderStatusController,
-                      style: TextStyle(fontSize: 18),
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText: 'Order Status',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
+                    child: new Row(
+                      children: <Widget>[
+                        new Expanded(
+                            child: new TextField(
+                          controller: orderStatusController,
+                          readOnly: true,
+                          style: TextStyle(fontSize: 18),
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: "Order Status",
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            suffixIcon: PopupMenuButton<String>(
+                              icon: const Icon(Icons.arrow_drop_down),
+                              onSelected: (String value) {
+                                orderStatusController.text = value;
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return <String>[
+                                  'New Order',
+                                  'Pick up',
+                                  'Progress',
+                                  'Deliver',
+                                  'Complete'
+                                ].map<PopupMenuItem<String>>((String value) {
+                                  return new PopupMenuItem(
+                                      child: new Text(value), value: value);
+                                }).toList();
+                              },
+                            ),
+                          ),
+                        )),
+                      ],
                     ),
                   ),
                   Padding(
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: TextField(
-                      controller: paymentIdController,
-                      style: TextStyle(fontSize: 18),
-                      keyboardType: TextInputType.text,
-                      decoration: InputDecoration(
-                        labelText: 'Payment',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
+                    child: new Row(
+                      children: <Widget>[
+                        new Expanded(
+                            child: new TextField(
+                          controller: paymentIdController,
+                          readOnly: true,
+                          style: TextStyle(fontSize: 18),
+                          keyboardType: TextInputType.text,
+                          decoration: InputDecoration(
+                            labelText: "Payment Type",
+                            enabledBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            focusedBorder: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(8),
+                                borderSide: BorderSide(color: Colors.grey)),
+                            prefixIcon: Padding(
+                              padding:
+                                  const EdgeInsetsDirectional.only(start: 12.0),
+                              child: Icon(Icons
+                                  .payment), // myIcon is a 48px-wide widget.
+                            ),
+                            suffixIcon: PopupMenuButton<String>(
+                              icon: const Icon(Icons.arrow_drop_down),
+                              onSelected: (String value) {
+                                paymentIdController.text = value;
+                              },
+                              itemBuilder: (BuildContext context) {
+                                return <String>['Cash', 'Gopay', 'OVO', 'DANA']
+                                    .map<PopupMenuItem<String>>((String value) {
+                                  return new PopupMenuItem(
+                                      child: new Text(value), value: value);
+                                }).toList();
+                              },
+                            ),
+                          ),
+                        )),
+                      ],
                     ),
                   ),
                   Align(

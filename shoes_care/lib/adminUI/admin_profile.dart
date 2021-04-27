@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/authentication_service.dart';
 import 'package:provider/provider.dart';
-import 'package:shoes_care/model/customer.dart';
+import 'package:shoes_care/model/admin.dart';
 
 class AdminProfilePage extends StatefulWidget {
   @override
@@ -18,7 +18,8 @@ class AdminProfilePageState extends State<AdminProfilePage> {
   final TextEditingController phoneNumController = TextEditingController();
   final TextEditingController addressController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  String customerId = "";
+  final TextEditingController positionController = TextEditingController();
+  String adminId = "";
   void _fetchUserData() async {
     // do something
     final FirebaseAuth auth = FirebaseAuth.instance;
@@ -26,19 +27,22 @@ class AdminProfilePageState extends State<AdminProfilePage> {
     // final uid = user.uid;
     final email = user.email;
     // here you write the codes to input the data into firestore
-    Customer myProfileData = Customer(
-        customerId: "",
-        customerName: "",
+    Admin myProfileData = Admin(
+        adminId: "",
+        adminName: "",
         email: email,
         password: "",
-        customerPhone: "",
-        customerAddress: "");
+        adminPhone: "",
+        adminAddress: "",
+        adminPosition: "");
     await myProfileData.syncDataByEmail(email);
-    customerId = myProfileData.getCustomerId;
-    nameController.text = myProfileData.getCustomerName;
+    adminId = myProfileData.getAdminId;
+    nameController.text = myProfileData.getAdminName;
     emailController.text = myProfileData.getEmail;
-    phoneNumController.text = myProfileData.getCustomerPhone;
-    addressController.text = myProfileData.getCustomerAddress;
+    phoneNumController.text = myProfileData.getAdminPhone;
+    addressController.text = myProfileData.getAdminAddress;
+    positionController.text = myProfileData.getAdminPosition;
+
   }
 
   @override
@@ -66,7 +70,7 @@ class AdminProfilePageState extends State<AdminProfilePage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 700, //MediaQuery.of(context).size.height,
+              height: 900, //MediaQuery.of(context).size.height,
               decoration: BoxDecoration(
                 color: Colors.white,
               ),
@@ -181,6 +185,24 @@ class AdminProfilePageState extends State<AdminProfilePage> {
                   ),
                   Padding(
                     padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: TextField(
+                      controller: positionController,
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(fontSize: 18),
+                      decoration: InputDecoration(
+                        labelText: 'Position',
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
                       controller: passwordController,
@@ -215,14 +237,15 @@ class AdminProfilePageState extends State<AdminProfilePage> {
                                 addressController.text +
                                 passwordController.text);
 
-                            Customer profileCust = Customer(
-                                customerId: customerId,
-                                customerName: nameController.text,
-                                customerAddress: addressController.text,
+                            Admin profileAdmin = Admin(
+                                adminId: adminId,
+                                adminName: nameController.text,
+                                adminAddress: addressController.text,
                                 email: emailController.text,
-                                customerPhone: phoneNumController.text,
-                                password: passwordController.text);
-                            profileCust.update;
+                                adminPhone: phoneNumController.text,
+                                password: passwordController.text,
+                                adminPosition: positionController.text);
+                            profileAdmin.update;
                             var snackBar =
                                 SnackBar(content: Text('Yay! It Success.'));
                             ScaffoldMessenger.of(context)

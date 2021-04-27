@@ -120,11 +120,12 @@ class Admin extends User {
     });
   }
 
-  void syncDataByEmail(String adminEmail) {
+  Future<void> syncDataByEmail(String adminEmail) async {
     //sync data w/ firebase and return all attribute data
+    print(adminEmail);
     CollectionReference collection =
         FirebaseFirestore.instance.collection('admin');
-    collection
+    await collection
         .where('admin_email', isEqualTo: adminEmail)
         .get()
         .then((QuerySnapshot querySnapshot) => {
@@ -138,6 +139,8 @@ class Admin extends User {
                 adminPosition = doc['admin_position'];
               })
             });
+    print(adminId);
+
   }
 
   bool get update {

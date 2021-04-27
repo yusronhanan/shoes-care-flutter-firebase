@@ -15,7 +15,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:shoes_care/authentication_service.dart';
 import 'package:shoes_care/customerUI/customer_navigation_view.dart';
 
-// import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -72,21 +72,123 @@ class MyApp extends StatelessWidget {
   }
 }
 
+Future<String> getRole() async {
+  // do something
+  FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
+  String email = _firebaseAuth.currentUser.email;
+
+  bool isAdmin = false;
+  CollectionReference admin = FirebaseFirestore.instance.collection('admin');
+  await admin
+      .where('admin_email', isEqualTo: email)
+      .get()
+      .then((QuerySnapshot querySnapshot) => {
+            if (querySnapshot.docs.length > 0)
+              {
+                // empty
+                isAdmin = true
+              }
+          });
+  if (!isAdmin) {
+    bool isCourier = false;
+    CollectionReference courier =
+        FirebaseFirestore.instance.collection('courier');
+    await courier
+        .where('courier_email', isEqualTo: email)
+        .get()
+        .then((QuerySnapshot querySnapshot) => {
+              if (querySnapshot.docs.length > 0)
+                {
+                  // empty
+                  isCourier = true
+                }
+            });
+    if (!isCourier) {
+      bool isCustomer = false;
+
+      CollectionReference customer =
+          FirebaseFirestore.instance.collection('customer');
+      await customer
+          .where('customer_email', isEqualTo: email)
+          .get()
+          .then((QuerySnapshot querySnapshot) => {
+                if (querySnapshot.docs.length > 0)
+                  {
+                    // empty
+                    isCustomer = true
+                  }
+              });
+
+      if (isCustomer) {
+        return 'customer';
+      } else {
+        return 'none';
+      }
+    } else {
+      return 'courier';
+    }
+  } else {
+    return 'admin';
+  }
+}
+
 class HomeController extends StatelessWidget {
   const HomeController({
     Key key,
   }) : super(key: key);
+  // @override
+// Widget build(BuildContext context) {
+//     final firebaseUser = context.watch<User>();
+//
+//     Widget nav = WelPage();
+//     if (firebaseUser != null) {
+//       // getRole()
+//       // .then((value)  {
+//       //   print("role:"+value);
+//       //   if(value == 'admin'){
+//       //     nav = AdminHome(index: 1);
+//       //   } else if(value == 'courier'){
+//       //     nav = CustomerHome(index:1);//CourierHome(index:1)
+//       //   } else if(value == 'customer'){
+//       //     nav = CustomerHome(index:1);
+//       //   }
+//       // });
+//       return nav;
+//       //temporary. it should return to hoempage BASED ON LOGIN INFO (ADMIN, COURIER, CUSTOMER)
+//       //change this to CustomerHome or AdminHome : soon CourierHome
+//     } else {
+//       //   //temporary. it should return warning
+//       return WelPage();
+//     }
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User>();
-
     if (firebaseUser != null) {
-      //temporary. it should return to hoempage BASED ON LOGIN INFO (ADMIN, COURIER, CUSTOMER)
-      //change this to CustomerHome or AdminHome : soon CourierHome
-      return AdminHome(index: 1);
-    } else {
-      //   //temporary. it should return warning
+
+    try {
+      return FutureBuilder(
+        future: getRole(),
+        builder: (BuildContext context, AsyncSnapshot<String> value) {
+            Widget nav = WelPage();
+            print("role:" + value.data);
+            if (value.data == 'admin') {
+              nav = AdminHome(index: 1);
+            } else if (value.data == 'courier') {
+              nav = CustomerHome(index: 1); //CourierHome(index:1)
+            } else if (value.data == 'customer') {
+              nav = CustomerHome(index: 1);
+            }
+            return nav;
+
+        },
+      );
+    }
+    catch(e) {
+      print('Future Builder -Nav:'+e);
       return WelPage();
     }
+    }
+    return WelPage();
+
   }
 }

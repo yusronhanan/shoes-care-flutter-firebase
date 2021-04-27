@@ -132,63 +132,64 @@ Future<String> getRole() async {
   }
 }
 
-class HomeController extends StatelessWidget {
-  const HomeController({
-    Key key,
-  }) : super(key: key);
-  // @override
-// Widget build(BuildContext context) {
-//     final firebaseUser = context.watch<User>();
-//
-//     Widget nav = WelPage();
-//     if (firebaseUser != null) {
-//       // getRole()
-//       // .then((value)  {
-//       //   print("role:"+value);
-//       //   if(value == 'admin'){
-//       //     nav = AdminHome(index: 1);
-//       //   } else if(value == 'courier'){
-//       //     nav = CustomerHome(index:1);//CourierHome(index:1)
-//       //   } else if(value == 'customer'){
-//       //     nav = CustomerHome(index:1);
-//       //   }
-//       // });
-//       return nav;
-//       //temporary. it should return to hoempage BASED ON LOGIN INFO (ADMIN, COURIER, CUSTOMER)
-//       //change this to CustomerHome or AdminHome : soon CourierHome
-//     } else {
-//       //   //temporary. it should return warning
-//       return WelPage();
-//     }
+class HomeController extends StatefulWidget {
+  @override
+  State<StatefulWidget> createState(){
+    return HomeControllerState();
+  }
+}
+
+class HomeControllerState extends State<HomeController> {
+  Future userRole;
+
+  @override
+  void initState(){
+    super.initState();
+    userRole = _getRole();
+  }
+
+  Future<String> _getRole() async {
+    return await getRole();
+  }
   @override
   Widget build(BuildContext context) {
     final firebaseUser = context.watch<User>();
-    if (firebaseUser != null) {
-
-    try {
-      return FutureBuilder(
-        future: getRole(),
-        builder: (BuildContext context, AsyncSnapshot<String> value) {
-            Widget nav = WelPage();
-            print("role:" + value.data);
-            if (value.data == 'admin') {
-              nav = AdminHome(index: 1);
-            } else if (value.data == 'courier') {
-              nav = CustomerHome(index: 1); //CourierHome(index:1)
-            } else if (value.data == 'customer') {
-              nav = CustomerHome(index: 1);
+    switch (firebaseUser) {
+      case null:
+        return WelPage();
+        break;
+      default:
+        return FutureBuilder(
+          future: _getRole(),
+          builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+            // Widget nav = WelPage();
+              if(snapshot.hasData){
+            print("role:" + snapshot.data);
+            switch (snapshot.connectionState) {
+              case ConnectionState.none:
+              case ConnectionState.active:
+              case ConnectionState.waiting:
+                print('in1');
+                return WelPage();
+                break;
+              case ConnectionState.done:
+                return (snapshot.data == 'admin' ? AdminHome(index: 1) : snapshot
+                    .data == 'courier' ? CustomerHome(index: 1) : snapshot
+                    .data == 'customer' ? CustomerHome(index: 1) : WelPage());
+                break;
+              default:
+                print('in2');
+                return WelPage();
             }
-            return nav;
+            } else{
+                return WelPage();
+              }
+                  // return nav;
 
-        },
-      );
+          },
+        );
     }
-    catch(e) {
-      print('Future Builder -Nav:'+e);
-      return WelPage();
-    }
-    }
-    return WelPage();
+    // return WelPage();
 
   }
 }

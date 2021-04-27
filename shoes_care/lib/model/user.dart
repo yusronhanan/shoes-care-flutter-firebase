@@ -31,7 +31,14 @@ class User {
     email = newEmail;
   }
 
-  void setPassword(String newPassword) {
-    password = newPassword;
+  Future<bool> setPassword(String newPassword) async {
+
+    if(password != "") {
+      await _firebaseAuth.currentUser.updatePassword(newPassword);
+      password = newPassword;
+      return true;
+    } else{
+      return false;
+    }
   }
 }

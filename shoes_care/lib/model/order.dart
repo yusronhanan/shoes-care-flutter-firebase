@@ -107,7 +107,6 @@ class Order {
   Future<bool> get insert async {
     //insert to firebase (create)
 
-    // if success create user with email and password: since email and password w/ collection data is in different configuration
     CollectionReference collection =
         FirebaseFirestore.instance.collection('order');
 

@@ -150,8 +150,11 @@ class Courier extends User {
       "courier_phone": courierPhone,
       "courier_address": courierAddress,
       "courier_NOPOL": courierNOPOL,
-      //TODO: need to update email and password in firebase authentication too
     }).then((value) {
+      // add this to update password in auth firebase
+      if(super.password != ""){
+        super.setPassword(super.password);
+      }
       print("Updated");
       return true;
     }).catchError((error) {

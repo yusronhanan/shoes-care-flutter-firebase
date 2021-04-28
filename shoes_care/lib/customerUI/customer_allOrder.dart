@@ -49,17 +49,23 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
     var showCompleteResults = [];
     var showNotCompleteResults = [];
     // if (_searchController.text != "") {
-    //   for (var ss in _allResults) {
-    //     // TODO: search by all attribute
-    //     var title = Order.fromSnapshot(ss).orderStatus.toLowerCase();
-    //
-    //     if (title.contains(_searchController.text.toLowerCase())) {
-    //       showResults.add(ss);
-    //     }
-    //   }
-    // } else {
-    showCompleteResults = List.from(_allComplete);
-    showNotCompleteResults = List.from(_allNotComplete);
+    for (var or in _allComplete) {
+      // TODO: search by all attribute
+      var status = Order
+          .fromSnapshot(or)
+          .orderStatus
+          .toLowerCase();
+
+      if (status.contains('complete')) {
+        showCompleteResults.add(or);
+      } else {
+        showNotCompleteResults.add(or);
+      }
+    }
+  // }
+    // else {
+    // showCompleteResults = List.from(_allComplete);
+    // showNotCompleteResults = List.from(_allNotComplete);
 
     // }
     setState(() {
@@ -80,8 +86,7 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
     var data = await FirebaseFirestore.instance
         .collection('order')
         // .where('order_status', isEqualTo: 'Complete')
-        // .where('customer_id', isEqualTo: email)
-        .orderBy('order_status')
+        .where('customer_id', isEqualTo: email)
         .get();
     setState(() {
       _allComplete = data.docs;
@@ -101,8 +106,7 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
     var data = await FirebaseFirestore.instance
         .collection('order')
         // .where('order_status', isNotEqualTo: 'Complete')
-        // .where('customer_id', isEqualTo: email)
-        .orderBy('order_status')
+        .where('customer_id', isEqualTo: email)
         .get();
     setState(() {
       _allNotComplete = data.docs;
@@ -146,10 +150,10 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
 
           ExpansionTile(
             title: Text('Active Order'),
-            initiallyExpanded: true,
+            initiallyExpanded: (_resultsListNotComplete.length == 0),
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height - 300,
+                // height: MediaQuery.of(context).size.height - 300,
                 child: ListView.builder(
                   itemCount: _resultsListNotComplete.length,
                   itemBuilder: (BuildContext context, int index) =>
@@ -163,7 +167,7 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
             title: Text('Complete order'),
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height - 300,
+                // height: MediaQuery.of(context).size.height - 300,
                 child: ListView.builder(
                   itemCount: _resultsListComplete.length,
                   itemBuilder: (BuildContext context, int index) =>

@@ -32,11 +32,16 @@ class EntryItem extends StatelessWidget {
   final Order entry;
   const EntryItem(this.entry);
   Widget _buildTiles(Order root) {
+
+    String textOrder = '#'+root.orderId +' - '+root.getMenuOrderType + ' - '+  DateFormat('dd/MM/yyyy')
+        .format(root.orderDateTime)
+        .toString();
+    if(root.orderStatus != 'Complete'){
+      textOrder +=' - '+root.orderStatus;
+    }
     // if (root.orderId.isEmpty) {
       return ListTile(
-        title: Text('#'+root.orderId +' - '+root.getMenuOrderType + ' - '+  DateFormat('dd/MM/yyyy')
-            .format(root.orderDateTime)
-            .toString()),
+        title: Text(textOrder),
 
 
       );

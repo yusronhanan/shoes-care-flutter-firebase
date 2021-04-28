@@ -39,7 +39,6 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
     super.didChangeDependencies();
     resultsCompleteLoaded = getDataStreamSnapshotsComplete();
     resultsNotCompleteLoaded = getDataStreamSnapshotsNotComplete();
-
   }
 
   _onSearchChanged() {
@@ -59,14 +58,13 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
     //     }
     //   }
     // } else {
-      showCompleteResults = List.from(_allComplete);
-      showNotCompleteResults = List.from(_allNotComplete);
+    showCompleteResults = List.from(_allComplete);
+    showNotCompleteResults = List.from(_allNotComplete);
 
     // }
     setState(() {
       _resultsListComplete = showCompleteResults;
       _resultsListNotComplete = showNotCompleteResults;
-
     });
   }
 
@@ -90,6 +88,7 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
     });
     return "complete";
   }
+
   getDataStreamSnapshotsNotComplete() async {
     // 'New Order',
     // 'Pick up',
@@ -115,32 +114,42 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
   }
 
   Widget build(BuildContext context) {
-    return Container(
-      height: 2000,
-      margin: EdgeInsets.only(top: 20.0),
-      child: Column(
+    return MaterialApp(
+        home: Scaffold(
+      appBar: AppBar(
+        // actions: [
+        //   Builder(
+        //     builder: (context) => IconButton(
+        //       icon: Icon(Icons.menu_rounded),
+        //       color: Colors.black,
+        //       onPressed: () => Scaffold.of(context).openEndDrawer(),
+        //     ),
+        //   ),
+        // ],
+        backgroundColor: Colors.white,
+        title: Text(
+          'My Order',
+          style: TextStyle(color: Colors.black, fontSize: 30),
+        ),
+      ),
+      endDrawer: Drawer(
+        child: ListView(),
+      ),
+      body:
+      SingleChildScrollView(
+        child: ConstrainedBox(
+          constraints: BoxConstraints(),
+          child:
+        Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
-          Text("Order Data", style: TextStyle(fontSize: 20)),
-          Padding(
-            padding:
-                const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),
-            // child: TextField(
-            //   controller: _searchController,
-            //   decoration: InputDecoration(
-            //       enabledBorder: UnderlineInputBorder(
-            //         borderSide: BorderSide(color: AppTheme.maroon),
-            //       ),
-            //       focusedBorder: UnderlineInputBorder(
-            //         borderSide: BorderSide(color: AppTheme.maroon),
-            //       ),
-            //       prefixIcon: Icon(Icons.search, color: AppTheme.maroon)),
-            // ),
-          ),
+
           ExpansionTile(
             title: Text('Active Order'),
+            initiallyExpanded: true,
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height-300,
+                height: MediaQuery.of(context).size.height - 300,
                 child: ListView.builder(
                   itemCount: _resultsListNotComplete.length,
                   itemBuilder: (BuildContext context, int index) =>
@@ -154,7 +163,7 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
             title: Text('Complete order'),
             children: [
               SizedBox(
-                height: MediaQuery.of(context).size.height-300,
+                height: MediaQuery.of(context).size.height - 300,
                 child: ListView.builder(
                   itemCount: _resultsListComplete.length,
                   itemBuilder: (BuildContext context, int index) =>
@@ -187,6 +196,8 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
           //     )),
         ],
       ),
-    );
+      ),
+        ),
+    ));
   }
 }

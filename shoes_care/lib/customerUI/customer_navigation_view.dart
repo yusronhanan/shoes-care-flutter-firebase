@@ -5,7 +5,7 @@ import 'package:shoes_care/adminUI/allOrder.dart';
 import 'package:shoes_care/customerUI/home.dart';
 // import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/customerUI/profile.dart';
-import 'package:shoes_care/customerUI/My_order.dart';
+import 'package:shoes_care/customerUI/customer_allOrder.dart';
 
 // ignore: must_be_immutable
 class CustomerHome extends StatefulWidget {
@@ -20,7 +20,7 @@ class CustomerHome extends StatefulWidget {
 class _CustomerHomeState extends State<CustomerHome> {
   int _currentIndex = 1;
   final List<Widget> _children = [
-    MyOrder(),
+    MyAllOrderPage(),
     // AllOrderPage(), //Should move to admin nav view
     CustomerHomePage(),
     ProfilePage(),

@@ -169,7 +169,6 @@ class HomeControllerState extends State<HomeController> {
               case ConnectionState.none:
               case ConnectionState.active:
               case ConnectionState.waiting:
-                print('in1');
                 return WelPage();
                 break;
               case ConnectionState.done:
@@ -178,7 +177,6 @@ class HomeControllerState extends State<HomeController> {
                     .data == 'customer' ? CustomerHome(index: 1) : WelPage());
                 break;
               default:
-                print('in2');
                 return WelPage();
             }
             } else{

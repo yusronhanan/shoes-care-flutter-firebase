@@ -12,7 +12,6 @@ class AddOrderPage extends StatefulWidget {
 }
 
 class AddOrderPageState extends State<AddOrderPage> {
-  // TODO: FIX INPUT
   final TextEditingController adminIdController = TextEditingController();
   final TextEditingController courierIdController = TextEditingController();
   final TextEditingController customerIdController = TextEditingController();

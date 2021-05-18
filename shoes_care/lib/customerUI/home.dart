@@ -1,6 +1,9 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/model/customer.dart';
+import 'package:shoes_care/model/order.dart';
 
 // import 'package:shoes_care/adminUI/allCourier.dart';
 // import 'package:shoes_care/app_theme.dart';
@@ -40,10 +43,7 @@ class CustomerHomePageState extends State<CustomerHomePage> {
   // final TextEditingController orderStatusController = TextEditingController();
   final TextEditingController orderDateTimeController = TextEditingController();
   DateTime orderDateTimeValue = DateTime.now();
-  //TODO change it in edit form, refer to firestore value
-  // String paymentIdController = 'Cash'; //INITIAL DEFAULT
-  // final TextEditingController paymentIdController = TextEditingController();
-
+  String orderStatus = "New Order";
   setEmpty() {
     // adminIdController.clear();
     // courierIdController.clear();
@@ -77,9 +77,37 @@ class CustomerHomePageState extends State<CustomerHomePage> {
       });
   }
 
+  String customerId = "";
+  String orderId = "";
+  String adminId = "";
+  String courierId = "";
+  String paymentId = "";
+  void _fetchUserData() async {
+    // do something
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User user = auth.currentUser;
+    // final uid = user.uid;
+    final email = user.email;
+    // here you write the codes to input the data into firestore
+    Customer myProfileData = Customer(
+        customerId: "",
+        customerName: "",
+        email: email,
+        password: "",
+        customerPhone: "",
+        customerAddress: "");
+    await myProfileData.syncDataByEmail(email);
+    customerId = myProfileData.getEmail;
+    // nameController.text = myProfileData.getCustomerName;
+    // emailController.text = myProfileData.getEmail;
+    // phoneNumController.text = myProfileData.getCustomerPhone;
+    // addressController.text = myProfileData.getCustomerAddress;
+  }
 
   @override
   Widget build(BuildContext context) {
+    _fetchUserData();
+
     return Scaffold(
       body: Column(
         children: [
@@ -304,7 +332,35 @@ class CustomerHomePageState extends State<CustomerHomePage> {
                           child: IconButton(
                             color: Colors.white,
                             onPressed: () {
-
+                              final newOrder = Order(
+                                  orderId: orderId,
+                                  adminId: adminId,
+                                  courierId: courierId,
+                                  customerId: customerId,
+                                  menuOrderType: menuOrderTypeController.text,
+                                  orderAddress: orderAddressController.text,
+                                  orderDateTime: orderDateTimeValue,
+                                  orderPickupTime: orderPickupTimeController.text,
+                                  orderStatus: orderStatus,
+                                  paymentId: paymentId);
+                              newOrder.insert.then((value) {
+                                print("Add snackbar/notif success: $value");
+                                // ignore: deprecated_member_use
+                                var snackBar =
+                                SnackBar(content: Text('Yay! It Success.'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                                setEmpty();
+                              }).catchError((error) {
+                                //snackbar fail
+                                print("Add snackbar/notif fail: $error");
+                                // ignore: deprecated_member_use
+                                var snackBar = SnackBar(
+                                    content:
+                                    Text('Oh sorry. It fail, try again !'));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              });
                             },
                             icon: Icon(Icons.add),
                           ),

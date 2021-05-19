@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/courierUI/courier_deliverOrder.dart';
 
 // import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/courierUI/profile.dart';
@@ -19,7 +20,7 @@ class CourierHome extends StatefulWidget {
 class _CourierHomeState extends State<CourierHome> {
   int _currentIndex = 1;
   final List<Widget> _children = [
-    // DeliverOrderPage(),
+    DeliverOrderPage(),
     PickupOrderPage(),
     ProfilePage(),
   ];
@@ -47,13 +48,13 @@ class _CourierHomeState extends State<CourierHome> {
           currentIndex: _currentIndex,
           unselectedItemColor: Colors.white,
           items: [
-            // BottomNavigationBarItem(
-            //   icon:
-            //       new Icon(Icons.motorcycle_rounded), //, color: Colors.white
-            //   // ignore: deprecated_member_use
-            //   title: new Text(
-            //       "Deliver Order"), //,style: TextStyle(color: Colors.white,)
-            // ),
+            BottomNavigationBarItem(
+              icon:
+                  new Icon(Icons.motorcycle_rounded), //, color: Colors.white
+              // ignore: deprecated_member_use
+              title: new Text(
+                  "Deliver Order"), //,style: TextStyle(color: Colors.white,)
+            ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
               // ignore: deprecated_member_use

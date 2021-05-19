@@ -92,7 +92,7 @@ class _AdminHomeState extends State<AdminHome> {
               icon: new Icon(Icons.person), //, color: Colors.white
               // ignore: deprecated_member_use
               title:
-                  new Text("Profile"), //,style: TextStyle(color: Colors.white,)
+                  new Text("My Profile"), //,style: TextStyle(color: Colors.white,)
             ),
           ]),
     );

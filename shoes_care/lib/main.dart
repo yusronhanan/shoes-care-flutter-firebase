@@ -5,6 +5,7 @@ import 'package:shoes_care/adminUI/addOrder.dart';
 import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
 import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/courierUI/courier_navigation_view.dart';
 // import 'package:shoes_care/customerUI/profile.dart';
 import 'package:shoes_care/welcome.dart';
 // import 'package:shoes_care/customerUI/home.dart';
@@ -173,7 +174,7 @@ class HomeControllerState extends State<HomeController> {
                 break;
               case ConnectionState.done:
                 return (snapshot.data == 'admin' ? AdminHome(index: 1) : snapshot
-                    .data == 'courier' ? CustomerHome(index: 1) : snapshot
+                    .data == 'courier' ? CourierHome(index: 1) : snapshot
                     .data == 'customer' ? CustomerHome(index: 1) : WelPage());
                 break;
               default:

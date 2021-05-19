@@ -1,27 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 
-import 'package:shoes_care/customerUI/home.dart';
 // import 'package:shoes_care/app_theme.dart';
-import 'package:shoes_care/customerUI/profile.dart';
-import 'package:shoes_care/customerUI/customer_allOrder.dart';
+import 'package:shoes_care/courierUI/profile.dart';
+import 'package:shoes_care/courierUI/courier_pickupOrder.dart';
+// import 'package:shoes_care/courierUI/courier_deliverOrder.dart';
 
 // ignore: must_be_immutable
-class CustomerHome extends StatefulWidget {
+class CourierHome extends StatefulWidget {
   int index;
-  CustomerHome({this.index});
+  CourierHome({this.index});
   @override
   State<StatefulWidget> createState() {
-    return _CustomerHomeState();
+    return _CourierHomeState();
   }
 }
 
-class _CustomerHomeState extends State<CustomerHome> {
+class _CourierHomeState extends State<CourierHome> {
   int _currentIndex = 1;
   final List<Widget> _children = [
-    MyAllOrderPage(),
-    // AllOrderPage(), //Should move to admin nav view
-    CustomerHomePage(),
+    // DeliverOrderPage(),
+    PickupOrderPage(),
     ProfilePage(),
   ];
 
@@ -39,18 +38,6 @@ class _CustomerHomeState extends State<CustomerHome> {
       appBar: AppBar(
         backgroundColor: Colors.black, foregroundColor: AppTheme.maroon,
         toolbarHeight: 10,
-        // title: Text("Travel Budget App"),
-        // actions: <Widget>[
-        //   IconButton(
-        //     icon: Icon(Icons.add),
-        //     onPressed: () {
-        //       Navigator.push(
-        //           context,
-        //           MaterialPageRoute(builder: (context) => NewTripLocationView(trip: newTrip,)),
-        //       );
-        //     },
-        //   ),
-        // ],
       ),
       body: _children[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
@@ -60,24 +47,17 @@ class _CustomerHomeState extends State<CustomerHome> {
           currentIndex: _currentIndex,
           unselectedItemColor: Colors.white,
           items: [
-            BottomNavigationBarItem(
-              icon:
-                  new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
-              // ignore: deprecated_member_use
-              title: new Text(
-                  "My Order"), //,style: TextStyle(color: Colors.white,)
-            ),
             // BottomNavigationBarItem(
             //   icon:
-            //       new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
+            //       new Icon(Icons.motorcycle_rounded), //, color: Colors.white
             //   // ignore: deprecated_member_use
             //   title: new Text(
-            //       "All Order"), //,style: TextStyle(color: Colors.white,)
+            //       "Deliver Order"), //,style: TextStyle(color: Colors.white,)
             // ),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.home), //, color: Colors.white
+              icon: new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
               // ignore: deprecated_member_use
-              title: new Text("Home"), //,style: TextStyle(color: Colors.white,)
+              title: new Text("Pickup Order"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.person), //, color: Colors.white

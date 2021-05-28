@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
+import 'package:shoes_care/courierUI/courier_navigation_view.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/model/customer.dart';
 
@@ -105,7 +106,27 @@ class EntryItem extends StatelessWidget {
                                           width: 320.0,
 
                                           child: ElevatedButton(
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              final currentOrder = Order(
+                                                  orderId: root.getOrderId,
+                                                  adminId: root.getAdminId,
+                                                  courierId: root.getCourierId,
+                                                  customerId: root.getCustomerId,
+                                                  menuOrderType: root.getMenuOrderType,
+                                                  orderAddress: root.getOrderAddress,
+                                                  orderDateTime: root.getOrderDateTime,
+                                                  orderPickupTime: root.getOrderPickupTime,
+                                                  orderStatus: 'Pick up',
+                                                  paymentId: '');
+                                              currentOrder.update;
+                                              Navigator.push(
+                                                  context,
+                                                  MaterialPageRoute(
+                                                      builder: (context) => CourierHome(index: 1)));
+                                              var snackBar =
+                                              SnackBar(content: Text('Yay! It Success.'));
+                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                            },
                                             child: Text(
                                               "Yes",
                                               style: TextStyle(color: AppTheme.white),

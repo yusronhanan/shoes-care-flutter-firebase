@@ -283,7 +283,8 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                               //TODO: TAKE CARE OF IT
                               orderDateTime: new DateTime.now(),
                               orderPickupTime: orderPickupTimeController.text,
-                              orderStatus: orderStatusController.text);
+                              orderStatus: orderStatusController.text,
+                              paymentId: "");
                           newOrder.update;
                           print("Add snackbar/notif success: true");
                           Navigator.push(

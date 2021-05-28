@@ -51,13 +51,15 @@ class EntryItem extends StatelessWidget {
 
 
     _buildTiles(context, Order root, customerName) {
-
+      TextEditingController paymentIdController = TextEditingController();
+      paymentIdController.text = 'Cash';
       if (customerName == ""){
         customerName = root.getCustomerId;
       }
+
     String textOrder = '#'+root.orderId + ' \n'
         +root.getOrderStatus +' on '+  DateFormat('dd/MM/yyyy')
-        .format(root.orderDateTime).toString() +' around '+ root.getOrderPickupTime +' \n'
+        .format(root.getOrderDateTime).toString() +' around '+ root.getOrderPickupTime +' \n'
         +customerName +' - '+root.getMenuOrderType + '\n'
         +root.getOrderAddress
         ;
@@ -85,7 +87,7 @@ class EntryItem extends StatelessWidget {
                                     borderRadius:
                                     BorderRadius.circular(20.0)), //this right here
                                 child: Container(
-                                  height: 200,
+                                  height: 300,
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
@@ -98,10 +100,53 @@ class EntryItem extends StatelessWidget {
                                         //       hintText: 'What do you want to remember?'),
                                         // ),
                                         Center(
-                                        child:Text("Are you sure you want to change the status into Progress?",
+                                        child:Text("Are you sure you want to change the status into Complete?",
                                         style: TextStyle(fontSize: 17),
                                           textAlign: TextAlign.center,
                                         )),
+                                        Padding(
+                                          padding:
+                                          EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                                          child: new Row(
+                                            children: <Widget>[
+                                              new Expanded(
+                                                  child: new TextField(
+                                                    controller: paymentIdController,
+                                                    readOnly: true,
+                                                    style: TextStyle(fontSize: 16),
+                                                    keyboardType: TextInputType.text,
+                                                    decoration: InputDecoration(
+                                                      labelText: "Payment Type",
+                                                      enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(color: Colors.grey)),
+                                                      focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(color: Colors.grey)),
+                                                      prefixIcon: Padding(
+                                                        padding:
+                                                        const EdgeInsetsDirectional.only(start: 12.0),
+                                                        child: Icon(Icons
+                                                            .payment), // myIcon is a 48px-wide widget.
+                                                      ),
+                                                      suffixIcon: PopupMenuButton<String>(
+                                                        icon: const Icon(Icons.arrow_drop_down),
+                                                        onSelected: (String value) {
+                                                          paymentIdController.text = value;
+                                                        },
+                                                        itemBuilder: (BuildContext context) {
+                                                          return <String>['Cash', 'Gopay', 'OVO', 'DANA']
+                                                              .map<PopupMenuItem<String>>((String value) {
+                                                            return new PopupMenuItem(
+                                                                child: new Text(value), value: value);
+                                                          }).toList();
+                                                        },
+                                                      ),
+                                                    ),
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
                                         SizedBox(
                                           width: 320.0,
 
@@ -116,19 +161,20 @@ class EntryItem extends StatelessWidget {
                                                   orderAddress: root.getOrderAddress,
                                                   orderDateTime: root.getOrderDateTime,
                                                   orderPickupTime: root.getOrderPickupTime,
-                                                  orderStatus: 'Progress',
-                                                  paymentId: "");
+                                                  orderStatus: 'Complete',
+                                                  paymentId: paymentIdController.text);
                                               currentOrder.update;
+                                              paymentIdController.text = 'Cash'; //default to cash
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
-                                                      builder: (context) => CourierHome(index: 1)));
+                                                      builder: (context) => CourierHome(index: 0)));
                                               var snackBar =
                                               SnackBar(content: Text('Yay! It Success.'));
                                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                             },
                                             child: Text(
-                                              "Yes",
+                                              "Update",
                                               style: TextStyle(color: AppTheme.white),
                                             ),
                                             style: ElevatedButton.styleFrom(
@@ -146,7 +192,7 @@ class EntryItem extends StatelessWidget {
                                               Navigator.pop(context);
                                             },
                                             child: Text(
-                                              "No",
+                                              "Cancel",
                                               style: TextStyle(color: AppTheme.maroon),
                                             ),
                                             style: ElevatedButton.styleFrom(
@@ -210,7 +256,7 @@ class EntryItem extends StatelessWidget {
 }
 
 
-Widget buildPickupOrderCard(BuildContext context, DocumentSnapshot document) {
+Widget buildDeliverOrderCard(BuildContext context, DocumentSnapshot document) {
   final Order order = Order.fromSnapshot(document);
 
   return EntryItem(order);

@@ -134,7 +134,7 @@ class _PickupOrderState extends State<PickupOrderPage> {
             // ],
             backgroundColor: Colors.white,
             title: Text(
-              'My Order',
+              'Pick up Order',
               style: TextStyle(color: Colors.black, fontSize: 30),
             ),
           ),

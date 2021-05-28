@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/courierUI/complete_order_card.dart';
+import 'package:shoes_care/courierUI/deliver_order_card.dart';
 import 'package:shoes_care/model/order.dart';
-import 'package:shoes_care/customerUI/customer_order_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class DeliverOrderPage extends StatefulWidget {
@@ -132,7 +133,7 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
             // ],
             backgroundColor: Colors.white,
             title: Text(
-              'My Order',
+              'Deliver Order',
               style: TextStyle(color: Colors.black, fontSize: 30),
             ),
           ),
@@ -157,7 +158,7 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
                         child: ListView.builder(
                           itemCount: _resultsListNotComplete.length,
                           itemBuilder: (BuildContext context, int index) =>
-                              buildOrderCard(context, _resultsListNotComplete[index]),
+                              buildDeliverOrderCard(context, _resultsListNotComplete[index]),
                           shrinkWrap: true,
                         ),
                       )
@@ -171,7 +172,7 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
                         child: ListView.builder(
                           itemCount: _resultsListComplete.length,
                           itemBuilder: (BuildContext context, int index) =>
-                              buildOrderCard(context, _resultsListComplete[index]),
+                              buildCompleteOrderCard(context, _resultsListComplete[index]),
                           shrinkWrap: true,
                         ),
                       )

@@ -49,7 +49,7 @@ class EntryItem extends StatelessWidget {
 
 
 
-    _buildTiles(Order root, customerName) {
+    _buildTiles(context, Order root, customerName) {
 
       if (customerName == ""){
         customerName = root.getCustomerId;
@@ -75,7 +75,71 @@ class EntryItem extends StatelessWidget {
                   children: <Widget>[
                     TextButton(
                       child: Text("Pick Up"),
-                      onPressed: () {},
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(20.0)), //this right here
+                                child: Container(
+                                  height: 200,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        // TextField(
+                                        //   decoration: InputDecoration(
+                                        //       border: InputBorder.none,
+                                        //       hintText: 'What do you want to remember?'),
+                                        // ),
+                                        Center(
+                                        child:Text("Are you sure you want to change the status into Progress?",
+                                        style: TextStyle(fontSize: 17),
+                                          textAlign: TextAlign.center,
+                                        )),
+                                        SizedBox(
+                                          width: 320.0,
+
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            child: Text(
+                                              "Yes",
+                                              style: TextStyle(color: AppTheme.white),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                                primary: AppTheme.maroon,
+                                                textStyle: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold)),
+                                          ),
+                                          ),
+                                        SizedBox(
+                                          width: 320.0,
+
+                                          child: ElevatedButton(
+                                            onPressed: () {},
+                                            child: Text(
+                                              "No",
+                                              style: TextStyle(color: AppTheme.maroon),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                                primary: AppTheme.white,
+                                                textStyle: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            });
+                      },
                     ),
                   ],
                 ))
@@ -105,16 +169,16 @@ class EntryItem extends StatelessWidget {
             case ConnectionState.none:
             case ConnectionState.active:
             case ConnectionState.waiting:
-              return _buildTiles(entry, "");
+              return _buildTiles(context, entry, "");
             break;
             case ConnectionState.done:
-              return _buildTiles(entry, snapshot.data);
+              return _buildTiles(context, entry, snapshot.data);
               break;
             default:
-              return _buildTiles(entry, snapshot.data);
+              return _buildTiles(context, entry, snapshot.data);
           }
         } else{
-          return _buildTiles(entry, "");
+          return _buildTiles(context, entry, "");
         }
 
       },

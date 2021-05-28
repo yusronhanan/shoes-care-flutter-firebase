@@ -33,7 +33,7 @@ class EntryItem extends StatelessWidget {
   const EntryItem(this.entry);
   Widget _buildTiles(Order root) {
 
-    String textOrder = '#'+root.orderId +' - '+root.getMenuOrderType + ' - '+  DateFormat('dd/MM/yyyy')
+    String textOrder = '#'+root.orderId +' \n '+root.getMenuOrderType + ' - '+  DateFormat('dd/MM/yyyy')
         .format(root.orderDateTime)
         .toString();
     if(root.orderStatus != 'Complete'){

@@ -2,7 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/order.dart';
-import 'package:shoes_care/customerUI/customer_order_card.dart';
+import 'package:shoes_care/courierUI/pickup_order_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class PickupOrderPage extends StatefulWidget {

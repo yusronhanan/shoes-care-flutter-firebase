@@ -5,6 +5,8 @@ import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/courierUI/pickup_order_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
+import 'neworder_order_card.dart';
+
 class PickupOrderPage extends StatefulWidget {
   @override
   _PickupOrderState createState() => _PickupOrderState();
@@ -56,9 +58,9 @@ class _PickupOrderState extends State<PickupOrderPage> {
           .orderStatus
           .toLowerCase();
 
-      if (status.contains('pick up')) {
-      //   showCompleteResults.add(or);
-      // } else {
+      if (status.contains('new order')) {
+        showCompleteResults.add(or);
+      } else if (status.contains('pick up')) {
         showNotCompleteResults.add(or);
       }
     }
@@ -149,7 +151,7 @@ class _PickupOrderState extends State<PickupOrderPage> {
                 children: <Widget>[
 
                   ExpansionTile(
-                    title: Text('Active Order'),
+                    title: Text('Pick up Order'),
                     initiallyExpanded: (_resultsListNotComplete.length == 0),
                     children: [
                       SizedBox(
@@ -157,7 +159,22 @@ class _PickupOrderState extends State<PickupOrderPage> {
                         child: ListView.builder(
                           itemCount: _resultsListNotComplete.length,
                           itemBuilder: (BuildContext context, int index) =>
-                              buildOrderCard(context, _resultsListNotComplete[index]),
+                              buildPickupOrderCard(context, _resultsListNotComplete[index]),
+                          shrinkWrap: true,
+                        ),
+                      )
+                    ],
+                  ),
+                  ExpansionTile(
+                    title: Text('New Order'),
+                    initiallyExpanded: (_resultsListComplete.length == 0),
+                    children: [
+                      SizedBox(
+                        // height: MediaQuery.of(context).size.height - 300,
+                        child: ListView.builder(
+                          itemCount: _resultsListComplete.length,
+                          itemBuilder: (BuildContext context, int index) =>
+                              buildNewOrderCard(context, _resultsListComplete[index]),
                           shrinkWrap: true,
                         ),
                       )

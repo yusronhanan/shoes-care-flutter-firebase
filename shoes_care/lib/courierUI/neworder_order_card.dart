@@ -55,8 +55,8 @@ class EntryItem extends StatelessWidget {
         customerName = root.getCustomerId;
       }
     String textOrder = '#'+root.orderId + ' \n'
-        +root.getOrderStatus +' on '+  DateFormat('dd/MM/yyyy')
-        .format(root.orderDateTime).toString() +' around '+ root.getOrderPickupTime +' \n'
+        +root.getOrderStatus +'. Pick up on '+  DateFormat('dd/MM/yyyy')
+        .format(root.getOrderDateTime).toString() +' around '+ root.getOrderPickupTime +' \n'
         +customerName +' - '+root.getMenuOrderType + '\n'
         +root.getOrderAddress
         ;
@@ -74,7 +74,7 @@ class EntryItem extends StatelessWidget {
                   // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: <Widget>[
                     TextButton(
-                      child: Text("Done"),
+                      child: Text("Pick up"),
                       onPressed: () {
                         showDialog(
                             context: context,
@@ -97,7 +97,7 @@ class EntryItem extends StatelessWidget {
                                         //       hintText: 'What do you want to remember?'),
                                         // ),
                                         Center(
-                                        child:Text("Are you sure you want to change the status into Progress?",
+                                        child:Text("Are you sure you want to change the status into Pick up?",
                                         style: TextStyle(fontSize: 17),
                                           textAlign: TextAlign.center,
                                         )),
@@ -189,7 +189,7 @@ class EntryItem extends StatelessWidget {
 }
 
 
-Widget buildPickupOrderCard(BuildContext context, DocumentSnapshot document) {
+Widget buildNewOrderCard(BuildContext context, DocumentSnapshot document) {
   final Order order = Order.fromSnapshot(document);
 
   return EntryItem(order);

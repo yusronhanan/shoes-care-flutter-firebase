@@ -3,12 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 // import 'package:google_fonts/google_fonts.dart';
 // import 'package:intl/intl.dart';
-import 'package:shoes_care/model/courier.dart';
-import 'package:shoes_care/adminUI/detail_courier.dart';
+import 'package:shoes_care/model/customer.dart';
+import 'package:shoes_care/adminUI/detail_customer.dart';
 
-Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
+Widget buildCustomerCard(BuildContext context, DocumentSnapshot document) {
   // TODO: FIX JOIN AND DISPLAY CARD DESIGN
-  final courier = Courier.fromSnapshot(document);
+  final customer = Customer.fromSnapshot(document);
 
   return new Container(
     child: Card(
@@ -18,13 +18,11 @@ Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
           child: Column(
             children: <Widget>[
               ListTile(
-                title: Text(courier.getCourierName
-                    +'\n'+ courier.getEmail
-                    +'\n' + courier.getCourierPhone),
+                title: Text(customer.getCustomerName
+                    +'\n'+ customer.getEmail
+                    +'\n' + customer.getCustomerPhone),
                 subtitle: Text(
-                      courier.getCourierNOPOL +
-                      '\n' +
-                      courier.getCourierAddress,
+                  customer.getCustomerAddress,
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
               ),
@@ -39,7 +37,7 @@ Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
                         context,
                         MaterialPageRoute(
                             builder: (context) =>
-                                DetailCourierView(courier: courier)),
+                                DetailCustomerView(customer: customer)),
                       );
                     },
                     child: const Text('Edit'),
@@ -53,7 +51,7 @@ Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
         //   Navigator.push(
         //     context,
         //     MaterialPageRoute(
-        //         builder: (context) => DetailCourierView(courier: courier)),
+        //         builder: (context) => DetailCustomerView(customer: customer)),
         //   );
         // },
       ),

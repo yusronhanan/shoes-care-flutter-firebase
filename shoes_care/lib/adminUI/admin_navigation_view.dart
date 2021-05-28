@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_care/adminUI/allCustomer.dart';
 import 'package:shoes_care/adminUI/allOrder.dart';
 import 'package:shoes_care/app_theme.dart';
 
@@ -22,8 +23,8 @@ class _AdminHomeState extends State<AdminHome> {
   final List<Widget> _children = [
     AllCourierPage(), //MyOrderPage()
     AllOrderPage(),
-    //TODO: AllCustomerPage(),
     AdminHomePage(),
+    AllCustomerPage(),
     AdminProfilePage(),
   ];
 
@@ -76,17 +77,16 @@ class _AdminHomeState extends State<AdminHome> {
               title:
                   new Text("Order"), //,style: TextStyle(color: Colors.white,)
             ),
-            // TODO: add AllCustomer()
-            // BottomNavigationBarItem(
-            //   icon: new Icon(Icons.person_add), //, color: Colors.white
-            //   // ignore: deprecated_member_use
-            //   title: new Text(
-            //       "Customer"), //,style: TextStyle(color: Colors.white,)
-            // ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.home), //, color: Colors.white
               // ignore: deprecated_member_use
               title: new Text("Home"), //,style: TextStyle(color: Colors.white,)
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(Icons.group), //, color: Colors.white
+              // ignore: deprecated_member_use
+              title: new Text(
+                  "Customer"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.person), //, color: Colors.white

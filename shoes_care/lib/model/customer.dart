@@ -165,4 +165,20 @@ class Customer extends User {
     });
     return false;
   }
+
+  // creating a Trip object from a firebase snapshot
+  Customer.fromSnapshot(DocumentSnapshot snapshot) {
+    customerId = snapshot.id;
+    customerAddress = snapshot["customer_address"];
+    super.setEmail(snapshot["customer_email"]);
+    customerName = snapshot["customer_name"];
+    customerPhone = snapshot["customer_phone"];
+  }
+  // formatting for upload to Firbase when creating the trip
+  Map<String, dynamic> toJson() => {
+    "customer_name": customerName,
+    "customer_email": super.getEmail,
+    "customer_phone": customerPhone,
+    "customer_address": customerAddress,
+  };
 }

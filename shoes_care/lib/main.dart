@@ -173,7 +173,7 @@ class HomeControllerState extends State<HomeController> {
                 return WelPage();
                 break;
               case ConnectionState.done:
-                return (snapshot.data == 'admin' ? AdminHome(index: 1) : snapshot
+                return (snapshot.data == 'admin' ? AdminHome(index: 2) : snapshot
                     .data == 'courier' ? CourierHome(index: 1) : snapshot
                     .data == 'customer' ? CustomerHome(index: 1) : WelPage());
                 break;

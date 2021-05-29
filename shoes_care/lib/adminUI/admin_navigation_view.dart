@@ -22,9 +22,9 @@ class _AdminHomeState extends State<AdminHome> {
   int _currentIndex = 2;
   final List<Widget> _children = [
     AllCourierPage(), //MyOrderPage()
-    AllOrderPage(),
-    AdminHomePage(),
     AllCustomerPage(),
+    AllOrderPage(),
+    AdminHomePage(), //TODO REPLACE TO SETTING
     AdminProfilePage(),
   ];
 
@@ -71,6 +71,12 @@ class _AdminHomeState extends State<AdminHome> {
                   new Text("Courier"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
+              icon: new Icon(Icons.group), //, color: Colors.white
+              // ignore: deprecated_member_use
+              title: new Text(
+                  "Customer"), //,style: TextStyle(color: Colors.white,)
+            ),
+            BottomNavigationBarItem(
               icon:
                   new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
               // ignore: deprecated_member_use
@@ -81,12 +87,6 @@ class _AdminHomeState extends State<AdminHome> {
               icon: new Icon(Icons.home), //, color: Colors.white
               // ignore: deprecated_member_use
               title: new Text("Home"), //,style: TextStyle(color: Colors.white,)
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.group), //, color: Colors.white
-              // ignore: deprecated_member_use
-              title: new Text(
-                  "Customer"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.person), //, color: Colors.white

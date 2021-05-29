@@ -226,7 +226,7 @@ class _DetailCustomerViewState extends State<DetailCustomerView> {
                           Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => AdminHome(index: 3)));
+                                  builder: (context) => AdminHome(index: 1)));
                           var snackBar =
                               SnackBar(content: Text('Yay! It Success.'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -510,7 +510,7 @@ class _DetailCustomerViewState extends State<DetailCustomerView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AdminHome(index: 3)));
+                                builder: (context) => AdminHome(index: 1)));
                       },
                     )
                   ],

@@ -14,7 +14,7 @@ Widget buildCourierCard(BuildContext context, DocumentSnapshot document) {
     child: Card(
       child: InkWell(
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.only(left: 16.0, right: 16.0),
           child: Column(
             children: <Widget>[
               ListTile(

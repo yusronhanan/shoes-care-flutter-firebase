@@ -7,6 +7,7 @@ import 'package:shoes_care/adminUI/admin_home.dart';
 // import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/adminUI/admin_profile.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
+import 'package:shoes_care/adminUI/admin_setting.dart';
 
 // ignore: must_be_immutable
 class AdminHome extends StatefulWidget {
@@ -24,7 +25,7 @@ class _AdminHomeState extends State<AdminHome> {
     AllCourierPage(), //MyOrderPage()
     AllCustomerPage(),
     AllOrderPage(),
-    AdminHomePage(), //TODO REPLACE TO SETTING
+    AdminSettingPage(), //TODO REPLACE TO SETTING
     AdminProfilePage(),
   ];
 
@@ -84,9 +85,9 @@ class _AdminHomeState extends State<AdminHome> {
                   new Text("Order"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.home), //, color: Colors.white
+              icon: new Icon(Icons.settings), //, color: Colors.white
               // ignore: deprecated_member_use
-              title: new Text("Home"), //,style: TextStyle(color: Colors.white,)
+              title: new Text("Setting"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.person), //, color: Colors.white

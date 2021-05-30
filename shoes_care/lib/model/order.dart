@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class Order {
   Order(
@@ -22,6 +23,8 @@ class Order {
   String orderPickupTime;
   DateTime orderDateTime;
   String orderStatus;
+  var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  Random _rnd = Random();
 
   String get getOrderId {
     return orderId;
@@ -103,14 +106,18 @@ class Order {
     orderStatus = newOrderStatus;
   }
 
+  String getRandomString(int length)  {
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  }
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
 
     CollectionReference collection =
         FirebaseFirestore.instance.collection('order');
-
-    collection.add({
+    String customId = getRandomString(6);
+    collection.doc(customId).set({
       "admin_id": adminId,
       "courier_id": courierId,
       "customer_id": customerId,
@@ -121,8 +128,7 @@ class Order {
       "order_status": orderStatus,
       "payment_id": paymentId,
     }).then((value) {
-      orderId = value.id;
-      print("$value Added");
+      orderId = customId;
       return true;
     }).catchError((error) {
       print("Failed to add order: $error");
@@ -131,6 +137,8 @@ class Order {
 
     return false;
   }
+
+
 
   set syncData(String orderId) {
     //sync data w/ firebase and return all attribute data

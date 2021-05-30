@@ -1,5 +1,6 @@
 import 'package:shoes_care/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class Courier extends User {
   Courier(
@@ -18,6 +19,8 @@ class Courier extends User {
   String courierPhone;
   String courierAddress;
   String courierNOPOL;
+  var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  Random _rnd = Random();
 
   String get getCourierId {
     return courierId;
@@ -74,7 +77,10 @@ class Courier extends User {
   set setCourierNOPOL(String newCourierNOPOL) {
     courierNOPOL = newCourierNOPOL;
   }
-
+  String getRandomString(int length)  {
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  }
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
@@ -84,16 +90,16 @@ class Courier extends User {
       // if success create user with email and password: since email and password w/ collection data is in different configuration
       CollectionReference collection =
           FirebaseFirestore.instance.collection('courier');
+      String customId = getRandomString(6);
 
-      collection.add({
+      collection.doc(customId).set({
         "courier_NOPOL": courierNOPOL,
         "courier_address": courierAddress,
         "courier_email": super.email,
         "courier_name": courierName,
         "courier_phone": courierPhone,
       }).then((value) {
-        courierId = value.id;
-        print("$value Added");
+        courierId = customId;
         return true;
       }).catchError((error) {
         print("Failed to add user: $error");

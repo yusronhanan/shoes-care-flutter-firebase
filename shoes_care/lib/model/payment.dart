@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class Payment {
   Payment({this.paymentId, this.paymentName});
   String paymentId;
   String paymentName;
+
+  var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  Random _rnd = Random();
 
   String get getPaymentId {
     return paymentId;
@@ -20,7 +24,10 @@ class Payment {
   set setPaymentName(String newPaymentName) {
     paymentName = newPaymentName;
   }
-
+  String getRandomString(int length)  {
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  }
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
@@ -28,12 +35,12 @@ class Payment {
     // if success create user with email and password: since email and password w/ collection data is in different configuration
     CollectionReference collection =
         FirebaseFirestore.instance.collection('payment');
+    String customId = getRandomString(6);
 
-    collection.add({
+    collection.doc(customId).set({
       "payment_name": paymentName,
     }).then((value) {
-      paymentId = value.id;
-      print("$value Added");
+      paymentId = customId;
       return true;
     }).catchError((error) {
       print("Failed to add payment: $error");

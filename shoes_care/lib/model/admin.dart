@@ -1,5 +1,6 @@
 import 'package:shoes_care/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class Admin extends User {
   Admin(
@@ -18,7 +19,8 @@ class Admin extends User {
   String adminPhone;
   String adminAddress;
   String adminPosition;
-
+  var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  Random _rnd = Random();
   String get getAdminPosition {
     return adminPosition;
   }
@@ -74,7 +76,10 @@ class Admin extends User {
   set setAdminAddress(String newAdminAddress) {
     adminAddress = newAdminAddress;
   }
-
+  String getRandomString(int length)  {
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  }
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
@@ -84,16 +89,16 @@ class Admin extends User {
       // if success create user with email and password: since email and password w/ collection data is in different configuration
       CollectionReference collection =
           FirebaseFirestore.instance.collection('admin');
+      String customId = getRandomString(6);
 
-      collection.add({
+      collection.doc(customId).set({
         "admin_address": adminAddress,
         "admin_email": super.email,
         "admin_name": adminName,
         "admin_phone": adminPhone,
         "admin_position": adminPosition,
       }).then((value) {
-        adminId = value.id;
-        print("$value Added");
+        adminId = customId;
         return true;
       }).catchError((error) {
         print("Failed to add admin: $error");

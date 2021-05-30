@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class MenuOrder {
   MenuOrder(
@@ -10,6 +11,9 @@ class MenuOrder {
   String menuOrderType;
   int menuOrderPrice;
   String menuOrderDuration;
+
+  var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  Random _rnd = Random();
 
   String get getMenuOrderId {
     return menuOrderId;
@@ -42,7 +46,10 @@ class MenuOrder {
   set setMenuOrderDuration(String newMenuOrderDuration) {
     menuOrderDuration = newMenuOrderDuration;
   }
-
+  String getRandomString(int length)  {
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  }
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
@@ -50,14 +57,14 @@ class MenuOrder {
     // if success create user with email and password: since email and password w/ collection data is in different configuration
     CollectionReference collection =
         FirebaseFirestore.instance.collection('menuorder');
+    String customId = getRandomString(6);
 
-    collection.add({
+    collection.doc(customId).set({
       "menuorder_duration": menuOrderDuration,
       "menuorder_price": menuOrderPrice,
       "menuorder_type": menuOrderType,
     }).then((value) {
-      menuOrderId = value.id;
-      print("$value Added");
+      menuOrderId = customId;
       return true;
     }).catchError((error) {
       print("Failed to add menuorder: $error");

@@ -1,5 +1,6 @@
 import 'package:shoes_care/model/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'dart:math';
 
 class Customer extends User {
   Customer(
@@ -16,6 +17,9 @@ class Customer extends User {
   // String customerPassword;
   String customerPhone;
   String customerAddress;
+
+  var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
+  Random _rnd = Random();
 
   String get getCustomerId {
     return customerId;
@@ -64,7 +68,10 @@ class Customer extends User {
   set setCustomerAddress(String newCustomerAddress) {
     customerAddress = newCustomerAddress;
   }
-
+  String getRandomString(int length)  {
+    return String.fromCharCodes(Iterable.generate(
+        length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
+  }
 //firebase management
   Future<bool> get insert async {
     //insert to firebase (create)
@@ -74,15 +81,15 @@ class Customer extends User {
       // if success create user with email and password: since email and password w/ collection data is in different configuration
       CollectionReference collection =
           FirebaseFirestore.instance.collection('customer');
+      String customId = getRandomString(6);
 
-      collection.add({
+      collection.doc(customId).set({
         "customer_address": customerAddress,
         "customer_email": super.email,
         "customer_name": customerName,
         "customer_phone": customerPhone,
       }).then((value) {
-        customerId = value.id;
-        print("$value Added");
+        customerId = customId;
         return true;
       }).catchError((error) {
         print("Failed to add customer: $error");

@@ -287,10 +287,10 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                               paymentId: "");
                           newOrder.update;
                           print("Add snackbar/notif success: true");
-                          Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => AdminHome(index: 2)));
+                          // Navigator.push(
+                          //     context,
+                          //     MaterialPageRoute(
+                          //         builder: (context) => AdminHome(index: 2)));
                           var snackBar =
                               SnackBar(content: Text('Yay! It Success.'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -355,7 +355,7 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                         Navigator.push(
                             context,
                             MaterialPageRoute(
-                                builder: (context) => AdminHome(index: 2)));
+                                builder: (context) => AdminHome(index: 0)));
                       },
                     )
                   ],

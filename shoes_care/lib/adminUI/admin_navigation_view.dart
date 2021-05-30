@@ -20,13 +20,13 @@ class AdminHome extends StatefulWidget {
 }
 
 class _AdminHomeState extends State<AdminHome> {
-  int _currentIndex = 2;
+  int _currentIndex = 0;
   final List<Widget> _children = [
-    AllCourierPage(), //MyOrderPage()
-    AllCustomerPage(),
-    AllOrderPage(),
-    AdminSettingPage(), //TODO REPLACE TO SETTING
-    AdminProfilePage(),
+    AllOrderPage(), //TODO REPLACE NEW ORDER
+    AllOrderPage(), //TODO REPLACE PICK UP ORDER
+    AllOrderPage(), //TODO REPLACE PROGRESS ORDER
+    AllOrderPage(), //TODO REPLACE DELIVER ORDER
+    AdminSettingPage(),
   ];
 
   @override
@@ -66,34 +66,35 @@ class _AdminHomeState extends State<AdminHome> {
           unselectedItemColor: Colors.white,
           items: [
             BottomNavigationBarItem(
-              icon: new Icon(Icons.motorcycle), //, color: Colors.white
+              icon:
+              new Icon(Icons.add_shopping_cart), //, color: Colors.white
               // ignore: deprecated_member_use
               title:
-                  new Text("Courier"), //,style: TextStyle(color: Colors.white,)
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.group), //, color: Colors.white
-              // ignore: deprecated_member_use
-              title: new Text(
-                  "Customer"), //,style: TextStyle(color: Colors.white,)
+              new Text("New"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
               icon:
-                  new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
+              new Icon(Icons.sports_motorsports), //, color: Colors.white
               // ignore: deprecated_member_use
               title:
-                  new Text("Order"), //,style: TextStyle(color: Colors.white,)
+              new Text("Pick up"), //,style: TextStyle(color: Colors.white,)
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(Icons.local_laundry_service), //, color: Colors.white
+              // ignore: deprecated_member_use
+              title: new Text(
+                  "Progress"), //,style: TextStyle(color: Colors.white,)
+            ),
+            BottomNavigationBarItem(
+              icon: new Icon(Icons.motorcycle), //, color: Colors.white
+              // ignore: deprecated_member_use
+              title:
+                  new Text("Deliver"), //,style: TextStyle(color: Colors.white,)
             ),
             BottomNavigationBarItem(
               icon: new Icon(Icons.settings), //, color: Colors.white
               // ignore: deprecated_member_use
               title: new Text("Setting"), //,style: TextStyle(color: Colors.white,)
-            ),
-            BottomNavigationBarItem(
-              icon: new Icon(Icons.person), //, color: Colors.white
-              // ignore: deprecated_member_use
-              title:
-                  new Text("My Profile"), //,style: TextStyle(color: Colors.white,)
             ),
           ]),
     );

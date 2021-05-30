@@ -70,8 +70,14 @@ class _AllCustomerState extends State<AllCustomerPage> {
     return "complete";
   }
 
+  @override
   Widget build(BuildContext context) {
-    return Container(
+    return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        backgroundColor: Colors.white,
+      ),
+      body: Container(
       margin: EdgeInsets.only(top: 20.0),
       child: Column(
         children: <Widget>[
@@ -99,6 +105,7 @@ class _AllCustomerState extends State<AllCustomerPage> {
           )),
         ],
       ),
+    ),
     );
   }
 }

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 // import 'package:provider/provider.dart';
 import 'package:shoes_care/model/courier.dart';
 
@@ -68,10 +67,8 @@ class AddCourierPageState extends State<AddCourierPage> {
                         // ignore: deprecated_member_use
                         child: FlatButton(
                           onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AdminHome(index: 0)));
+                            Navigator.pushNamed(context, '/allCourier');
+
                           },
                           child: Text(
                             'All Courier Data',

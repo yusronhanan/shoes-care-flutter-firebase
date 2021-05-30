@@ -5,7 +5,9 @@ import 'package:shoes_care/adminUI/addMenuOrder.dart';
 import 'package:shoes_care/adminUI/addOrder.dart';
 import 'package:shoes_care/adminUI/addPayment.dart';
 import 'package:shoes_care/adminUI/admin_navigation_view.dart';
+import 'package:shoes_care/adminUI/admin_profile.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
+import 'package:shoes_care/adminUI/allCustomer.dart';
 import 'package:shoes_care/adminUI/allMenuOrder.dart';
 import 'package:shoes_care/adminUI/allPayment.dart';
 import 'package:shoes_care/app_theme.dart';
@@ -65,6 +67,9 @@ class MyApp extends StatelessWidget {
             '/addCourier': (context) => AddCourierPage(),
             '/allCourier': (context) => AllCourierPage(),
 
+            '/allCustomer': (context) => AllCustomerPage(),
+
+
             '/addOrder': (context) => AddOrderPage(),
             '/allOrder': (context) => AllCourierPage(),
 
@@ -73,6 +78,8 @@ class MyApp extends StatelessWidget {
 
             '/addMenuOrder': (context) => AddMenuOrderPage(),
             '/allMenuOrder': (context) => MenuOrderSettingPage(),
+
+            '/adminProfile': (context) => AdminProfilePage(),
           },
           theme: ThemeData(
             brightness: Brightness.light,
@@ -183,7 +190,7 @@ class HomeControllerState extends State<HomeController> {
                 return WelPage();
                 break;
               case ConnectionState.done:
-                return (snapshot.data == 'admin' ? AdminHome(index: 2) : snapshot
+                return (snapshot.data == 'admin' ? AdminHome(index: 0) : snapshot
                     .data == 'courier' ? CourierHome(index: 1) : snapshot
                     .data == 'customer' ? CustomerHome(index: 1) : WelPage());
                 break;

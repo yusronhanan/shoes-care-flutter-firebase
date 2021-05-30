@@ -28,7 +28,43 @@ class AdminSettingPageState extends State<AdminSettingPage> {
       backgroundColor: Colors.white,
       sections: [
         SettingsSection(
-          title: 'Order Settings',
+          title: 'Order',
+          tiles: [
+            SettingsTile(
+              title: 'Complete Orders',
+              // subtitle: '',
+              onPressed: (context) {
+                Navigator.pushNamed(context, '/allCompleteOrder');
+              },
+            ),
+          ],
+        ),
+        SettingsSection(
+          title: 'Customer',
+          tiles: [
+            SettingsTile(
+              title: 'All Customers',
+              // subtitle: '',
+              onPressed: (context) {
+                Navigator.pushNamed(context, '/allCustomer');
+              },
+            ),
+          ],
+        ),
+        SettingsSection(
+          title: 'Courier',
+          tiles: [
+            SettingsTile(
+              title: 'All Couriers',
+              // subtitle: '',
+              onPressed: (context) {
+                Navigator.pushNamed(context, '/allCourier');
+              },
+            ),
+          ],
+        ),
+        SettingsSection(
+          title: 'More Settings',
           tiles: [
             SettingsTile(
               title: 'Payment',
@@ -42,6 +78,13 @@ class AdminSettingPageState extends State<AdminSettingPage> {
               // subtitle: '',
               onPressed: (context) {
                 Navigator.pushNamed(context, '/allMenuOrder');
+              },
+            ),
+            SettingsTile(
+              title: 'My Profile',
+              // subtitle: '',
+              onPressed: (context) {
+                Navigator.pushNamed(context, '/adminProfile');
               },
             ),
           ],

@@ -105,10 +105,10 @@ class AddOrderPageState extends State<AddOrderPage> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => AdminHome(index: 2)));
+                                    builder: (context) => AdminHome(index: 0)));
                           },
                           child: Text(
-                            'All Order Data',
+                            'All New Order',
                             style: TextStyle(
                               fontSize: 20,
                               color: Colors.grey,

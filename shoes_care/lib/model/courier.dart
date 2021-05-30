@@ -14,8 +14,6 @@ class Courier extends User {
       : super(email: email, password: password);
   String courierId;
   String courierName;
-  // String courierEmail;
-  // String courierPassword;
   String courierPhone;
   String courierAddress;
   String courierNOPOL;
@@ -29,14 +27,6 @@ class Courier extends User {
   String get getCourierName {
     return courierName;
   }
-
-  // String get getCourierEmail {
-  //   return courierEmail;
-  // }
-
-  // String get getCourierPassword {
-  //   return courierPassword;
-  // }
 
   String get getCourierPhone {
     return courierPhone;
@@ -57,14 +47,6 @@ class Courier extends User {
   set setCourierName(String newCourierName) {
     courierName = newCourierName;
   }
-
-  // set setCourierEmail(String newCourierEmail) {
-  //   courierEmail = newCourierEmail;
-  // }
-
-  // set setCourierPassword(String newCourierPassword) {
-  //   courierPassword = newCourierPassword;
-  // }
 
   set setCourierPhone(String newCourierPhone) {
     courierPhone = newCourierPhone;

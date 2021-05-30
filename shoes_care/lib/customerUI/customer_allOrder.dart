@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/customerUI/customer_order_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -48,7 +47,6 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
   searchResultsList() {
     var showCompleteResults = [];
     var showNotCompleteResults = [];
-    // if (_searchController.text != "") {
     for (var or in _allComplete) {
       // TODO: search by all attribute
       var status = Order
@@ -62,12 +60,6 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
         showNotCompleteResults.add(or);
       }
     }
-  // }
-    // else {
-    // showCompleteResults = List.from(_allComplete);
-    // showNotCompleteResults = List.from(_allNotComplete);
-
-    // }
     setState(() {
       _resultsListComplete = showCompleteResults;
       _resultsListNotComplete = showNotCompleteResults;
@@ -105,12 +97,10 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
 
     var data = await FirebaseFirestore.instance
         .collection('order')
-        // .where('order_status', isNotEqualTo: 'Complete')
         .where('customer_id', isEqualTo: email)
         .get();
     setState(() {
       _allNotComplete = data.docs;
-      // print(_allNotComplete);
     });
     searchResultsList();
 
@@ -121,15 +111,6 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
     return MaterialApp(
         home: Scaffold(
       appBar: AppBar(
-        // actions: [
-        //   Builder(
-        //     builder: (context) => IconButton(
-        //       icon: Icon(Icons.menu_rounded),
-        //       color: Colors.black,
-        //       onPressed: () => Scaffold.of(context).openEndDrawer(),
-        //     ),
-        //   ),
-        // ],
         backgroundColor: Colors.white,
         title: Text(
           'My Order',
@@ -177,27 +158,6 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
               )
             ],
           ),
-          // Expanded(
-          //     child: ListView.builder(
-          //       itemCount: _allNotComplete.length,
-          //       itemBuilder: (BuildContext context, int index) =>
-          //           buildOrderCard(context, _allNotComplete[index]),
-          //     )),
-
-          // Align(
-          //     alignment: Alignment.centerRight,
-          //     child: Container(
-          //       margin: EdgeInsets.all(16),
-          //       decoration: BoxDecoration(
-          //           color: Color(0xff9e2229), shape: BoxShape.circle),
-          //       child: IconButton(
-          //         color: Colors.white,
-          //         onPressed: () {
-          //           Navigator.pushNamed(context, '/addOrder');
-          //         },
-          //         icon: Icon(Icons.add),
-          //       ),
-          //     )),
         ],
       ),
       ),

@@ -1,32 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
-// import 'package:google_fonts/google_fonts.dart';
 import 'package:intl/intl.dart';
 import 'package:shoes_care/courierUI/courier_navigation_view.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/model/customer.dart';
 
 
-// class Entry {
-//   final String title;
-//   final List<Entry> children;
-//   Entry(this.title, [this.children = const <Entry>[]]);
-// }
-
-//isi list
-// final List data = <Entry>[
-//   Entry('In Process', <Entry>[
-//     Entry('#202004182 - Yellowing 3 Days', <Entry>[Entry('Testt')]),
-//     Entry('#202004183 - Regular 1 Days', <Entry>[Entry('Testt')]),
-//     Entry('#202004184 - Regular 2 Days', <Entry>[Entry('Testt')])
-//   ]),
-//   Entry('Completed', <Entry>[
-//     Entry('#202003171 - Repair 5 Days', <Entry>[Entry('Testt')]),
-//     Entry('#202004162 - Deep Clean 3 Days', <Entry>[Entry('Testt')]),
-//     Entry('#202004163 - Deep Clean 3 Days', <Entry>[Entry('Testt')])
-//   ])
-// ];
 
 Future<String> _fetchUserData(customerEmail) async {
   String customerName = customerEmail;
@@ -61,10 +41,7 @@ class EntryItem extends StatelessWidget {
         +customerName +' - '+root.getMenuOrderType + '\n'
         +root.getOrderAddress
         ;
-    // if(root.orderStatus != 'Complete'){
-    //   textOrder +=' - '+root.orderStatus;
-    // }
-    // if (root.orderId.isEmpty) {
+
       return ListTile(
         title: Text(textOrder),
         subtitle: Column(
@@ -92,11 +69,6 @@ class EntryItem extends StatelessWidget {
                                       mainAxisAlignment: MainAxisAlignment.center,
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
-                                        // TextField(
-                                        //   decoration: InputDecoration(
-                                        //       border: InputBorder.none,
-                                        //       hintText: 'What do you want to remember?'),
-                                        // ),
                                         Center(
                                         child:Text("Are you sure you want to change the status into Pick up?",
                                         style: TextStyle(fontSize: 17),
@@ -169,15 +141,7 @@ class EntryItem extends StatelessWidget {
 
           ],
         ),
-
-
       );
-    // }
-    // return ExpansionTile(
-    //   key: PageStorageKey<Entry>(root),
-    //   title: Text(root.title),
-    //   children: root.children.map<Widget>(_buildTiles).toList(),
-    // );
   }
 
   @override

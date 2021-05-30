@@ -11,15 +11,6 @@ class _MyOrderState extends State<MyOrder> {
     return MaterialApp(
       home: Scaffold(
         appBar: AppBar(
-          // actions: [
-          //   Builder(
-          //     builder: (context) => IconButton(
-          //       icon: Icon(Icons.menu_rounded),
-          //       color: Colors.black,
-          //       onPressed: () => Scaffold.of(context).openEndDrawer(),
-          //     ),
-          //   ),
-          // ],
           backgroundColor: Colors.white,
           title: Text(
             'My Order',
@@ -36,14 +27,6 @@ class _MyOrderState extends State<MyOrder> {
               child: PageOrder(),
               flex: 7,
             ),
-            // Expanded(
-            //   child: Container(
-            //     width: 500,
-            //     child: Image.asset('assets/snc_no_backgroundHD.png',
-            //         fit: BoxFit.fitWidth),
-            //   ),
-            //   flex: 3,
-            // )
           ],
         ),
       ),

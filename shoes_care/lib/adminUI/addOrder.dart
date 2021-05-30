@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:shoes_care/adminUI/admin_navigation_view.dart';
-// import 'package:provider/provider.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:intl/intl.dart';
 
@@ -102,20 +100,6 @@ class AddOrderPageState extends State<AddOrderPage> {
                         // ignore: deprecated_member_use
 
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.all(16),
-                      //   // ignore: deprecated_member_use
-                      //   child: FlatButton(
-                      //     onPressed: () {},
-                      //     child: Text(
-                      //       'Sign Up',
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         color: Color(0xff9e2229),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                   Container(
@@ -500,7 +484,6 @@ class AddOrderPageState extends State<AddOrderPage> {
                                 orderStatus: orderStatusController.text,
                                 paymentId: paymentIdController.text);
                             newOrder.insert.then((value) {
-                              print("Add snackbar/notif success: $value");
                               // ignore: deprecated_member_use
                               var snackBar =
                                   SnackBar(content: Text('Yay! It Success.'));
@@ -509,7 +492,6 @@ class AddOrderPageState extends State<AddOrderPage> {
                               setEmpty();
                             }).catchError((error) {
                               //snackbar fail
-                              print("Add snackbar/notif fail: $error");
                               // ignore: deprecated_member_use
                               var snackBar = SnackBar(
                                   content:

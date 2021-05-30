@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/courierUI/courier_deliverOrder.dart';
 
-// import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/courierUI/profile.dart';
 import 'package:shoes_care/courierUI/courier_pickupOrder.dart';
-// import 'package:shoes_care/courierUI/courier_deliverOrder.dart';
 
 // ignore: must_be_immutable
 class CourierHome extends StatefulWidget {
@@ -34,7 +32,6 @@ class _CourierHomeState extends State<CourierHome> {
       }
     });
 
-    // final newTrip = new Trip(null, null, null, null, null, null);
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black, foregroundColor: AppTheme.maroon,
@@ -50,21 +47,21 @@ class _CourierHomeState extends State<CourierHome> {
           items: [
             BottomNavigationBarItem(
               icon:
-                  new Icon(Icons.motorcycle_rounded), //, color: Colors.white
+                  new Icon(Icons.motorcycle_rounded),
               // ignore: deprecated_member_use
               title: new Text(
-                  "Deliver Order"), //,style: TextStyle(color: Colors.white,)
+                  "Deliver Order"),
             ),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.shopping_cart_rounded), //, color: Colors.white
+              icon: new Icon(Icons.shopping_cart_rounded),
               // ignore: deprecated_member_use
-              title: new Text("Pickup Order"), //,style: TextStyle(color: Colors.white,)
+              title: new Text("Pickup Order"),
             ),
             BottomNavigationBarItem(
-              icon: new Icon(Icons.person), //, color: Colors.white
+              icon: new Icon(Icons.person),
               // ignore: deprecated_member_use
               title:
-                  new Text("My Profile"), //,style: TextStyle(color: Colors.white,)
+                  new Text("My Profile"),
             ),
           ]),
     );

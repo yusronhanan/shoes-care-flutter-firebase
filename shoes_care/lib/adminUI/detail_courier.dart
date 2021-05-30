@@ -1,13 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
-// import 'package:shoes_care/adminUI/allCourier.dart';
 import 'package:shoes_care/model/courier.dart';
-
 import 'package:shoes_care/adminUI/admin_navigation_view.dart';
-// import 'edit_notes_view.dart';
-// import 'package:intl/intl.dart';
-// import 'package:auto_size_text/auto_size_text.dart';
 
 class DetailCourierView extends StatefulWidget {
   final Courier courier;
@@ -87,34 +82,7 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
-                      // ignore: deprecated_member_use
-                      // child: FlatButton(
-                      //   onPressed: () {
-                      //     // Navigator.pushNamed(context, '/allCourierData');
-                      //   },
-                      //   child: Text(
-                      //     'All Courier Data',
-                      //     style: TextStyle(
-                      //       fontSize: 20,
-                      //       color: Colors.grey,
-                      //     ),
-                      //   ),
-                      // ),
                     ),
-                    // Container(
-                    //   margin: EdgeInsets.all(16),
-                    //   // ignore: deprecated_member_use
-                    //   child: FlatButton(
-                    //     onPressed: () {},
-                    //     child: Text(
-                    //       'Sign Up',
-                    //       style: TextStyle(
-                    //         fontSize: 20,
-                    //         color: Color(0xff9e2229),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
                 Container(

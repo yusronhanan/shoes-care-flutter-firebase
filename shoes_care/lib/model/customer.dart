@@ -13,8 +13,6 @@ class Customer extends User {
       : super(email: email, password: password);
   String customerId;
   String customerName;
-  // String customerEmail;
-  // String customerPassword;
   String customerPhone;
   String customerAddress;
 
@@ -28,14 +26,6 @@ class Customer extends User {
   String get getCustomerName {
     return customerName;
   }
-
-  // String get getCustomerEmail {
-  //   return customerEmail;
-  // }
-
-  // String get getCustomerPassword {
-  //   return customerPassword;
-  // }
 
   String get getCustomerPhone {
     return customerPhone;
@@ -52,14 +42,6 @@ class Customer extends User {
   set setCustomerName(String newCustomerName) {
     customerName = newCustomerName;
   }
-
-  // set setCustomerEmail(String newCustomerEmail) {
-  //   super.setEmail(newCustomerEmail);
-  // }
-
-  // set setCustomerPassword(String newCustomerPassword) {
-  //   customerPassword = newCustomerPassword;
-  // }
 
   set setCustomerPhone(String newCustomerPhone) {
     customerPhone = newCustomerPhone;

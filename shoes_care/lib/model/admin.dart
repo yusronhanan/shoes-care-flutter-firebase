@@ -14,8 +14,6 @@ class Admin extends User {
       : super(email: email, password: password);
   String adminId;
   String adminName;
-  // String adminEmail;
-  // String adminPassword;
   String adminPhone;
   String adminAddress;
   String adminPosition;
@@ -32,14 +30,6 @@ class Admin extends User {
   String get getAdminName {
     return adminName;
   }
-
-  // String get getAdminEmail {
-  //   return super.email;
-  // }
-
-  // String get getAdminPassword {
-  //   return super.password;
-  // }
 
   String get getAdminPhone {
     return adminPhone;
@@ -60,14 +50,6 @@ class Admin extends User {
   set setAdminName(String newAdminName) {
     adminName = newAdminName;
   }
-
-  // set setAdminEmail(String newAdminEmail) {
-  //   super.setEmail
-  // }
-
-  // set setAdminPassword(String newAdminPassword) {
-  //   adminPassword = newAdminPassword;
-  // }
 
   set setAdminPhone(String newAdminPhone) {
     adminPhone = newAdminPhone;

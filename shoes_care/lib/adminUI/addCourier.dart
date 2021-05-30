@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-// import 'package:provider/provider.dart';
 import 'package:shoes_care/model/courier.dart';
 
 class AddCourierPage extends StatefulWidget {
@@ -79,20 +78,6 @@ class AddCourierPageState extends State<AddCourierPage> {
                           ),
                         ),
                       ),
-                      // Container(
-                      //   margin: EdgeInsets.all(16),
-                      //   // ignore: deprecated_member_use
-                      //   child: FlatButton(
-                      //     onPressed: () {},
-                      //     child: Text(
-                      //       'Sign Up',
-                      //       style: TextStyle(
-                      //         fontSize: 20,
-                      //         color: Color(0xff9e2229),
-                      //       ),
-                      //     ),
-                      //   ),
-                      // ),
                     ],
                   ),
                   Container(

@@ -5,10 +5,6 @@ import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/customer.dart';
 import 'package:shoes_care/model/order.dart';
 
-// import 'package:shoes_care/adminUI/allCourier.dart';
-// import 'package:shoes_care/app_theme.dart';
-// import 'package:shoes_care/customerUI/profile.dart';
-
 var assetImage = AssetImage('assets/high.jpg');
 var high = Image(
   image: assetImage,
@@ -83,7 +79,6 @@ class CustomerHomePageState extends State<CustomerHomePage> {
   String courierId = "";
   String paymentId = "";
   void _fetchUserData() async {
-    // do something
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User user = auth.currentUser;
     // final uid = user.uid;

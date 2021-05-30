@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
-// import 'package:google_fonts/google_fonts.dart';
-// import 'package:intl/intl.dart';
 import 'package:shoes_care/model/payment.dart';
 import 'package:shoes_care/adminUI/detail_payment.dart';
 
@@ -40,13 +38,6 @@ Widget buildPaymentCard(BuildContext context, DocumentSnapshot document) {
             ],
           ),
         ),
-        // onTap: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => DetailPaymentView(payment: payment)),
-        //   );
-        // },
       ),
     ),
   );

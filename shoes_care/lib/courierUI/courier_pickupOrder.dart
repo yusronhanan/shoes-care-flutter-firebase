@@ -1,10 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/courierUI/pickup_order_card.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
 import 'neworder_order_card.dart';
 
 class PickupOrderPage extends StatefulWidget {
@@ -50,7 +48,6 @@ class _PickupOrderState extends State<PickupOrderPage> {
   searchResultsList() {
     var showCompleteResults = [];
     var showNotCompleteResults = [];
-    // if (_searchController.text != "") {
     for (var or in _allComplete) {
       // TODO: search by all attribute
       var status = Order
@@ -64,12 +61,6 @@ class _PickupOrderState extends State<PickupOrderPage> {
         showNotCompleteResults.add(or);
       }
     }
-    // }
-    // else {
-    // showCompleteResults = List.from(_allComplete);
-    // showNotCompleteResults = List.from(_allNotComplete);
-
-    // }
     setState(() {
       _resultsListComplete = showCompleteResults;
       _resultsListNotComplete = showNotCompleteResults;
@@ -87,7 +78,6 @@ class _PickupOrderState extends State<PickupOrderPage> {
 
     var data = await FirebaseFirestore.instance
         .collection('order')
-    // .where('order_status', isEqualTo: 'Complete')
         .where('courier_id', isEqualTo: email)
         .get();
     setState(() {
@@ -107,12 +97,10 @@ class _PickupOrderState extends State<PickupOrderPage> {
 
     var data = await FirebaseFirestore.instance
         .collection('order')
-    // .where('order_status', isNotEqualTo: 'Complete')
         .where('courier_id', isEqualTo: email)
         .get();
     setState(() {
       _allNotComplete = data.docs;
-      // print(_allNotComplete);
     });
     searchResultsList();
 
@@ -123,15 +111,6 @@ class _PickupOrderState extends State<PickupOrderPage> {
     return MaterialApp(
         home: Scaffold(
           appBar: AppBar(
-            // actions: [
-            //   Builder(
-            //     builder: (context) => IconButton(
-            //       icon: Icon(Icons.menu_rounded),
-            //       color: Colors.black,
-            //       onPressed: () => Scaffold.of(context).openEndDrawer(),
-            //     ),
-            //   ),
-            // ],
             backgroundColor: Colors.white,
             title: Text(
               'Pick up Order',
@@ -180,41 +159,6 @@ class _PickupOrderState extends State<PickupOrderPage> {
                       )
                     ],
                   ),
-                  // ExpansionTile(
-                  //   title: Text('Complete order'),
-                  //   children: [
-                  //     SizedBox(
-                  //       // height: MediaQuery.of(context).size.height - 300,
-                  //       child: ListView.builder(
-                  //         itemCount: _resultsListComplete.length,
-                  //         itemBuilder: (BuildContext context, int index) =>
-                  //             buildOrderCard(context, _resultsListComplete[index]),
-                  //         shrinkWrap: true,
-                  //       ),
-                  //     )
-                  //   ],
-                  // ),
-                  // Expanded(
-                  //     child: ListView.builder(
-                  //       itemCount: _allNotComplete.length,
-                  //       itemBuilder: (BuildContext context, int index) =>
-                  //           buildOrderCard(context, _allNotComplete[index]),
-                  //     )),
-
-                  // Align(
-                  //     alignment: Alignment.centerRight,
-                  //     child: Container(
-                  //       margin: EdgeInsets.all(16),
-                  //       decoration: BoxDecoration(
-                  //           color: Color(0xff9e2229), shape: BoxShape.circle),
-                  //       child: IconButton(
-                  //         color: Colors.white,
-                  //         onPressed: () {
-                  //           Navigator.pushNamed(context, '/addOrder');
-                  //         },
-                  //         icon: Icon(Icons.add),
-                  //       ),
-                  //     )),
                 ],
               ),
             ),

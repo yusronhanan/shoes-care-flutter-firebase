@@ -13,9 +13,7 @@ import 'package:shoes_care/adminUI/allMenuOrder.dart';
 import 'package:shoes_care/adminUI/allPayment.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/courierUI/courier_navigation_view.dart';
-// import 'package:shoes_care/customerUI/profile.dart';
 import 'package:shoes_care/welcome.dart';
-// import 'package:shoes_care/customerUI/home.dart';
 import 'package:shoes_care/login.dart';
 import 'package:shoes_care/register.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -62,8 +60,7 @@ class MyApp extends StatelessWidget {
             '/welcome': (context) => WelPage(),
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
-            // '/home': (context) => HomePage(),
-            // '/customerUI/customer': (context) => ProfilePage(),
+
             //for role admin
             '/addCourier': (context) => AddCourierPage(),
             '/allCourier': (context) => AllCourierPage(),
@@ -181,7 +178,6 @@ class HomeControllerState extends State<HomeController> {
         return FutureBuilder(
           future: _getRole(),
           builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
-            // Widget nav = WelPage();
               if(snapshot.hasData){
             print("role:" + snapshot.data);
             switch (snapshot.connectionState) {
@@ -201,8 +197,6 @@ class HomeControllerState extends State<HomeController> {
             } else{
                 return WelPage();
               }
-                  // return nav;
-
           },
         );
     }

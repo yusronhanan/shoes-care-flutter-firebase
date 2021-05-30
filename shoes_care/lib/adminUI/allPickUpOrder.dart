@@ -89,7 +89,7 @@ class _AllPickUpOrderState extends State<AllPickUpOrderPage> {
       margin: EdgeInsets.only(top: 20.0),
       child: Column(
         children: <Widget>[
-          Text("Order Data", style: TextStyle(fontSize: 20)),
+          Text("Pick up Order Data", style: TextStyle(fontSize: 20)),
           Padding(
             padding:
                 const EdgeInsets.only(left: 30.0, right: 30.0, bottom: 30.0),

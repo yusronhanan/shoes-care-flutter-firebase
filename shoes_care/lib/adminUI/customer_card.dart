@@ -7,7 +7,6 @@ import 'package:shoes_care/model/customer.dart';
 import 'package:shoes_care/adminUI/detail_customer.dart';
 
 Widget buildCustomerCard(BuildContext context, DocumentSnapshot document) {
-  // TODO: FIX JOIN AND DISPLAY CARD DESIGN
   final customer = Customer.fromSnapshot(document);
 
   return new Container(
@@ -47,13 +46,6 @@ Widget buildCustomerCard(BuildContext context, DocumentSnapshot document) {
             ],
           ),
         ),
-        // onTap: () {
-        //   Navigator.push(
-        //     context,
-        //     MaterialPageRoute(
-        //         builder: (context) => DetailCustomerView(customer: customer)),
-        //   );
-        // },
       ),
     ),
   );

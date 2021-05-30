@@ -1,6 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/courierUI/complete_order_card.dart';
 import 'package:shoes_care/courierUI/deliver_order_card.dart';
 import 'package:shoes_care/model/order.dart';
@@ -49,9 +48,7 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
   searchResultsList() {
     var showCompleteResults = [];
     var showNotCompleteResults = [];
-    // if (_searchController.text != "") {
     for (var or in _allComplete) {
-      // TODO: search by all attribute
       var status = Order
           .fromSnapshot(or)
           .orderStatus
@@ -63,12 +60,7 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
         showNotCompleteResults.add(or);
       }
     }
-    // }
-    // else {
-    // showCompleteResults = List.from(_allComplete);
-    // showNotCompleteResults = List.from(_allNotComplete);
 
-    // }
     setState(() {
       _resultsListComplete = showCompleteResults;
       _resultsListNotComplete = showNotCompleteResults;
@@ -86,7 +78,6 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
 
     var data = await FirebaseFirestore.instance
         .collection('order')
-    // .where('order_status', isEqualTo: 'Complete')
         .where('courier_id', isEqualTo: email)
         .get();
     setState(() {
@@ -106,7 +97,6 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
 
     var data = await FirebaseFirestore.instance
         .collection('order')
-    // .where('order_status', isNotEqualTo: 'Complete')
         .where('courier_id', isEqualTo: email)
         .get();
     setState(() {
@@ -122,15 +112,6 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
     return MaterialApp(
         home: Scaffold(
           appBar: AppBar(
-            // actions: [
-            //   Builder(
-            //     builder: (context) => IconButton(
-            //       icon: Icon(Icons.menu_rounded),
-            //       color: Colors.black,
-            //       onPressed: () => Scaffold.of(context).openEndDrawer(),
-            //     ),
-            //   ),
-            // ],
             backgroundColor: Colors.white,
             title: Text(
               'Deliver Order',
@@ -178,27 +159,6 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
                       )
                     ],
                   ),
-                  // Expanded(
-                  //     child: ListView.builder(
-                  //       itemCount: _allNotComplete.length,
-                  //       itemBuilder: (BuildContext context, int index) =>
-                  //           buildOrderCard(context, _allNotComplete[index]),
-                  //     )),
-
-                  // Align(
-                  //     alignment: Alignment.centerRight,
-                  //     child: Container(
-                  //       margin: EdgeInsets.all(16),
-                  //       decoration: BoxDecoration(
-                  //           color: Color(0xff9e2229), shape: BoxShape.circle),
-                  //       child: IconButton(
-                  //         color: Colors.white,
-                  //         onPressed: () {
-                  //           Navigator.pushNamed(context, '/addOrder');
-                  //         },
-                  //         icon: Icon(Icons.add),
-                  //       ),
-                  //     )),
                 ],
               ),
             ),

@@ -106,7 +106,6 @@ class ProfilePageState extends State<ProfilePage> {
                                   onPressed: () {
                                     context.read<AuthenticationService>().signOut();
                                     Navigator.of(context).pop();
-
                                   },
                                 )
                               ],
@@ -117,7 +116,6 @@ class ProfilePageState extends State<ProfilePage> {
                     );
                   },
                 );
-
               },
             ),
           ],
@@ -145,7 +143,6 @@ class ProfilePageState extends State<ProfilePage> {
                           shape: BoxShape.rectangle,
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
-                        // ignore: deprecated_member_use
                       ),
                     ],
                   ),

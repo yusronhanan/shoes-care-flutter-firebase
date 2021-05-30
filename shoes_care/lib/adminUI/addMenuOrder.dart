@@ -167,7 +167,6 @@ class AddMenuOrderPageState extends State<AddMenuOrderPage> {
                                 menuOrderDuration: durationController.text,
                                 menuOrderPrice: int.parse(priceController.text));
                             newMenuOrder.insert.then((value) {
-                              print("Add snackbar/notif success: $value");
                               // ignore: deprecated_member_use
                               var snackBar =
                                   SnackBar(content: Text('Yay! It Success.'));
@@ -176,7 +175,6 @@ class AddMenuOrderPageState extends State<AddMenuOrderPage> {
                               setEmpty();
                             }).catchError((error) {
                               //snackbar fail
-                              print("Add snackbar/notif fail: $error");
                               // ignore: deprecated_member_use
                               var snackBar = SnackBar(
                                   content:

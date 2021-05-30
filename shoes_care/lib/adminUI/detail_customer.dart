@@ -3,10 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/customer.dart';
 
-// import 'edit_notes_view.dart';
-// import 'package:intl/intl.dart';
-// import 'package:auto_size_text/auto_size_text.dart';
-
 class DetailCustomerView extends StatefulWidget {
   final Customer customer;
 
@@ -84,34 +80,7 @@ class _DetailCustomerViewState extends State<DetailCustomerView> {
                         shape: BoxShape.rectangle,
                         borderRadius: BorderRadius.all(Radius.circular(8)),
                       ),
-                      // ignore: deprecated_member_use
-                      // child: FlatButton(
-                      //   onPressed: () {
-                      //     // Navigator.pushNamed(context, '/allCustomerData');
-                      //   },
-                      //   child: Text(
-                      //     'All Customer Data',
-                      //     style: TextStyle(
-                      //       fontSize: 20,
-                      //       color: Colors.grey,
-                      //     ),
-                      //   ),
-                      // ),
                     ),
-                    // Container(
-                    //   margin: EdgeInsets.all(16),
-                    //   // ignore: deprecated_member_use
-                    //   child: FlatButton(
-                    //     onPressed: () {},
-                    //     child: Text(
-                    //       'Sign Up',
-                    //       style: TextStyle(
-                    //         fontSize: 20,
-                    //         color: Color(0xff9e2229),
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
                   ],
                 ),
                 Container(

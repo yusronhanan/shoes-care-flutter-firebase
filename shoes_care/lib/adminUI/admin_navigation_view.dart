@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:shoes_care/adminUI/allCustomer.dart';
+import 'package:shoes_care/adminUI/allDeliverOrder.dart';
+import 'package:shoes_care/adminUI/allNewOrder.dart';
 import 'package:shoes_care/adminUI/allOrder.dart';
+import 'package:shoes_care/adminUI/allPickUpOrder.dart';
+import 'package:shoes_care/adminUI/allProgressOrder.dart';
 import 'package:shoes_care/app_theme.dart';
 
 import 'package:shoes_care/adminUI/admin_home.dart';
@@ -22,10 +26,10 @@ class AdminHome extends StatefulWidget {
 class _AdminHomeState extends State<AdminHome> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    AllOrderPage(status: "New Order"), //TODO REPLACE NEW ORDER
-    AllOrderPage(status: "Pick up"), //TODO REPLACE PICK UP ORDER
-    AllOrderPage(status: "Progress"), //TODO REPLACE PROGRESS ORDER
-    AllOrderPage(status: "Deliver"), //TODO REPLACE DELIVER ORDER
+    AllNewOrderPage(),//AllOrderPage(status: "New Order",key: UniqueKey()), //TODO REPLACE NEW ORDER
+    AllPickUpOrderPage(),//AllOrderPage(status: "Pick up",key: UniqueKey()), //TODO REPLACE PICK UP ORDER
+    AllProgressOrderPage(),//AllOrderPage(status: "Progress",key: UniqueKey()), //TODO REPLACE PROGRESS ORDER
+    AllDeliverOrderPage(),//AllOrderPage(status: "Deliver",key: UniqueKey()), //TODO REPLACE DELIVER ORDER
     AdminSettingPage(),
   ];
 

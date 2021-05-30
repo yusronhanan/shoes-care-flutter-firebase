@@ -6,6 +6,7 @@ import 'package:shoes_care/adminUI/addOrder.dart';
 import 'package:shoes_care/adminUI/addPayment.dart';
 import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 import 'package:shoes_care/adminUI/admin_profile.dart';
+import 'package:shoes_care/adminUI/allCompleteOrder.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
 import 'package:shoes_care/adminUI/allCustomer.dart';
 import 'package:shoes_care/adminUI/allMenuOrder.dart';
@@ -71,7 +72,7 @@ class MyApp extends StatelessWidget {
 
 
             '/addOrder': (context) => AddOrderPage(),
-            '/allOrder': (context) => AllCourierPage(),
+            '/allCompleteOrder': (context) => AllCompleteOrderPage(),
 
             '/allPayment': (context) => PaymentSettingPage(),
             '/addPayment': (context) => AddPaymentPage(),

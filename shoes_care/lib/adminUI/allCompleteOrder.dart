@@ -5,16 +5,14 @@ import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/adminUI/order_card.dart';
 
 // ignore: must_be_immutable
-class AllOrderPage extends StatefulWidget {
-  String status;
-  final Key key;
-  AllOrderPage({this.status, @required this.key});
+class AllCompleteOrderPage extends StatefulWidget {
+
   @override
-  _AllOrderState createState() => _AllOrderState();
+  _AllCompleteOrderState createState() => _AllCompleteOrderState();
 }
 
-class _AllOrderState extends State<AllOrderPage> {
-  String currentStatus = "New Order";
+class _AllCompleteOrderState extends State<AllCompleteOrderPage> {
+  String currentStatus = "Complete";
   TextEditingController _searchController = TextEditingController();
 
   Future resultsLoaded;
@@ -45,27 +43,29 @@ class _AllOrderState extends State<AllOrderPage> {
   }
 
   searchResultsList() {
-    var showResultsAfterStatus = [];
-
-    for (var ss in _allResults) {
-      var orderStatus = Order.fromSnapshot(ss).getOrderStatus.toLowerCase();
-
-      if(orderStatus.contains(currentStatus.toLowerCase())) {
-        showResultsAfterStatus.add(ss);
-      }
-    }
+    // var showResultsAfterStatus = [];
+    //
+    // for (var ss in _allResults) {
+    //   var orderStatus = Order.fromSnapshot(ss).getOrderStatus.toLowerCase();
+    //
+    //   if(orderStatus.contains(currentStatus.toLowerCase())) {
+    //     showResultsAfterStatus.add(ss);
+    //   }
+    // }
     var showResults = [];
 
     if (_searchController.text != "") {
-      for (var ss in showResultsAfterStatus) {
+      for (var ss in _allResults) {
         var orderId = Order.fromSnapshot(ss).getOrderId.toLowerCase();
+        var orderMenuType = Order.fromSnapshot(ss).getMenuOrderType.toLowerCase();
+        var customerId = Order.fromSnapshot(ss).getCustomerId.toLowerCase();
 
-          if (orderId.contains(_searchController.text.toLowerCase())) {
+        if (orderId.contains(_searchController.text.toLowerCase()) || orderMenuType.contains(_searchController.text.toLowerCase()) || customerId.contains(_searchController.text.toLowerCase())) {
             showResults.add(ss);
           }
       }
     } else {
-      showResults = List.from(showResultsAfterStatus);
+      showResults = List.from(_allResults);
     }
     setState(() {
       _resultsList = showResults;
@@ -75,7 +75,7 @@ class _AllOrderState extends State<AllOrderPage> {
   getDataStreamSnapshots() async {
     var data = await FirebaseFirestore.instance
         .collection('order')
-        // .where('order_status', isEqualTo: currentStatus)
+        .where('order_status', isEqualTo: currentStatus)
         .get();
     setState(() {
       _allResults = data.docs;
@@ -85,14 +85,12 @@ class _AllOrderState extends State<AllOrderPage> {
   }
 
   Widget build(BuildContext context) {
-    setState(() {
-      if (widget.status != null) {
-        currentStatus = widget.status;
-        widget.status = null;
-        print(currentStatus);
-      }
-    });
-    return Container(
+    return Scaffold(
+        appBar: AppBar(
+          elevation: 0,
+          backgroundColor: Colors.white,
+        ),
+        body: Container(
       margin: EdgeInsets.only(top: 20.0),
       child: Column(
         children: <Widget>[
@@ -118,22 +116,9 @@ class _AllOrderState extends State<AllOrderPage> {
             itemBuilder: (BuildContext context, int index) =>
                 buildOrderCard(context, _resultsList[index]),
           )),
-          Align(
-              alignment: Alignment.centerRight,
-              child: Container(
-                margin: EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                    color: Color(0xff9e2229), shape: BoxShape.circle),
-                child: IconButton(
-                  color: Colors.white,
-                  onPressed: () {
-                    Navigator.pushNamed(context, '/addOrder');
-                  },
-                  icon: Icon(Icons.add),
-                ),
-              )),
         ],
       ),
+    ),
     );
   }
 }

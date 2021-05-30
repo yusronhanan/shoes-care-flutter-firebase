@@ -100,21 +100,7 @@ class AddOrderPageState extends State<AddOrderPage> {
                           borderRadius: BorderRadius.all(Radius.circular(8)),
                         ),
                         // ignore: deprecated_member_use
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => AdminHome(index: 0)));
-                          },
-                          child: Text(
-                            'All New Order',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
+                        
                       ),
                       // Container(
                       //   margin: EdgeInsets.all(16),

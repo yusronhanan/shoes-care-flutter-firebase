@@ -14,6 +14,8 @@ class EntryItem extends StatelessWidget {
   Widget _buildTiles(context, Order root) {
     TextEditingController paymentIdController = TextEditingController();
     paymentIdController.text = 'Cash';
+    TextEditingController courierIdController = TextEditingController();
+
     Widget subtitleByOrder() {
       if(root.getOrderStatus == "New Order") {
         return Column(
@@ -32,24 +34,63 @@ class EntryItem extends StatelessWidget {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
-                                    BorderRadius.circular(20.0)),
-                                //this right here
+                                    BorderRadius.circular(20.0)), //this right here
                                 child: Container(
-                                  height: 200,
+                                  height: 300,
                                   child: Padding(
                                     padding: const EdgeInsets.all(12.0),
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment
-                                          .center,
-                                      crossAxisAlignment: CrossAxisAlignment
-                                          .start,
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Center(
-                                            child: Text(
-                                              "Are you sure you want to change the status into Pick up?",
+                                            child:Text("Are you sure you want to change the status into Pick up?",
                                               style: TextStyle(fontSize: 17),
                                               textAlign: TextAlign.center,
                                             )),
+                                        Padding(
+                                          padding:
+                                          EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                                          child: new Row(
+                                            children: <Widget>[
+                                              new Expanded(
+                                                  child: new TextField(
+                                                    controller: courierIdController,
+                                                    readOnly: true,
+                                                    style: TextStyle(fontSize: 16),
+                                                    keyboardType: TextInputType.text,
+                                                    decoration: InputDecoration(
+                                                      labelText: "Courier",
+                                                      enabledBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(color: Colors.grey)),
+                                                      focusedBorder: OutlineInputBorder(
+                                                          borderRadius: BorderRadius.circular(8),
+                                                          borderSide: BorderSide(color: Colors.grey)),
+                                                      prefixIcon: Padding(
+                                                        padding:
+                                                        const EdgeInsetsDirectional.only(start: 12.0),
+                                                        child: Icon(Icons
+                                                            .sports_motorsports), // myIcon is a 48px-wide widget.
+                                                      ),
+                                                      suffixIcon: PopupMenuButton<String>(
+                                                        icon: const Icon(Icons.arrow_drop_down),
+                                                        onSelected: (String value) {
+                                                          courierIdController.text = value;
+                                                        },
+                                                        itemBuilder: (BuildContext context) {
+                                                          return <String>['Joko', 'Paijo', 'Muslik', 'Arif']
+                                                              .map<PopupMenuItem<String>>((String value) {
+                                                            return new PopupMenuItem(
+                                                                child: new Text(value), value: value);
+                                                          }).toList();
+                                                        },
+                                                      ),
+                                                    ),
+                                                  )),
+                                            ],
+                                          ),
+                                        ),
                                         SizedBox(
                                           width: 320.0,
 
@@ -58,42 +99,34 @@ class EntryItem extends StatelessWidget {
                                               final currentOrder = Order(
                                                   orderId: root.getOrderId,
                                                   adminId: root.getAdminId,
-                                                  courierId: root.getCourierId,
-                                                  customerId: root
-                                                      .getCustomerId,
-                                                  menuOrderType: root
-                                                      .getMenuOrderType,
-                                                  orderAddress: root
-                                                      .getOrderAddress,
-                                                  orderDateTime: root
-                                                      .getOrderDateTime,
-                                                  orderPickupTime: root
-                                                      .getOrderPickupTime,
+                                                  courierId: courierIdController.text,
+                                                  customerId: root.getCustomerId,
+                                                  menuOrderType: root.getMenuOrderType,
+                                                  orderAddress: root.getOrderAddress,
+                                                  orderDateTime: root.getOrderDateTime,
+                                                  orderPickupTime: root.getOrderPickupTime,
                                                   orderStatus: 'Pick up',
-                                                  paymentId: '');
+                                                  paymentId: root.getPaymentId,);
                                               currentOrder.update;
-                                              var snackBar =
-                                              SnackBar(content: Text(
-                                                  'Yay! It Success.'));
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
                                                     builder: (context) => AdminHome(index:0)),
                                               );
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(snackBar);
+                                              courierIdController.clear();
+                                              var snackBar =
+                                              SnackBar(content: Text('Yay! It Success.'));
+                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                             },
                                             child: Text(
-                                              "Yes",
-                                              style: TextStyle(
-                                                  color: AppTheme.white),
+                                              "Update",
+                                              style: TextStyle(color: AppTheme.white),
                                             ),
                                             style: ElevatedButton.styleFrom(
                                                 primary: AppTheme.maroon,
                                                 textStyle: TextStyle(
                                                     fontSize: 15,
-                                                    fontWeight: FontWeight
-                                                        .bold)),
+                                                    fontWeight: FontWeight.bold)),
                                           ),
                                         ),
                                         SizedBox(
@@ -104,16 +137,14 @@ class EntryItem extends StatelessWidget {
                                               Navigator.pop(context);
                                             },
                                             child: Text(
-                                              "No",
-                                              style: TextStyle(
-                                                  color: AppTheme.maroon),
+                                              "Cancel",
+                                              style: TextStyle(color: AppTheme.maroon),
                                             ),
                                             style: ElevatedButton.styleFrom(
                                                 primary: AppTheme.white,
                                                 textStyle: TextStyle(
                                                     fontSize: 15,
-                                                    fontWeight: FontWeight
-                                                        .bold)),
+                                                    fontWeight: FontWeight.bold)),
                                           ),
                                         ),
                                       ],
@@ -185,7 +216,7 @@ class EntryItem extends StatelessWidget {
                                                   orderPickupTime: root
                                                       .getOrderPickupTime,
                                                   orderStatus: 'Progress',
-                                                  paymentId: '');
+                                                  paymentId: root.getPaymentId,);
                                               currentOrder.update;
                                               Navigator.push(
                                                 context,
@@ -300,7 +331,7 @@ class EntryItem extends StatelessWidget {
                                                   orderPickupTime: root
                                                       .getOrderPickupTime,
                                                   orderStatus: 'Deliver',
-                                                  paymentId: '');
+                                                  paymentId: root.getPaymentId,);
                                               currentOrder.update;
                                               Navigator.push(
                                                 context,

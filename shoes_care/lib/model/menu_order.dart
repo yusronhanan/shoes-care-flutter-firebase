@@ -88,7 +88,6 @@ class MenuOrder {
       "menuorder_duration": menuOrderDuration,
       "menuorder_price": menuOrderPrice,
       "menuorder_type": menuOrderType,
-      //TODO: need to update email and password in firebase authentication too
     }).then((value) {
       print("Updated");
       return true;
@@ -104,7 +103,6 @@ class MenuOrder {
     CollectionReference collection =
         FirebaseFirestore.instance.collection('menuorder');
     collection.doc(menuOrderId).delete().then((value) {
-      //TODO: need to delete email and password in firebase authentication too
       print("Deleted");
       return true;
     }).catchError((error) {
@@ -113,4 +111,19 @@ class MenuOrder {
     });
     return false;
   }
+
+  // creating a Trip object from a firebase snapshot
+  MenuOrder.fromSnapshot(DocumentSnapshot snapshot) {
+    menuOrderId = snapshot.id;
+    menuOrderDuration = snapshot["menuorder_duration"];
+    menuOrderPrice = snapshot["menuorder_price"];
+    menuOrderType = snapshot["menuorder_type"];
+
+  }
+  // formatting for upload to Firbase when creating the trip
+  Map<String, dynamic> toJson() => {
+    "menuorder_duration": menuOrderDuration,
+    "menuorder_price": menuOrderPrice,
+    "menuorder_type": menuOrderType,
+  };
 }

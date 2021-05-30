@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_care/adminUI/addCourier.dart';
 import 'package:shoes_care/adminUI/addOrder.dart';
+import 'package:shoes_care/adminUI/addPayment.dart';
 import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 import 'package:shoes_care/adminUI/allCourier.dart';
+import 'package:shoes_care/adminUI/paymentSetting.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/courierUI/courier_navigation_view.dart';
 // import 'package:shoes_care/customerUI/profile.dart';
@@ -63,6 +65,12 @@ class MyApp extends StatelessWidget {
 
             '/addOrder': (context) => AddOrderPage(),
             '/allOrder': (context) => AllCourierPage(),
+
+            '/allPayment': (context) => PaymentSettingPage(),
+            '/addPayment': (context) => AddPaymentPage(),
+
+            // '/addMenuOrder': (context) => AddMenuOrderPage(),
+            // '/allMenuOrder': (context) => MenuOrderSetting(),
           },
           theme: ThemeData(
             brightness: Brightness.light,

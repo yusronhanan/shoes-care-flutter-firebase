@@ -279,8 +279,7 @@ class AddOrderPageState extends State<AddOrderPage> {
                             prefixIcon: Padding(
                               padding:
                                   const EdgeInsetsDirectional.only(start: 12.0),
-                              child: Icon(Icons
-                                  .water_damage), // myIcon is a 48px-wide widget.
+                              child: Icon(Icons.water_damage), // myIcon is a 48px-wide widget.
                             ),
                             suffixIcon: PopupMenuButton<String>(
                               icon: const Icon(Icons.arrow_drop_down),

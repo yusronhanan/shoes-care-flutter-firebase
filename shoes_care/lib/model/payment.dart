@@ -85,4 +85,14 @@ class Payment {
     });
     return false;
   }
+
+  // creating a Trip object from a firebase snapshot
+  Payment.fromSnapshot(DocumentSnapshot snapshot) {
+    paymentId = snapshot.id;
+    paymentName = snapshot["payment_name"];
+  }
+  // formatting for upload to Firbase when creating the trip
+  Map<String, dynamic> toJson() => {
+    "payment_name": paymentName,
+  };
 }

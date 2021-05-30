@@ -4,12 +4,16 @@ import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/adminUI/order_card.dart';
 
+// ignore: must_be_immutable
 class AllOrderPage extends StatefulWidget {
+  String status;
+  AllOrderPage({this.status});
   @override
   _AllOrderState createState() => _AllOrderState();
 }
 
 class _AllOrderState extends State<AllOrderPage> {
+  String currentStatus = "New Order";
   TextEditingController _searchController = TextEditingController();
 
   Future resultsLoaded;
@@ -62,7 +66,7 @@ class _AllOrderState extends State<AllOrderPage> {
   getDataStreamSnapshots() async {
     var data = await FirebaseFirestore.instance
         .collection('order')
-        .orderBy('order_status')
+        .where('order_status', isEqualTo: currentStatus)
         .get();
     setState(() {
       _allResults = data.docs;
@@ -72,6 +76,13 @@ class _AllOrderState extends State<AllOrderPage> {
   }
 
   Widget build(BuildContext context) {
+    setState(() {
+      if (widget.status != null) {
+        currentStatus = widget.status;
+        widget.status = null;
+        print(currentStatus);
+      }
+    });
     return Container(
       margin: EdgeInsets.only(top: 20.0),
       child: Column(
@@ -98,7 +109,7 @@ class _AllOrderState extends State<AllOrderPage> {
             itemBuilder: (BuildContext context, int index) =>
                 buildOrderCard(context, _resultsList[index]),
           )),
-          Align(
+          if (currentStatus == "New Order") Align(
               alignment: Alignment.centerRight,
               child: Container(
                 margin: EdgeInsets.all(16),

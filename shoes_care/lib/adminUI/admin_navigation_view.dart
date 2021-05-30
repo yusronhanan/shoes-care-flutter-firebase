@@ -22,10 +22,10 @@ class AdminHome extends StatefulWidget {
 class _AdminHomeState extends State<AdminHome> {
   int _currentIndex = 0;
   final List<Widget> _children = [
-    AllOrderPage(), //TODO REPLACE NEW ORDER
-    AllOrderPage(), //TODO REPLACE PICK UP ORDER
-    AllOrderPage(), //TODO REPLACE PROGRESS ORDER
-    AllOrderPage(), //TODO REPLACE DELIVER ORDER
+    AllOrderPage(status: "New Order"), //TODO REPLACE NEW ORDER
+    AllOrderPage(status: "Pick up"), //TODO REPLACE PICK UP ORDER
+    AllOrderPage(status: "Progress"), //TODO REPLACE PROGRESS ORDER
+    AllOrderPage(status: "Deliver"), //TODO REPLACE DELIVER ORDER
     AdminSettingPage(),
   ];
 

@@ -21,7 +21,7 @@ Widget buildMenuOrderCard(BuildContext context, DocumentSnapshot document) {
                 subtitle: Text(
                   menuOrder.getMenuOrderPrice.toString() +
                       '\n' +
-                      menuOrder.getMenuOrderDuration,
+                      menuOrder.getMenuOrderDuration.toString(),
                   style: TextStyle(color: Colors.black.withOpacity(0.6)),
                 ),
               ),

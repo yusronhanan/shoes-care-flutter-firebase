@@ -10,7 +10,7 @@ class MenuOrder {
   String menuOrderId;
   String menuOrderType;
   int menuOrderPrice;
-  String menuOrderDuration;
+  int menuOrderDuration;
 
   var _chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890';
   Random _rnd = Random();
@@ -27,7 +27,7 @@ class MenuOrder {
     return menuOrderPrice;
   }
 
-  String get getMenuOrderDuration {
+  int get getMenuOrderDuration {
     return menuOrderDuration;
   }
 
@@ -43,7 +43,7 @@ class MenuOrder {
     menuOrderPrice = newMenuOrderPrice;
   }
 
-  set setMenuOrderDuration(String newMenuOrderDuration) {
+  set setMenuOrderDuration(int newMenuOrderDuration) {
     menuOrderDuration = newMenuOrderDuration;
   }
   String getRandomString(int length)  {

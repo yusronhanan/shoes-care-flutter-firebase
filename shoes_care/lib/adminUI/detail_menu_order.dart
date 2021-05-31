@@ -26,7 +26,7 @@ class _DetailMenuOrderViewState extends State<DetailMenuOrderView> {
     final TextEditingController typeController =
         TextEditingController(text: widget.menuOrder.getMenuOrderType);
     final TextEditingController durationController =
-    TextEditingController(text: widget.menuOrder.getMenuOrderDuration);
+    TextEditingController(text: widget.menuOrder.getMenuOrderDuration.toString());
     final TextEditingController priceController =
     TextEditingController(text: widget.menuOrder.getMenuOrderPrice.toString());
 
@@ -113,7 +113,7 @@ class _DetailMenuOrderViewState extends State<DetailMenuOrderView> {
                   child: TextField(
                     controller: durationController,
                     style: TextStyle(fontSize: 18),
-                    keyboardType: TextInputType.text,
+                    keyboardType: TextInputType.number,
                     textCapitalization: TextCapitalization.words,
                     decoration: InputDecoration(
                       labelText: 'Menu Order Duration (day)',
@@ -162,7 +162,7 @@ class _DetailMenuOrderViewState extends State<DetailMenuOrderView> {
                           final newMenuOrder = MenuOrder(
                               menuOrderId: idController,
                               menuOrderType: typeController.text,
-                              menuOrderDuration: durationController.text,
+                              menuOrderDuration: int.parse(durationController.text),
                               menuOrderPrice: int.parse(priceController.text));
                           newMenuOrder.update;
                           Navigator.pushNamed(context, '/allMenuOrder');

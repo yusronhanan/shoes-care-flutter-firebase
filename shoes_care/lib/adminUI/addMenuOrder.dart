@@ -115,7 +115,7 @@ class AddMenuOrderPageState extends State<AddMenuOrderPage> {
                     child: TextField(
                       controller: durationController,
                       style: TextStyle(fontSize: 18),
-                      keyboardType: TextInputType.text,
+                      keyboardType: TextInputType.number,
                       textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
                         labelText: 'Menu Order Duration (day)',
@@ -164,7 +164,7 @@ class AddMenuOrderPageState extends State<AddMenuOrderPage> {
                             final newMenuOrder = MenuOrder(
                                 menuOrderId: "",
                                 menuOrderType: typeController.text,
-                                menuOrderDuration: durationController.text,
+                                menuOrderDuration: int.parse(durationController.text),
                                 menuOrderPrice: int.parse(priceController.text));
                             newMenuOrder.insert.then((value) {
                               // ignore: deprecated_member_use

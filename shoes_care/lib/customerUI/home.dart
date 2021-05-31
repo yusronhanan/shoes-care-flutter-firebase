@@ -35,6 +35,8 @@ class CustomerHomePageState extends State<CustomerHomePage> {
   Future resultsMenuOrderLoaded;
 
   String customerId = "";
+  String customerAddress = "";
+
   String orderId = "";
   String adminId = "";
   String courierId = "";
@@ -57,7 +59,7 @@ class CustomerHomePageState extends State<CustomerHomePage> {
     // courierIdController.clear();
     // customerIdController.clear();
     menuOrderTypeController.clear();
-    orderAddressController.clear();
+    orderAddressController.text = customerAddress; // orderAddressController.clear();
     orderDateTimeController.clear();
     orderPickupTimeController.clear();
     // orderStatusController.clear();
@@ -106,6 +108,8 @@ class CustomerHomePageState extends State<CustomerHomePage> {
         customerAddress: "");
     await myProfileData.syncDataByEmail(email);
     customerId = myProfileData.getEmail;
+    customerAddress = myProfileData.getCustomerAddress;
+    orderAddressController.text = customerAddress;
     // nameController.text = myProfileData.getCustomerName;
     // emailController.text = myProfileData.getEmail;
     // phoneNumController.text = myProfileData.getCustomerPhone;

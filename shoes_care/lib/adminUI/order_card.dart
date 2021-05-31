@@ -17,7 +17,7 @@ class EntryItem extends StatelessWidget {
     TextEditingController courierIdController = TextEditingController();
 
     Widget subtitleByOrder() {
-      if(root.getOrderStatus == "New Order") {
+      if(root.getOrderStatus == "New Order" && root.getCourierId == "") {
         return Column(
           children: <Widget>[
             Container(
@@ -44,7 +44,7 @@ class EntryItem extends StatelessWidget {
                                       crossAxisAlignment: CrossAxisAlignment.start,
                                       children: [
                                         Center(
-                                            child:Text("Are you sure you want to change the status into Pick up?",
+                                            child:Text("Are you sure you want to accept the order?",
                                               style: TextStyle(fontSize: 17),
                                               textAlign: TextAlign.center,
                                             )),
@@ -105,7 +105,7 @@ class EntryItem extends StatelessWidget {
                                                   orderAddress: root.getOrderAddress,
                                                   orderDateTime: root.getOrderDateTime,
                                                   orderPickupTime: root.getOrderPickupTime,
-                                                  orderStatus: 'Pick up',
+                                                  orderStatus: 'New Order',
                                                   paymentId: root.getPaymentId,);
                                               currentOrder.update;
                                               Navigator.push(
@@ -119,7 +119,7 @@ class EntryItem extends StatelessWidget {
                                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
                                             },
                                             child: Text(
-                                              "Update",
+                                              "Accept",
                                               style: TextStyle(color: AppTheme.white),
                                             ),
                                             style: ElevatedButton.styleFrom(
@@ -161,6 +161,108 @@ class EntryItem extends StatelessWidget {
           ],
         );
       }
+      else if(root.getOrderStatus == "New Order" && root.getCourierId != "") {
+        return Column(
+          children: <Widget>[
+            Container(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  // mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: <Widget>[
+                    TextButton(
+                      child: Text("Pick up"),
+                      onPressed: () {
+                        showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return Dialog(
+                                shape: RoundedRectangleBorder(
+                                    borderRadius:
+                                    BorderRadius.circular(20.0)), //this right here
+                                child: Container(
+                                  height: 300,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(12.0),
+                                    child: Column(
+                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Center(
+                                            child:Text("Are you sure you want to change the status into Pick up?",
+                                              style: TextStyle(fontSize: 17),
+                                              textAlign: TextAlign.center,
+                                            )),
+                                        SizedBox(
+                                          width: 320.0,
+
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              final currentOrder = Order(
+                                                orderId: root.getOrderId,
+                                                adminId: root.getAdminId,
+                                                courierId: root.getCourierId,
+                                                customerId: root.getCustomerId,
+                                                menuOrderType: root.getMenuOrderType,
+                                                orderAddress: root.getOrderAddress,
+                                                orderDateTime: root.getOrderDateTime,
+                                                orderPickupTime: root.getOrderPickupTime,
+                                                orderStatus: 'Pick up',
+                                                paymentId: root.getPaymentId,);
+                                              currentOrder.update;
+                                              Navigator.push(
+                                                context,
+                                                MaterialPageRoute(
+                                                    builder: (context) => AdminHome(index:0)),
+                                              );
+                                              courierIdController.clear();
+                                              var snackBar =
+                                              SnackBar(content: Text('Yay! It Success.'));
+                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                            },
+                                            child: Text(
+                                              "Pick up",
+                                              style: TextStyle(color: AppTheme.white),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                                primary: AppTheme.maroon,
+                                                textStyle: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold)),
+                                          ),
+                                        ),
+                                        SizedBox(
+                                          width: 320.0,
+
+                                          child: ElevatedButton(
+                                            onPressed: () {
+                                              Navigator.pop(context);
+                                            },
+                                            child: Text(
+                                              "Cancel",
+                                              style: TextStyle(color: AppTheme.maroon),
+                                            ),
+                                            style: ElevatedButton.styleFrom(
+                                                primary: AppTheme.white,
+                                                textStyle: TextStyle(
+                                                    fontSize: 15,
+                                                    fontWeight: FontWeight.bold)),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              );
+                            });
+                      },
+                    ),
+                  ],
+                ))
+
+          ],
+        );
+      }
+
       else if(root.getOrderStatus == "Pick up") {
         return Column(
           children: <Widget>[

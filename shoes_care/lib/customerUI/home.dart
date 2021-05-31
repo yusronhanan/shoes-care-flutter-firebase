@@ -114,7 +114,7 @@ class CustomerHomePageState extends State<CustomerHomePage> {
   getMenuOrderStreamSnapshots() async {
     var data = await FirebaseFirestore.instance
         .collection('menuorder')
-        .orderBy('menuorder_type')
+        .orderBy('menuorder_price')
         .get();
     setState(() {
       menuOrderList = List.from(data.docs);

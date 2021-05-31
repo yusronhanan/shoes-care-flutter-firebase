@@ -15,6 +15,9 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
   Future resultsCompleteLoaded;
   Future resultsNotCompleteLoaded;
 
+  Future resultsMenuOrderLoaded;
+  List menuOrderList = [];
+
   List _allNotComplete = [];
   List _allComplete = [];
   List _resultsListComplete = [];
@@ -38,6 +41,7 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
     super.didChangeDependencies();
     resultsCompleteLoaded = getDataStreamSnapshotsComplete();
     resultsNotCompleteLoaded = getDataStreamSnapshotsNotComplete();
+    resultsMenuOrderLoaded = getMenuOrderStreamSnapshots();
   }
 
   _onSearchChanged() {
@@ -106,7 +110,15 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
 
     return "not complete";
   }
-
+  getMenuOrderStreamSnapshots() async {
+    var data = await FirebaseFirestore.instance
+        .collection('menuorder')
+        .get();
+    setState(() {
+      menuOrderList = List.from(data.docs);
+    });
+    return "complete";
+  }
   Widget build(BuildContext context) {
     return MaterialApp(
         home: Scaffold(
@@ -138,7 +150,7 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
                 child: ListView.builder(
                   itemCount: _resultsListNotComplete.length,
                   itemBuilder: (BuildContext context, int index) =>
-                      buildOrderCard(context, _resultsListNotComplete[index]),
+                      buildOrderCard(context, _resultsListNotComplete[index], menuOrderList),
                   shrinkWrap: true,
                 ),
               )
@@ -152,7 +164,7 @@ class _MyAllOrderState extends State<MyAllOrderPage> {
                 child: ListView.builder(
                   itemCount: _resultsListComplete.length,
                   itemBuilder: (BuildContext context, int index) =>
-                      buildOrderCard(context, _resultsListComplete[index]),
+                      buildOrderCard(context, _resultsListComplete[index], menuOrderList),
                   shrinkWrap: true,
                 ),
               )

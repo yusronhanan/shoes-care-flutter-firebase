@@ -3,9 +3,11 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:intl/intl.dart';
 import 'package:shoes_care/courierUI/courier_navigation_view.dart';
+import 'package:shoes_care/model/menu_order.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/model/customer.dart';
 
+final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
 
 
 Future<List> _fetchUserData(customerEmail) async {
@@ -29,23 +31,38 @@ Future<List> _fetchUserData(customerEmail) async {
 class EntryItem extends StatelessWidget {
   // final Entry entry;
   final Order entry;
-  const EntryItem(this.entry);
+  final MenuOrder menuOrder;
+
+  const EntryItem(this.entry, this.menuOrder);
 
 
 
-    _buildTiles(context, Order root, customerData) {
+
+  _buildTiles(context, Order root, customerData) {
       TextEditingController paymentIdController = TextEditingController();
       paymentIdController.text = 'Cash';
       if(customerData[0] == ""){
         customerData[0] = root.getCustomerId;
       }
-    String textOrder = '#'+root.orderId + ' \n'
-        +root.getOrderStatus +' on '+  DateFormat('dd/MM/yyyy')
+      String textOrder = '';
+
+
+        textOrder+='#'+root.orderId + ' \n';
+
+        textOrder+=root.getOrderStatus +' on '+  DateFormat('dd/MM/yyyy')
         .format(root.getOrderDateTime).toString() +' around '+ root.getOrderPickupTime +' \n'
-        +customerData[0] +' - '+customerData[1] + '\n'
-        +root.getMenuOrderType+ '\n'
-        +root.getOrderAddress
-        ;
+        +customerData[0] +' - '+customerData[1] + '\n';
+
+      var orderDate = root.orderDateTime;
+      if(menuOrder != null){
+        var estimatedDoneDate = orderDate.add(Duration(days: menuOrder.getMenuOrderDuration));
+          textOrder += 'Estimated done: ' + DateFormat('dd/MM/yyyy')
+              .format(estimatedDoneDate)
+              .toString() + '\n';
+        textOrder+= menuOrder.getMenuOrderType + ' - '
+            + formatCurrency.format(menuOrder.getMenuOrderPrice)+'\n';
+      }
+        textOrder+=root.getOrderAddress;
 
       return ListTile(
         title: Text(textOrder),
@@ -223,8 +240,14 @@ class EntryItem extends StatelessWidget {
 }
 
 
-Widget buildDeliverOrderCard(BuildContext context, DocumentSnapshot document) {
+Widget buildDeliverOrderCard(BuildContext context, DocumentSnapshot document, List menuOrderList) {
   final Order order = Order.fromSnapshot(document);
-
-  return EntryItem(order);
+  MenuOrder menuOrder = MenuOrder.fromSnapshot(menuOrderList[0]); //default = 0 if null
+  for (var mo in menuOrderList) {
+    var m = MenuOrder.fromSnapshot(mo);
+    if(m.getMenuOrderType == order.getMenuOrderType){
+      menuOrder = m;
+    }
+  }
+  return EntryItem(order, menuOrder);
 }

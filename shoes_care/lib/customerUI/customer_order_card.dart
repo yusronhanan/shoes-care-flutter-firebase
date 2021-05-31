@@ -24,11 +24,11 @@ class EntryItem extends StatelessWidget {
       }
     }
     var orderDate = root.orderDateTime;
-    var estimatedDoneDate = orderDate.add(Duration(days: menuOrder.getMenuOrderDuration));
     textOrder +=  '\nOrder date: '+DateFormat('dd/MM/yyyy')
         .format(orderDate)
         .toString() + '\n';
     if(menuOrder != null){
+      var estimatedDoneDate = orderDate.add(Duration(days: menuOrder.getMenuOrderDuration));
       if(root.getOrderStatus != 'Complete') {
         textOrder += 'Estimated done: ' + DateFormat('dd/MM/yyyy')
             .format(estimatedDoneDate)

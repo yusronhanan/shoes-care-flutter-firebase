@@ -1,10 +1,12 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:shoes_care/model/menu_order.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/model/customer.dart';
 
 
+final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
 
 Future<List> _fetchUserData(customerEmail) async {
   String customerName = customerEmail;
@@ -27,22 +29,30 @@ Future<List> _fetchUserData(customerEmail) async {
 class EntryItem extends StatelessWidget {
   // final Entry entry;
   final Order entry;
-  const EntryItem(this.entry);
+  final MenuOrder menuOrder;
+
+  const EntryItem(this.entry, this.menuOrder);
 
 
 
-    _buildTiles(context, Order root, customerData) {
+
+  _buildTiles(context, Order root, customerData) {
       TextEditingController paymentIdController = TextEditingController();
       paymentIdController.text = 'Cash';
     if(customerData[0] == ""){
       customerData[0] = root.getCustomerId;
     }
     String textOrder = '#'+root.orderId + ' \n'
-        +  DateFormat('dd/MM/yyyy')
+        +  'Order date: '+DateFormat('dd/MM/yyyy')
             .format(root.getOrderDateTime).toString() +' \n'
-        +customerData[0] +' - ' + '\n'
-        +root.getMenuOrderType + '\n'
-        +'Paid by '+ root.paymentId + '\n'
+        +customerData[0] +' - ' + '\n';
+
+      if(menuOrder != null){
+        textOrder+= menuOrder.getMenuOrderType + ' - '
+            + formatCurrency.format(menuOrder.getMenuOrderPrice) + ' - ' +menuOrder.getMenuOrderDuration.toString()+ ' Days\n';
+      }
+
+        textOrder+='Paid by '+ root.paymentId + '\n'
         ;
     // if(root.orderStatus != 'Complete'){
     //   textOrder +=' - '+root.orderStatus;
@@ -85,8 +95,14 @@ class EntryItem extends StatelessWidget {
 }
 
 
-Widget buildCompleteOrderCard(BuildContext context, DocumentSnapshot document) {
+Widget buildCompleteOrderCard(BuildContext context, DocumentSnapshot document, List menuOrderList) {
   final Order order = Order.fromSnapshot(document);
-
-  return EntryItem(order);
+  MenuOrder menuOrder = MenuOrder.fromSnapshot(menuOrderList[0]); //default = 0 if null
+  for (var mo in menuOrderList) {
+    var m = MenuOrder.fromSnapshot(mo);
+    if(m.getMenuOrderType == order.getMenuOrderType){
+      menuOrder = m;
+    }
+  }
+  return EntryItem(order, menuOrder);
 }

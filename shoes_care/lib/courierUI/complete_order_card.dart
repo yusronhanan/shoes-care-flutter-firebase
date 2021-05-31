@@ -45,7 +45,7 @@ class EntryItem extends StatelessWidget {
     String textOrder = '#'+root.orderId + ' \n'
         +  'Order date: '+DateFormat('dd/MM/yyyy')
             .format(root.getOrderDateTime).toString() +' \n'
-        +customerData[0] +' - ' + '\n';
+        +customerData[0] + '\n';
 
       if(menuOrder != null){
         textOrder+= menuOrder.getMenuOrderType + ' - '

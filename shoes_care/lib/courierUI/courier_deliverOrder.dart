@@ -19,6 +19,9 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
   Future resultsMenuOrderLoaded;
   List menuOrderList = [];
 
+  Future resultsPaymentLoaded;
+  List paymentList = [];
+
   List _allNotComplete = [];
   List _allComplete = [];
   List _resultsListComplete = [];
@@ -42,7 +45,10 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
     super.didChangeDependencies();
     resultsCompleteLoaded = getDataStreamSnapshotsComplete();
     resultsNotCompleteLoaded = getDataStreamSnapshotsNotComplete();
+
     resultsMenuOrderLoaded = getMenuOrderStreamSnapshots();
+    resultsPaymentLoaded = getPaymentStreamSnapshots();
+
 
   }
   getMenuOrderStreamSnapshots() async {
@@ -51,6 +57,15 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
         .get();
     setState(() {
       menuOrderList = List.from(data.docs);
+    });
+    return "complete";
+  }
+  getPaymentStreamSnapshots() async {
+    var data = await FirebaseFirestore.instance
+        .collection('payment')
+        .get();
+    setState(() {
+      paymentList = List.from(data.docs);
     });
     return "complete";
   }
@@ -152,7 +167,7 @@ class _DeliverOrderState extends State<DeliverOrderPage> {
                         child: ListView.builder(
                           itemCount: _resultsListNotComplete.length,
                           itemBuilder: (BuildContext context, int index) =>
-                              buildDeliverOrderCard(context, _resultsListNotComplete[index], menuOrderList),
+                              buildDeliverOrderCard(context, _resultsListNotComplete[index], menuOrderList, paymentList),
                           shrinkWrap: true,
                         ),
                       )

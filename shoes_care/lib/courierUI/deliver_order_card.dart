@@ -6,6 +6,7 @@ import 'package:shoes_care/courierUI/courier_navigation_view.dart';
 import 'package:shoes_care/model/menu_order.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:shoes_care/model/customer.dart';
+import 'package:shoes_care/model/payment.dart';
 
 final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
 
@@ -32,15 +33,13 @@ class EntryItem extends StatelessWidget {
   // final Entry entry;
   final Order entry;
   final MenuOrder menuOrder;
-
-  const EntryItem(this.entry, this.menuOrder);
-
-
-
+  final List paymentList;
+  const EntryItem(this.entry, this.menuOrder, this.paymentList);
 
   _buildTiles(context, Order root, customerData) {
       TextEditingController paymentIdController = TextEditingController();
-      paymentIdController.text = 'Cash';
+      var defaultPayment = Payment.fromSnapshot(paymentList[0]).getPaymentName;
+      paymentIdController.text = defaultPayment;
       if(customerData[0] == ""){
         customerData[0] = root.getCustomerId;
       }
@@ -121,16 +120,17 @@ class EntryItem extends StatelessWidget {
                                                         child: Icon(Icons
                                                             .payment), // myIcon is a 48px-wide widget.
                                                       ),
-                                                      suffixIcon: PopupMenuButton<String>(
+                                                      suffixIcon: PopupMenuButton<dynamic>(
                                                         icon: const Icon(Icons.arrow_drop_down),
-                                                        onSelected: (String value) {
+                                                        onSelected: (dynamic value) {
                                                           paymentIdController.text = value;
                                                         },
                                                         itemBuilder: (BuildContext context) {
-                                                          return <String>['Cash', 'Gopay', 'OVO', 'DANA']
-                                                              .map<PopupMenuItem<String>>((String value) {
+                                                          return paymentList.map<PopupMenuItem<dynamic>>((dynamic item) {
+                                                            var value = Payment.fromSnapshot(item);
                                                             return new PopupMenuItem(
-                                                                child: new Text(value), value: value);
+                                                                child: new Text(value.getPaymentName)
+                                                                , value: value.getPaymentName);
                                                           }).toList();
                                                         },
                                                       ),
@@ -156,7 +156,7 @@ class EntryItem extends StatelessWidget {
                                                   orderStatus: 'Complete',
                                                   paymentId: paymentIdController.text);
                                               currentOrder.update;
-                                              paymentIdController.text = 'Cash'; //default to cash
+                                              paymentIdController.text = defaultPayment; //default to cash
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -240,14 +240,16 @@ class EntryItem extends StatelessWidget {
 }
 
 
-Widget buildDeliverOrderCard(BuildContext context, DocumentSnapshot document, List menuOrderList) {
+Widget buildDeliverOrderCard(BuildContext context, DocumentSnapshot document, List menuOrderList, List paymentList) {
   final Order order = Order.fromSnapshot(document);
   MenuOrder menuOrder = MenuOrder.fromSnapshot(menuOrderList[0]); //default = 0 if null
+
   for (var mo in menuOrderList) {
     var m = MenuOrder.fromSnapshot(mo);
     if(m.getMenuOrderType == order.getMenuOrderType){
       menuOrder = m;
     }
   }
-  return EntryItem(order, menuOrder);
+
+  return EntryItem(order, menuOrder, paymentList);
 }

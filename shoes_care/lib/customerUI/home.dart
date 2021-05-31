@@ -1,9 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/customer.dart';
+import 'package:shoes_care/model/menu_order.dart';
 import 'package:shoes_care/model/order.dart';
+
+final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
 
 var assetImage = AssetImage('assets/high.jpg');
 var high = Image(
@@ -28,6 +32,14 @@ class CustomerHomePage extends StatefulWidget {
 }
 
 class CustomerHomePageState extends State<CustomerHomePage> {
+  Future resultsMenuOrderLoaded;
+
+  String customerId = "";
+  String orderId = "";
+  String adminId = "";
+  String courierId = "";
+  String paymentId = "";
+  List menuOrderList = [];
 
   // final TextEditingController adminIdController = TextEditingController();
   // final TextEditingController courierIdController = TextEditingController();
@@ -73,11 +85,12 @@ class CustomerHomePageState extends State<CustomerHomePage> {
       });
   }
 
-  String customerId = "";
-  String orderId = "";
-  String adminId = "";
-  String courierId = "";
-  String paymentId = "";
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsMenuOrderLoaded = getMenuOrderStreamSnapshots();
+  }
   void _fetchUserData() async {
     final FirebaseAuth auth = FirebaseAuth.instance;
     final User user = auth.currentUser;
@@ -98,11 +111,20 @@ class CustomerHomePageState extends State<CustomerHomePage> {
     // phoneNumController.text = myProfileData.getCustomerPhone;
     // addressController.text = myProfileData.getCustomerAddress;
   }
+  getMenuOrderStreamSnapshots() async {
+    var data = await FirebaseFirestore.instance
+        .collection('menuorder')
+        .orderBy('menuorder_type')
+        .get();
+    setState(() {
+      menuOrderList = List.from(data.docs);
+    });
+    return "complete";
+  }
 
   @override
   Widget build(BuildContext context) {
     _fetchUserData();
-
     return Scaffold(
       body: Column(
         children: [
@@ -189,20 +211,20 @@ class CustomerHomePageState extends State<CustomerHomePage> {
                                     child: Icon(Icons
                                         .water_damage), // myIcon is a 48px-wide widget.
                                   ),
-                                  suffixIcon: PopupMenuButton<String>(
+                                  suffixIcon: PopupMenuButton<dynamic>(
                                     icon: const Icon(Icons.arrow_drop_down),
-                                    onSelected: (String value) {
+                                    onSelected: (dynamic value) {
                                       menuOrderTypeController.text = value;
                                     },
+
                                     itemBuilder: (BuildContext context) {
-                                      return <String>[
-                                        'Fast Cleaning',
-                                        'Deep Cleaning',
-                                        'Unyellowing and Whitening',
-                                        'Leather Care'
-                                      ].map<PopupMenuItem<String>>((String value) {
+                                      return menuOrderList.map<PopupMenuItem<dynamic>>((dynamic item) {
+                                        var value = MenuOrder.fromSnapshot(item);
                                         return new PopupMenuItem(
-                                            child: new Text(value), value: value);
+                                            child: new Text(value.getMenuOrderType + " - "
+                                                + formatCurrency.format(value.getMenuOrderPrice)
+                                                + " - "+ value.getMenuOrderDuration.toString() +" Days")
+                                            , value: value.getMenuOrderType);
                                       }).toList();
                                     },
                                   ),
@@ -339,7 +361,6 @@ class CustomerHomePageState extends State<CustomerHomePage> {
                                   orderStatus: orderStatus,
                                   paymentId: paymentId);
                               newOrder.insert.then((value) {
-                                print("Add snackbar/notif success: $value");
                                 // ignore: deprecated_member_use
                                 var snackBar =
                                 SnackBar(content: Text('Yay! It Success.'));
@@ -348,7 +369,6 @@ class CustomerHomePageState extends State<CustomerHomePage> {
                                 setEmpty();
                               }).catchError((error) {
                                 //snackbar fail
-                                print("Add snackbar/notif fail: $error");
                                 // ignore: deprecated_member_use
                                 var snackBar = SnackBar(
                                     content:

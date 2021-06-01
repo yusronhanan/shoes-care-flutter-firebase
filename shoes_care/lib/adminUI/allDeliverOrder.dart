@@ -18,7 +18,8 @@ class _AllDeliverOrderState extends State<AllDeliverOrderPage> {
   Future resultsLoaded;
   List _allResults = [];
   List _resultsList = [];
-
+  Future resultsCourierLoaded;
+  List courierList = [];
   @override
   void initState() {
     super.initState();
@@ -36,8 +37,18 @@ class _AllDeliverOrderState extends State<AllDeliverOrderPage> {
   void didChangeDependencies() {
     super.didChangeDependencies();
     resultsLoaded = getDataStreamSnapshots();
-  }
+    resultsCourierLoaded = getCourierStreamSnapshots();
 
+  }
+  getCourierStreamSnapshots() async {
+    var data = await FirebaseFirestore.instance
+        .collection('courier')
+        .get();
+    setState(() {
+      courierList = List.from(data.docs);
+    });
+    return "complete";
+  }
   _onSearchChanged() {
     searchResultsList();
   }
@@ -100,7 +111,7 @@ class _AllDeliverOrderState extends State<AllDeliverOrderPage> {
               child: ListView.builder(
             itemCount: _resultsList.length,
             itemBuilder: (BuildContext context, int index) =>
-                buildOrderCard(context, _resultsList[index], []),
+                buildOrderCard(context, _resultsList[index], courierList),
           )),
         ],
       ),

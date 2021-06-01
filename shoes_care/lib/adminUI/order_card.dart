@@ -670,15 +670,36 @@ class EntryItem extends StatelessWidget {
         );
       }
     }
-    
+
+    String courierName = "";
+    if(root.courierId != ""){
+      courierName = root.courierId;
+      if(courierList.length > 0){
+        for (var co in courierList) {
+          var c = Courier.fromSnapshot(co);
+          if (root.courierId == c.getEmail) {
+            courierName = c.getCourierName;
+          }
+        }
+      }
+    }
      String titleOrder = '#'+root.getOrderId + ' - ' + root.getMenuOrderType + ' - ' + DateFormat('dd/MM/yyyy')
          .format(root.orderDateTime)
          .toString();
      String textOrder = "";
-     if(root.getOrderStatus == "Pick up"){
-       textOrder += "Pick up at "+root.getOrderPickupTime + " by "+root.getCourierId+ "\n";
-     } else if(root.getOrderStatus == "Complete"){
-       textOrder += "Paid by "+root.getPaymentId+ "\n";
+     if(root.getOrderStatus == "Pick up" || root.getOrderStatus == "New Order"){
+       textOrder += "Pick up at "+root.getOrderPickupTime;
+       if(root.getCourierId != ""){
+         textOrder+= " by "+courierName+ "\n";
+       }
+     } else {
+       textOrder += "Deliver at "+root.getOrderPickupTime;
+       if(root.getCourierId != ""){
+         textOrder+= " by "+courierName+ "\n";
+       }
+       if(root.getOrderStatus == "Complete"){
+         textOrder += "Paid by "+root.getPaymentId+ "\n";
+       }
      }
      textOrder += root.getCustomerId + '\n' + root.getOrderAddress;
 

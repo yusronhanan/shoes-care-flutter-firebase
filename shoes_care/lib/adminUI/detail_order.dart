@@ -100,12 +100,11 @@ class _DetailOrderViewState extends State<DetailOrderView> {
     DateTime picked = await showDatePicker(
       context: context,
       initialDate: _startDate,
-      firstDate: DateTime.now().subtract(Duration(days: 0)),
+      firstDate: DateTime.now().subtract(Duration(days: 365)),
       lastDate: _endDate,
     );
 
     if (picked != null) {
-      print(picked);
       setState(() =>
       {
         orderDateTimeController.text =
@@ -114,24 +113,33 @@ class _DetailOrderViewState extends State<DetailOrderView> {
       });
     }
   }
-
+  int i = 0;
 
 
   @override
   Widget build(BuildContext context) {
-    // TODO: FIX INPUT
+
     final String idController = widget.order.getOrderId;
-    adminIdController.text = widget.order.getAdminId;
-    courierIdController.text = widget.order.courierId;
-    customerIdController.text = widget.order.getCustomerId;
-    menuOrderTypeController.text = widget.order.getMenuOrderType;
-    orderAddressController.text = widget.order.getOrderAddress;
-    orderPickupTimeController.text = widget.order.getOrderPickupTime;
+    if(i == 0) {
+      adminIdController.text = widget.order.getAdminId;
+      courierIdController.text = widget.order.courierId;
+      customerIdController.text = widget.order.getCustomerId;
+      menuOrderTypeController.text = widget.order.getMenuOrderType;
+      orderAddressController.text = widget.order.getOrderAddress;
+      orderPickupTimeController.text = widget.order.getOrderPickupTime;
 
-    orderStatusController.text = widget.order.getOrderStatus;
-    // orderDateTimeController = TextEditingController();
-    paymentIdController.text = widget.order.getPaymentId;
-
+      orderStatusController.text = widget.order.getOrderStatus;
+      // orderDateTimeController = TextEditingController();
+      setState(() =>
+      {
+        _startDate = new DateFormat("yyyy-MM-dd hh:mm:ss").parse(widget.order.getOrderDateTime.toString()),
+          orderDateTimeController.text =
+            DateFormat('dd/MM/yyyy').format(widget.order.getOrderDateTime).toString(),
+        orderDateTimeValue = widget.order.getOrderDateTime
+      });
+      paymentIdController.text = widget.order.getPaymentId;
+      i++;
+    }
 
     return Scaffold(
         appBar: AppBar(
@@ -188,7 +196,7 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                 Container(
                   margin: EdgeInsets.only(left: 16, top: 8),
                   child: Text(
-                    'Edit Order',
+                    'Edit Order #'+idController,
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -513,13 +521,11 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                               customerId: customerIdController.text,
                               menuOrderType: menuOrderTypeController.text,
                               orderAddress: orderAddressController.text,
-                              //TODO: TAKE CARE OF IT
-                              orderDateTime: new DateTime.now(),
+                              orderDateTime: orderDateTimeValue,
                               orderPickupTime: orderPickupTimeController.text,
                               orderStatus: orderStatusController.text,
-                              paymentId: "");
+                              paymentId: paymentIdController.text);
                           newOrder.update;
-                          print("Add snackbar/notif success: true");
                           // Navigator.push(
                           //     context,
                           //     MaterialPageRoute(
@@ -584,11 +590,8 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                         var snackBar =
                             SnackBar(content: Text('Yay! It Success.'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        // TODO: MAKE SURE ITS BACK TO ALL COURIER
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdminHome(index: 0)));
+                        Navigator.pushNamed(context, '/allCompleteOrder');
+
                       },
                     )
                   ],

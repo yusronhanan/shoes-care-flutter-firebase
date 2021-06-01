@@ -73,8 +73,6 @@ class AddOrderPageState extends State<AddOrderPage> {
   final TextEditingController orderStatusController = TextEditingController();
   final TextEditingController orderDateTimeController = TextEditingController();
   DateTime orderDateTimeValue = DateTime.now();
-  //TODO change it in edit form, refer to firestore value
-  // String paymentIdController = 'Cash'; //INITIAL DEFAULT
   final TextEditingController paymentIdController = TextEditingController();
 
 

@@ -5,11 +5,28 @@ import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 import 'package:shoes_care/adminUI/detail_order.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/courier.dart';
+import 'package:shoes_care/model/customer.dart';
 import 'package:shoes_care/model/menu_order.dart';
 import 'package:shoes_care/model/order.dart';
 
 final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
+Future<List> _fetchUserData(customerEmail) async {
+  String customerName = customerEmail;
+  String customerPhone = "";
 
+  // here you write the codes to input the data into firestore
+  Customer customerData = Customer(
+      customerId: "",
+      customerName: "",
+      email: customerEmail,
+      password: "",
+      customerPhone: "",
+      customerAddress: "");
+  await customerData.syncDataByEmail(customerEmail);
+  customerName = customerData.getCustomerName;
+  customerPhone = customerData.getCustomerPhone;
+  return [customerName, customerPhone];
+}
 class EntryItem extends StatelessWidget {
   // final Entry entry;
   final Order entry;
@@ -18,12 +35,15 @@ class EntryItem extends StatelessWidget {
 
   const EntryItem(this.entry, this.courierList, this.menuOrder);
 
-  Widget _buildTiles(context, Order root) {
+  Widget _buildTiles(context, Order root, customerData) {
     TextEditingController paymentIdController = TextEditingController();
     paymentIdController.text = 'Cash';
 
     TextEditingController courierIdController = TextEditingController();
 
+    if(customerData[0] == ""){
+      customerData[0] = root.getCustomerId;
+    }
 
     Widget subtitleByOrder() {
       if(root.getOrderStatus == "New Order" && root.getCourierId == "") {
@@ -723,7 +743,8 @@ class EntryItem extends StatelessWidget {
          textOrder += "Paid by "+root.getPaymentId+ "\n";
        }
      }
-     textOrder += root.getCustomerId + '\n' + root.getOrderAddress;
+
+     textOrder += customerData[0] +' - '+customerData[1] + '\n' + root.getOrderAddress;
 
       return ExpansionTile(
         title: Text(titleOrder),
@@ -739,8 +760,30 @@ class EntryItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // TODO: implement build
-    return _buildTiles(context, entry);
+    // return _buildTiles(context, entry);
+    return FutureBuilder(
+      future: _fetchUserData(entry.getCustomerId),
+      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+        if(snapshot.hasData){
+          print("customerData" + snapshot.data.toString());
+          switch (snapshot.connectionState) {
+            case ConnectionState.none:
+            case ConnectionState.active:
+            case ConnectionState.waiting:
+              return _buildTiles(context, entry, ["",""]);
+              break;
+            case ConnectionState.done:
+              return _buildTiles(context, entry, snapshot.data);
+              break;
+            default:
+              return _buildTiles(context, entry, snapshot.data);
+          }
+        } else{
+          return _buildTiles(context, entry, ["",""]);
+        }
+
+      },
+    );
   }
 
   

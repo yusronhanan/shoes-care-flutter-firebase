@@ -109,7 +109,7 @@ class _AllPickUpOrderState extends State<AllPickUpOrderPage> {
               child: ListView.builder(
             itemCount: _resultsList.length,
             itemBuilder: (BuildContext context, int index) =>
-                buildOrderCard(context, _resultsList[index]),
+                buildOrderCard(context, _resultsList[index], []),
           )),
         ],
       ),

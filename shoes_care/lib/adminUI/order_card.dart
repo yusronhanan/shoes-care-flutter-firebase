@@ -4,17 +4,22 @@ import 'package:intl/intl.dart';
 import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 import 'package:shoes_care/adminUI/detail_order.dart';
 import 'package:shoes_care/app_theme.dart';
+import 'package:shoes_care/model/courier.dart';
 import 'package:shoes_care/model/order.dart';
 
 
 class EntryItem extends StatelessWidget {
   // final Entry entry;
   final Order entry;
-  const EntryItem(this.entry);
+  final List courierList;
+  const EntryItem(this.entry, this.courierList);
+
   Widget _buildTiles(context, Order root) {
     TextEditingController paymentIdController = TextEditingController();
     paymentIdController.text = 'Cash';
+
     TextEditingController courierIdController = TextEditingController();
+
 
     Widget subtitleByOrder() {
       if(root.getOrderStatus == "New Order" && root.getCourierId == "") {
@@ -73,16 +78,17 @@ class EntryItem extends StatelessWidget {
                                                         child: Icon(Icons
                                                             .sports_motorsports), // myIcon is a 48px-wide widget.
                                                       ),
-                                                      suffixIcon: PopupMenuButton<String>(
+                                                      suffixIcon: PopupMenuButton<dynamic>(
                                                         icon: const Icon(Icons.arrow_drop_down),
-                                                        onSelected: (String value) {
+                                                        onSelected: (dynamic value) {
                                                           courierIdController.text = value;
                                                         },
                                                         itemBuilder: (BuildContext context) {
-                                                          return <String>['Joko', 'Paijo', 'Muslik', 'Arif']
-                                                              .map<PopupMenuItem<String>>((String value) {
+                                                          return courierList.map<PopupMenuItem<dynamic>>((dynamic item) {
+                                                            var value = Courier.fromSnapshot(item);
                                                             return new PopupMenuItem(
-                                                                child: new Text(value), value: value);
+                                                                child: new Text(value.getCourierName)
+                                                                , value: value.getEmail);
                                                           }).toList();
                                                         },
                                                       ),
@@ -108,6 +114,7 @@ class EntryItem extends StatelessWidget {
                                                   orderStatus: 'New Order',
                                                   paymentId: root.getPaymentId,);
                                               currentOrder.update;
+                                              courierIdController.clear();
                                               Navigator.push(
                                                 context,
                                                 MaterialPageRoute(
@@ -697,7 +704,7 @@ class EntryItem extends StatelessWidget {
 }
 
 
-Widget buildOrderCard(BuildContext context, DocumentSnapshot document) {
+Widget buildOrderCard(BuildContext context, DocumentSnapshot document, List courierList) {
   final Order order = Order.fromSnapshot(document);
-  return EntryItem(order);
+  return EntryItem(order, courierList);
 }

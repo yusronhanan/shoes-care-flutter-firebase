@@ -114,7 +114,7 @@ class _AllCompleteOrderState extends State<AllCompleteOrderPage> {
               child: ListView.builder(
             itemCount: _resultsList.length,
             itemBuilder: (BuildContext context, int index) =>
-                buildOrderCard(context, _resultsList[index]),
+                buildOrderCard(context, _resultsList[index], []),
           )),
         ],
       ),

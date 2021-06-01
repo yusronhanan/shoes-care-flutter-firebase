@@ -1,8 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:shoes_care/model/courier.dart';
+import 'package:shoes_care/model/menu_order.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:intl/intl.dart';
+import 'package:shoes_care/model/payment.dart';
+
+final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
 
 class AddOrderPage extends StatefulWidget {
   @override
@@ -15,10 +20,19 @@ class AddOrderPageState extends State<AddOrderPage> {
   //get list from database
   Future resultsCourierLoaded;
   List courierList = [];
+
+  Future resultsMenuOrderLoaded;
+  List menuOrderList = [];
+
+  Future resultsPaymenyLoaded;
+  List paymentList = [];
+
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
     resultsCourierLoaded = getCourierStreamSnapshots();
+    resultsMenuOrderLoaded = getMenuOrderStreamSnapshots();
+    resultsPaymenyLoaded = getPaymentStreamSnapshots();
   }
   getCourierStreamSnapshots() async {
     var data = await FirebaseFirestore.instance
@@ -26,6 +40,24 @@ class AddOrderPageState extends State<AddOrderPage> {
         .get();
     setState(() {
       courierList = List.from(data.docs);
+    });
+    return "complete";
+  }
+  getMenuOrderStreamSnapshots() async {
+    var data = await FirebaseFirestore.instance
+        .collection('menuorder')
+        .get();
+    setState(() {
+      menuOrderList = List.from(data.docs);
+    });
+    return "complete";
+  }
+  getPaymentStreamSnapshots() async {
+    var data = await FirebaseFirestore.instance
+        .collection('payment')
+        .get();
+    setState(() {
+      paymentList = List.from(data.docs);
     });
     return "complete";
   }
@@ -44,6 +76,7 @@ class AddOrderPageState extends State<AddOrderPage> {
   //TODO change it in edit form, refer to firestore value
   // String paymentIdController = 'Cash'; //INITIAL DEFAULT
   final TextEditingController paymentIdController = TextEditingController();
+
 
   setEmpty() {
     adminIdController.clear();
@@ -80,6 +113,11 @@ class AddOrderPageState extends State<AddOrderPage> {
 
   @override
   Widget build(BuildContext context) {
+    //set adminId as a current loggedIn user admin
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User user = auth.currentUser;
+    // final uid = user.uid;
+    adminIdController.text = user.email;
     return Scaffold(
         appBar: AppBar(
           elevation: 0,
@@ -140,6 +178,24 @@ class AddOrderPageState extends State<AddOrderPage> {
                   ),
                   Padding(
                     padding:
+                    EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
+                    child: TextField(
+                      controller: customerIdController,
+                      keyboardType: TextInputType.text,
+                      style: TextStyle(fontSize: 18),
+                      decoration: InputDecoration(
+                        labelText: 'Customer Email',
+                        enabledBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                        focusedBorder: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(8),
+                            borderSide: BorderSide(color: Colors.grey)),
+                      ),
+                    ),
+                  ),
+                  Padding(
+                    padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: new Row(
                       children: <Widget>[
@@ -183,72 +239,6 @@ class AddOrderPageState extends State<AddOrderPage> {
                     ),
                   ),
                   Padding(
-                    //TODO delete. it should be automatically based on user login
-                    padding:
-                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: new Row(
-                      children: <Widget>[
-                        new Expanded(
-                            child: new TextField(
-                          controller: adminIdController,
-                          readOnly: true,
-                          style: TextStyle(fontSize: 18),
-                          keyboardType: TextInputType.text,
-                          decoration: InputDecoration(
-                            labelText: 'Admin',
-                            enabledBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(color: Colors.grey)),
-                            focusedBorder: OutlineInputBorder(
-                                borderRadius: BorderRadius.circular(8),
-                                borderSide: BorderSide(color: Colors.grey)),
-                            prefixIcon: Padding(
-                              padding:
-                                  const EdgeInsetsDirectional.only(start: 12.0),
-                              child: Icon(Icons
-                                  .admin_panel_settings), // myIcon is a 48px-wide widget.
-                            ),
-                            suffixIcon: PopupMenuButton<String>(
-                              icon: const Icon(Icons.arrow_drop_down),
-                              onSelected: (String value) {
-                                adminIdController.text = value;
-                              },
-                              itemBuilder: (BuildContext context) {
-                                return <String>[
-                                  'Admin 1',
-                                  'Admin 2',
-                                  'Admin 3',
-                                  'Admin 4'
-                                ].map<PopupMenuItem<String>>((String value) {
-                                  return new PopupMenuItem(
-                                      child: new Text(value), value: value);
-                                }).toList();
-                              },
-                            ),
-                          ),
-                        )),
-                      ],
-                    ),
-                  ),
-                  Padding(
-                    padding:
-                        EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
-                    child: TextField(
-                      controller: customerIdController,
-                      keyboardType: TextInputType.text,
-                      style: TextStyle(fontSize: 18),
-                      decoration: InputDecoration(
-                        labelText: 'Customer',
-                        enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                        focusedBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(8),
-                            borderSide: BorderSide(color: Colors.grey)),
-                      ),
-                    ),
-                  ),
-                  Padding(
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: new Row(
@@ -272,20 +262,20 @@ class AddOrderPageState extends State<AddOrderPage> {
                                   const EdgeInsetsDirectional.only(start: 12.0),
                               child: Icon(Icons.water_damage), // myIcon is a 48px-wide widget.
                             ),
-                            suffixIcon: PopupMenuButton<String>(
+                            suffixIcon: PopupMenuButton<dynamic>(
                               icon: const Icon(Icons.arrow_drop_down),
-                              onSelected: (String value) {
+                              onSelected: (dynamic value) {
                                 menuOrderTypeController.text = value;
                               },
+
                               itemBuilder: (BuildContext context) {
-                                return <String>[
-                                  'Fast Cleaning',
-                                  'Deep Cleaning',
-                                  'Unyellowing and Whitening',
-                                  'Leather Care'
-                                ].map<PopupMenuItem<String>>((String value) {
+                                return menuOrderList.map<PopupMenuItem<dynamic>>((dynamic item) {
+                                  var value = MenuOrder.fromSnapshot(item);
                                   return new PopupMenuItem(
-                                      child: new Text(value), value: value);
+                                      child: new Text(value.getMenuOrderType + " - "
+                                          + formatCurrency.format(value.getMenuOrderPrice)
+                                          + " - "+ value.getMenuOrderDuration.toString() +" Days")
+                                      , value: value.getMenuOrderType);
                                 }).toList();
                               },
                             ),
@@ -465,16 +455,17 @@ class AddOrderPageState extends State<AddOrderPage> {
                               child: Icon(Icons
                                   .payment), // myIcon is a 48px-wide widget.
                             ),
-                            suffixIcon: PopupMenuButton<String>(
+                            suffixIcon: PopupMenuButton<dynamic>(
                               icon: const Icon(Icons.arrow_drop_down),
-                              onSelected: (String value) {
+                              onSelected: (dynamic value) {
                                 paymentIdController.text = value;
                               },
                               itemBuilder: (BuildContext context) {
-                                return <String>['Cash', 'Gopay', 'OVO', 'DANA']
-                                    .map<PopupMenuItem<String>>((String value) {
+                                return paymentList.map<PopupMenuItem<dynamic>>((dynamic item) {
+                                  var value = Payment.fromSnapshot(item);
                                   return new PopupMenuItem(
-                                      child: new Text(value), value: value);
+                                      child: new Text(value.getPaymentName)
+                                      , value: value.getPaymentName);
                                 }).toList();
                               },
                             ),

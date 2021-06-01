@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:shoes_care/model/courier.dart';
 import 'package:shoes_care/model/order.dart';
 import 'package:intl/intl.dart';
 
@@ -10,6 +12,24 @@ class AddOrderPage extends StatefulWidget {
 }
 
 class AddOrderPageState extends State<AddOrderPage> {
+  //get list from database
+  Future resultsCourierLoaded;
+  List courierList = [];
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    resultsCourierLoaded = getCourierStreamSnapshots();
+  }
+  getCourierStreamSnapshots() async {
+    var data = await FirebaseFirestore.instance
+        .collection('courier')
+        .get();
+    setState(() {
+      courierList = List.from(data.docs);
+    });
+    return "complete";
+  }
+
   final TextEditingController adminIdController = TextEditingController();
   final TextEditingController courierIdController = TextEditingController();
   final TextEditingController customerIdController = TextEditingController();
@@ -143,16 +163,17 @@ class AddOrderPageState extends State<AddOrderPage> {
                               child: Icon(Icons
                                   .motorcycle), // myIcon is a 48px-wide widget.
                             ),
-                            suffixIcon: PopupMenuButton<String>(
+                            suffixIcon: PopupMenuButton<dynamic>(
                               icon: const Icon(Icons.arrow_drop_down),
-                              onSelected: (String value) {
+                              onSelected: (dynamic value) {
                                 courierIdController.text = value;
                               },
                               itemBuilder: (BuildContext context) {
-                                return <String>['Paijo', 'Joko', 'Zaki', 'Arif']
-                                    .map<PopupMenuItem<String>>((String value) {
+                                return courierList.map<PopupMenuItem<dynamic>>((dynamic item) {
+                                  var value = Courier.fromSnapshot(item);
                                   return new PopupMenuItem(
-                                      child: new Text(value), value: value);
+                                      child: new Text(value.getCourierName)
+                                      , value: value.getEmail);
                                 }).toList();
                               },
                             ),

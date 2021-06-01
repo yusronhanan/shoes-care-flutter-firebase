@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:shoes_care/adminUI/admin_navigation_view.dart';
@@ -27,6 +28,7 @@ Future<List> _fetchUserData(customerEmail) async {
   customerPhone = customerData.getCustomerPhone;
   return [customerName, customerPhone];
 }
+
 class EntryItem extends StatelessWidget {
   // final Entry entry;
   final Order entry;
@@ -44,6 +46,11 @@ class EntryItem extends StatelessWidget {
     if(customerData[0] == ""){
       customerData[0] = root.getCustomerId;
     }
+
+    final FirebaseAuth auth = FirebaseAuth.instance;
+    final User user = auth.currentUser;
+    // final uid = user.uid;
+    final adminEmail = user.email;
 
     Widget subtitleByOrder() {
       if(root.getOrderStatus == "New Order" && root.getCourierId == "") {
@@ -128,7 +135,7 @@ class EntryItem extends StatelessWidget {
                                             onPressed: () {
                                               final currentOrder = Order(
                                                   orderId: root.getOrderId,
-                                                  adminId: root.getAdminId,
+                                                  adminId: adminEmail,
                                                   courierId: courierIdController.text,
                                                   customerId: root.getCustomerId,
                                                   menuOrderType: root.getMenuOrderType,

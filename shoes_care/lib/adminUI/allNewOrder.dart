@@ -69,15 +69,6 @@ class _AllNewOrderState extends State<AllNewOrderPage> {
   }
 
   searchResultsList() {
-    // var showResultsAfterStatus = [];
-    //
-    // for (var ss in _allResults) {
-    //   var orderStatus = Order.fromSnapshot(ss).getOrderStatus.toLowerCase();
-    //
-    //   if(orderStatus.contains(currentStatus.toLowerCase())) {
-    //     showResultsAfterStatus.add(ss);
-    //   }
-    // }
     var showResults = [];
 
     if (_searchController.text != "") {

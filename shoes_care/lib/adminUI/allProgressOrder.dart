@@ -19,6 +19,9 @@ class _AllProgressOrderState extends State<AllProgressOrderPage> {
   List _allResults = [];
   List _resultsList = [];
 
+  Future resultsMenuOrderLoaded;
+  List menuOrderList = [];
+
   Future resultsCourierLoaded;
   List courierList = [];
 
@@ -40,6 +43,17 @@ class _AllProgressOrderState extends State<AllProgressOrderPage> {
     super.didChangeDependencies();
     resultsLoaded = getDataStreamSnapshots();
     resultsCourierLoaded = getCourierStreamSnapshots();
+    resultsMenuOrderLoaded = getMenuOrderStreamSnapshots();
+
+  }
+  getMenuOrderStreamSnapshots() async {
+    var data = await FirebaseFirestore.instance
+        .collection('menuorder')
+        .get();
+    setState(() {
+      menuOrderList = List.from(data.docs);
+    });
+    return "complete";
   }
   getCourierStreamSnapshots() async {
     var data = await FirebaseFirestore.instance
@@ -121,7 +135,7 @@ class _AllProgressOrderState extends State<AllProgressOrderPage> {
               child: ListView.builder(
             itemCount: _resultsList.length,
             itemBuilder: (BuildContext context, int index) =>
-                buildOrderCard(context, _resultsList[index], courierList),
+                buildOrderCard(context, _resultsList[index], courierList, menuOrderList),
           )),
         ],
       ),

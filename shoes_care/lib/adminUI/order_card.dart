@@ -5,14 +5,18 @@ import 'package:shoes_care/adminUI/admin_navigation_view.dart';
 import 'package:shoes_care/adminUI/detail_order.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/model/courier.dart';
+import 'package:shoes_care/model/menu_order.dart';
 import 'package:shoes_care/model/order.dart';
 
+final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
 
 class EntryItem extends StatelessWidget {
   // final Entry entry;
   final Order entry;
   final List courierList;
-  const EntryItem(this.entry, this.courierList);
+  final MenuOrder menuOrder;
+
+  const EntryItem(this.entry, this.courierList, this.menuOrder);
 
   Widget _buildTiles(context, Order root) {
     TextEditingController paymentIdController = TextEditingController();
@@ -687,13 +691,31 @@ class EntryItem extends StatelessWidget {
          .format(root.orderDateTime)
          .toString();
      String textOrder = "";
+    var orderDate = root.orderDateTime;
+    if(menuOrder != null){
+      var estimatedDoneDate = orderDate.add(Duration(days: menuOrder.getMenuOrderDuration));
+      if(root.getOrderStatus != 'Complete') {
+        textOrder += 'Estimated done: ' + DateFormat('dd/MM/yyyy')
+            .format(estimatedDoneDate)
+            .toString() + '\n';
+      }
+      textOrder+= menuOrder.getMenuOrderType + ' - '
+          + formatCurrency.format(menuOrder.getMenuOrderPrice);
+      if(root.getOrderStatus == 'Complete'){
+        textOrder+= ' - '+menuOrder.getMenuOrderDuration.toString() + ' Days';
+      }
+      textOrder+='\n';
+    }
      if(root.getOrderStatus == "Pick up" || root.getOrderStatus == "New Order"){
        textOrder += "Pick up at "+root.getOrderPickupTime;
        if(root.getCourierId != ""){
          textOrder+= " by "+courierName+ "\n";
        }
      } else {
-       textOrder += "Deliver at "+root.getOrderPickupTime;
+       textOrder += "Deliver";
+       if(root.getOrderStatus == "Progress" || root.getOrderStatus == "Deliver") {
+         textOrder += " at " + root.getOrderPickupTime;
+       }
        if(root.getCourierId != ""){
          textOrder+= " by "+courierName+ "\n";
        }
@@ -725,7 +747,14 @@ class EntryItem extends StatelessWidget {
 }
 
 
-Widget buildOrderCard(BuildContext context, DocumentSnapshot document, List courierList) {
+Widget buildOrderCard(BuildContext context, DocumentSnapshot document, List courierList, List menuOrderList) {
   final Order order = Order.fromSnapshot(document);
-  return EntryItem(order, courierList);
+  MenuOrder menuOrder = MenuOrder.fromSnapshot(menuOrderList[0]); //default = 0 if null
+  for (var mo in menuOrderList) {
+    var m = MenuOrder.fromSnapshot(mo);
+    if(m.getMenuOrderType == order.getMenuOrderType){
+      menuOrder = m;
+    }
+  }
+  return EntryItem(order, courierList, menuOrder);
 }

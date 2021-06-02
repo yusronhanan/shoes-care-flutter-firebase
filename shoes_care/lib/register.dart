@@ -165,7 +165,11 @@ class RegPageState extends State<RegisterPage> {
                     padding: EdgeInsets.only(
                         left: 16, right: 16, top: 32, bottom: 8),
                     child: TextField(
-                      controller: nameController,
+                      onChanged: (String value) {
+                        setState(() {
+                          nameController.text = value;
+                        });
+                      },
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
                       textCapitalization: TextCapitalization.words,
@@ -185,7 +189,11 @@ class RegPageState extends State<RegisterPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
-                      controller: emailController,
+                      onChanged: (String value) {
+                        setState(() {
+                          emailController.text = value;
+                        });
+                      },
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -204,7 +212,11 @@ class RegPageState extends State<RegisterPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
-                      controller: phoneNumController,
+                      onChanged: (String value) {
+                        setState(() {
+                          phoneNumController.text = value;
+                        });
+                      },
                       keyboardType: TextInputType.phone,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -224,7 +236,11 @@ class RegPageState extends State<RegisterPage> {
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
                       maxLines: 3,
-                      controller: addressController,
+                      onChanged: (String value) {
+                        setState(() {
+                          addressController.text = value;
+                        });
+                      },
                       keyboardType: TextInputType.streetAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
@@ -243,7 +259,11 @@ class RegPageState extends State<RegisterPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
-                      controller: passwordController,
+                      onChanged: (String value) {
+                        setState(() {
+                          passwordController.text = value;
+                        });
+                      },
                       obscureText: true,
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
@@ -264,7 +284,7 @@ class RegPageState extends State<RegisterPage> {
                       child: Container(
                         margin: EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                            color: isContinueBtnEnabled ? AppTheme.maroon : AppTheme.grey, shape: BoxShape.circle),
+                            color: isContinueBtnEnabled ? AppTheme.maroon : Colors.grey, shape: BoxShape.circle),
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () {

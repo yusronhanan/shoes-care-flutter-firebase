@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/authentication_service.dart';
 import 'package:provider/provider.dart';
 import 'package:shoes_care/app_theme.dart';
+import 'package:rules/rules.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -14,6 +15,31 @@ class LogPageState extends State<LoginPage> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
 
+  Rule get emailControllerRule {
+    return Rule(
+      emailController.text,
+      name: 'E-mail',
+      isEmail: true,
+      isRequired: true,
+    );
+  }
+  Rule get passwordControllerRule {
+    return Rule(
+      passwordController.text,
+      name: 'Password',
+      minLength: 6,
+      isRequired: true,
+    );
+  }
+  bool get isContinueBtnEnabled {
+    final groupRule = GroupRule(
+      [emailControllerRule, passwordControllerRule],
+      name: 'Sign in button',
+      requiredAll: true,
+    );
+
+    return !groupRule.hasError;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -24,7 +50,7 @@ class LogPageState extends State<LoginPage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 409,
+              height: 600,
               decoration: BoxDecoration(
                   boxShadow: [
                     new BoxShadow(
@@ -103,11 +129,16 @@ class LogPageState extends State<LoginPage> {
                     padding: EdgeInsets.only(
                         left: 16, right: 16, top: 32, bottom: 8),
                     child: TextField(
-                      controller: emailController,
+                        onChanged: (String value) {
+                          setState(() {
+                            emailController.text = value;
+                          });
+                        },
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
                         labelText: 'E-Mail Address',
+                        errorText: emailControllerRule?.error ?? null,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -121,12 +152,17 @@ class LogPageState extends State<LoginPage> {
                     padding:
                         EdgeInsets.only(left: 16, right: 16, top: 8, bottom: 8),
                     child: TextField(
-                      controller: passwordController,
+                      onChanged: (String value) {
+                        setState(() {
+                          passwordController.text = value;
+                        });
+                      },
                       obscureText: true,
                       style: TextStyle(fontSize: 18),
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Password',
+                        errorText: passwordControllerRule?.error ?? null,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -141,16 +177,26 @@ class LogPageState extends State<LoginPage> {
                       child: Container(
                         margin: EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                            color: AppTheme.maroon, shape: BoxShape.circle),
+                            color: isContinueBtnEnabled ? AppTheme.maroon : Colors.grey, shape: BoxShape.circle),
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () async {
-                            print(
-                                emailController.text + passwordController.text);
-                            context.read<AuthenticationService>().signIn(
-                                email: emailController.text,
-                                password: passwordController.text);
-                            Navigator.of(context).pushReplacementNamed('/home');
+                            if (isContinueBtnEnabled) {
+                              print(emailController.text +
+                                  passwordController.text);
+                              var isSuccess = await context.read<AuthenticationService>().signIn(
+                                  email: emailController.text,
+                                  password: passwordController.text);
+                              if(isSuccess != "Signed In"){
+                                var snackBar = SnackBar(
+                                    content: Text(
+                                        isSuccess));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else{
+                                Navigator.of(context).pushReplacementNamed('/home');
+                              }
+                            }
                           },
                           icon: Icon(Icons.arrow_forward),
                         ),

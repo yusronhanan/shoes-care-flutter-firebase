@@ -70,7 +70,7 @@ class RegPageState extends State<RegisterPage> {
   bool get isContinueBtnEnabled {
     final groupRule = GroupRule(
       [nameControllerRule, emailControllerRule, phoneNumControllerRule, addressControllerRule, passwordControllerRule],
-      name: 'Register button',
+      name: 'Sign up button',
       requiredAll: true,
     );
 

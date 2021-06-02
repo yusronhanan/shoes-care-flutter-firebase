@@ -287,27 +287,34 @@ class RegPageState extends State<RegisterPage> {
                             color: isContinueBtnEnabled ? AppTheme.maroon : Colors.grey, shape: BoxShape.circle),
                         child: IconButton(
                           color: Colors.white,
-                          onPressed: () {
+                          onPressed: () async {
                             if (isContinueBtnEnabled) {
                               print(nameController.text +
                                   emailController.text +
                                   phoneNumController.text +
                                   addressController.text +
                                   passwordController.text);
-                              context.read<AuthenticationService>().signUp(
+                              var isSuccess = await context.read<AuthenticationService>().signUp(
                                   name: nameController.text,
                                   email: emailController.text,
                                   phoneNum: phoneNumController.text,
                                   address: addressController.text,
                                   password: passwordController.text);
-                              setEmpty();
-                              Navigator.of(context)
-                                  .pushReplacementNamed('/welcome');
-                              var snackBar = SnackBar(
+                              if(isSuccess != "Signed Up"){
+                                var snackBar = SnackBar(
+                                    content: Text(
+                                        isSuccess));
+                                ScaffoldMessenger.of(context)
+                                    .showSnackBar(snackBar);
+                              } else{
+                                setEmpty();
+                                Navigator.of(context).pushReplacementNamed('/welcome');
+                                var snackBar = SnackBar(
                                   content: Text(
                                       'Yay! It Success. Now you can Sign in'));
-                              ScaffoldMessenger.of(context)
+                                ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
+                              }
                             }
                           },
                           icon: Icon(Icons.arrow_forward),

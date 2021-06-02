@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/authentication_service.dart';
 import 'package:provider/provider.dart';
+import 'package:rules/rules.dart';
 
 class RegisterPage extends StatefulWidget {
   @override
@@ -25,6 +26,56 @@ class RegPageState extends State<RegisterPage> {
     passwordController.clear();
   }
 
+  Rule get nameControllerRule {
+    return Rule(
+      nameController.text,
+      name: 'Name',
+      isAlphaSpace: true,
+      isRequired: true,
+    );
+  }
+  Rule get emailControllerRule {
+    return Rule(
+      emailController.text,
+      name: 'E-mail',
+      isEmail: true,
+      isRequired: true,
+    );
+  }
+  Rule get phoneNumControllerRule {
+    return Rule(
+      phoneNumController.text,
+      name: 'Phone Number',
+      isPhone: true,
+      isRequired: true,
+    );
+  }
+  Rule get addressControllerRule {
+    return Rule(
+      addressController.text,
+      name: 'Address',
+      minLength: 6,
+      isRequired: true,
+    );
+  }
+  Rule get passwordControllerRule {
+    return Rule(
+      passwordController.text,
+      name: 'Password',
+      minLength: 6,
+      isRequired: true,
+    );
+  }
+
+  bool get isContinueBtnEnabled {
+    final groupRule = GroupRule(
+      [nameControllerRule, emailControllerRule, phoneNumControllerRule, addressControllerRule, passwordControllerRule],
+      name: 'Register button',
+      requiredAll: true,
+    );
+
+    return !groupRule.hasError;
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -35,7 +86,7 @@ class RegPageState extends State<RegisterPage> {
         body: ListView(
           children: <Widget>[
             Container(
-              height: 700,
+              height: 900,
               decoration: BoxDecoration(
                   boxShadow: [
                     new BoxShadow(
@@ -120,6 +171,7 @@ class RegPageState extends State<RegisterPage> {
                       textCapitalization: TextCapitalization.words,
                       decoration: InputDecoration(
                         labelText: 'Name',
+                        errorText: nameControllerRule?.error ?? null,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -137,7 +189,8 @@ class RegPageState extends State<RegisterPage> {
                       keyboardType: TextInputType.emailAddress,
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
-                        labelText: 'E-Mail Address',
+                        labelText: 'E-mail',
+                        errorText: emailControllerRule?.error ?? null,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -156,6 +209,7 @@ class RegPageState extends State<RegisterPage> {
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
                         labelText: 'Phone Number',
+                        errorText: phoneNumControllerRule?.error ?? null,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -175,6 +229,7 @@ class RegPageState extends State<RegisterPage> {
                       style: TextStyle(fontSize: 18),
                       decoration: InputDecoration(
                         labelText: 'Address',
+                        errorText: addressControllerRule?.error ?? null,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -194,6 +249,7 @@ class RegPageState extends State<RegisterPage> {
                       keyboardType: TextInputType.text,
                       decoration: InputDecoration(
                         labelText: 'Password',
+                        errorText: passwordControllerRule?.error ?? null,
                         enabledBorder: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(8),
                             borderSide: BorderSide(color: Colors.grey)),
@@ -208,29 +264,31 @@ class RegPageState extends State<RegisterPage> {
                       child: Container(
                         margin: EdgeInsets.all(16),
                         decoration: BoxDecoration(
-                            color: AppTheme.maroon, shape: BoxShape.circle),
+                            color: isContinueBtnEnabled ? AppTheme.maroon : AppTheme.grey, shape: BoxShape.circle),
                         child: IconButton(
                           color: Colors.white,
                           onPressed: () {
-                            print(nameController.text +
-                                emailController.text +
-                                phoneNumController.text +
-                                addressController.text +
-                                passwordController.text);
-                            context.read<AuthenticationService>().signUp(
-                                name: nameController.text,
-                                email: emailController.text,
-                                phoneNum: phoneNumController.text,
-                                address: addressController.text,
-                                password: passwordController.text);
-                            setEmpty();
-                            Navigator.of(context)
-                                .pushReplacementNamed('/welcome');
-                            var snackBar = SnackBar(
-                                content: Text(
-                                    'Yay! It Success. Now you can Sign in'));
-                            ScaffoldMessenger.of(context)
-                                .showSnackBar(snackBar);
+                            if (isContinueBtnEnabled) {
+                              print(nameController.text +
+                                  emailController.text +
+                                  phoneNumController.text +
+                                  addressController.text +
+                                  passwordController.text);
+                              context.read<AuthenticationService>().signUp(
+                                  name: nameController.text,
+                                  email: emailController.text,
+                                  phoneNum: phoneNumController.text,
+                                  address: addressController.text,
+                                  password: passwordController.text);
+                              setEmpty();
+                              Navigator.of(context)
+                                  .pushReplacementNamed('/welcome');
+                              var snackBar = SnackBar(
+                                  content: Text(
+                                      'Yay! It Success. Now you can Sign in'));
+                              ScaffoldMessenger.of(context)
+                                  .showSnackBar(snackBar);
+                            }
                           },
                           icon: Icon(Icons.arrow_forward),
                         ),

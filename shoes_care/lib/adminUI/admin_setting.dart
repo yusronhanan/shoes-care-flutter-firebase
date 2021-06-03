@@ -135,8 +135,8 @@ class AdminSettingPageState extends State<AdminSettingPage> {
                                   textColor: Colors.white,
                                   onPressed: () {
                                     context.read<AuthenticationService>().signOut();
-                                    Navigator.pushNamed(context, '/welcome');
-
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
                                   },
                                 )
                               ],

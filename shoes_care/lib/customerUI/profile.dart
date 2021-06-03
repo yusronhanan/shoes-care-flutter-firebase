@@ -102,8 +102,8 @@ class ProfilePageState extends State<ProfilePage> {
                                   textColor: Colors.white,
                                   onPressed: () {
                                     context.read<AuthenticationService>().signOut();
-                                    Navigator.of(context).pop();
-
+                                    Navigator.of(context)
+                                        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
                                   },
                                 )
                               ],

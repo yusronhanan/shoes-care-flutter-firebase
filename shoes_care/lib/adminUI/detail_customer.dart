@@ -190,10 +190,10 @@ class _DetailCustomerViewState extends State<DetailCustomerView> {
                               customerAddress: addressController.text,
                               );
                           newCustomer.update;
-                          Navigator.pushNamed(context, '/allCustomer');
+                          Navigator.of(context).pushReplacementNamed('/allCustomer');
 
                           var snackBar =
-                              SnackBar(content: Text('Yay! It Success.'));
+                              SnackBar(content: Text('It\'s updated.'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         icon: Icon(Icons.edit),
@@ -250,10 +250,9 @@ class _DetailCustomerViewState extends State<DetailCustomerView> {
                       onPressed: () async {
                         await deleteCustomer(context);
                         var snackBar =
-                            SnackBar(content: Text('Yay! It Success.'));
+                            SnackBar(content: Text('It\'s deleted.'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        // TODO: MAKE SURE ITS BACK TO ALL COURIER
-                        Navigator.pushNamed(context, '/allCustomer');
+                        Navigator.of(context).pushReplacementNamed('/allCustomer');
 
                       },
                     )

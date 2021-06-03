@@ -211,10 +211,10 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                               courierNOPOL: nopolController.text);
                           newCourier.update;
                           print("Add snackbar/notif success: true");
-                          Navigator.pushNamed(context, '/allCourier');
+                          Navigator.of(context).pushReplacementNamed('/allCourier');
 
                           var snackBar =
-                              SnackBar(content: Text('Yay! It Success.'));
+                              SnackBar(content: Text('It\'s updated.'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         icon: Icon(Icons.edit),
@@ -272,13 +272,10 @@ class _DetailCourierViewState extends State<DetailCourierView> {
                       onPressed: () async {
                         await deleteCourier(context);
                         var snackBar =
-                            SnackBar(content: Text('Yay! It Success.'));
+                            SnackBar(content: Text('It\'s deleted.'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        // TODO: MAKE SURE ITS BACK TO ALL COURIER
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => AdminHome(index: 0)));
+                        Navigator.of(context).pushReplacementNamed('/allCourier');
+
                       },
                     )
                   ],

@@ -119,9 +119,9 @@ class _DetailPaymentViewState extends State<DetailPaymentView> {
                               paymentId: idController,
                               paymentName: nameController.text);
                           newPayment.update;
-                          Navigator.pushNamed(context, '/allPayment');
+                          Navigator.of(context).pushReplacementNamed('/allPayment');
                           var snackBar =
-                              SnackBar(content: Text('Yay! It Success.'));
+                              SnackBar(content: Text('It\'s updated.'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         icon: Icon(Icons.edit),
@@ -177,9 +177,10 @@ class _DetailPaymentViewState extends State<DetailPaymentView> {
                       onPressed: () async {
                         await deletePayment(context);
                         var snackBar =
-                            SnackBar(content: Text('Yay! It Success.'));
+                            SnackBar(content: Text('It\'s deleted.'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Navigator.pushNamed(context, '/allPayment');
+                        Navigator.of(context).pushReplacementNamed('/allPayment');
+
                       },
                     )
                   ],

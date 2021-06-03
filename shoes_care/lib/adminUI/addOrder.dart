@@ -496,7 +496,7 @@ class AddOrderPageState extends State<AddOrderPage> {
                             newOrder.insert.then((value) {
                               // ignore: deprecated_member_use
                               var snackBar =
-                                  SnackBar(content: Text('Yay! It Success.'));
+                                  SnackBar(content: Text('It is added.'));
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
                               setEmpty();

@@ -165,9 +165,10 @@ class _DetailMenuOrderViewState extends State<DetailMenuOrderView> {
                               menuOrderDuration: int.parse(durationController.text),
                               menuOrderPrice: int.parse(priceController.text));
                           newMenuOrder.update;
-                          Navigator.pushNamed(context, '/allMenuOrder');
+                          Navigator.of(context).pushReplacementNamed('/allMenuOrder');
+
                           var snackBar =
-                              SnackBar(content: Text('Yay! It Success.'));
+                              SnackBar(content: Text('It\'s updated.'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         icon: Icon(Icons.edit),
@@ -223,9 +224,10 @@ class _DetailMenuOrderViewState extends State<DetailMenuOrderView> {
                       onPressed: () async {
                         await deleteMenuOrder(context);
                         var snackBar =
-                            SnackBar(content: Text('Yay! It Success.'));
+                            SnackBar(content: Text('It\'s deleted.'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Navigator.pushNamed(context, '/allMenuOrder');
+                        Navigator.of(context).pushReplacementNamed('/allMenuOrder');
+
                       },
                     )
                   ],

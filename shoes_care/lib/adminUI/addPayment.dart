@@ -43,32 +43,6 @@ class AddPaymentPageState extends State<AddPaymentPage> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 mainAxisSize: MainAxisSize.min,
                 children: <Widget>[
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: <Widget>[
-                      Container(
-                        margin: EdgeInsets.all(16),
-                        decoration: BoxDecoration(
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.all(Radius.circular(8)),
-                        ),
-                        // ignore: deprecated_member_use
-                        child: FlatButton(
-                          onPressed: () {
-                            Navigator.pushNamed(context, '/allPayment');
-                          },
-                          child: Text(
-                            'All Payment Data',
-                            style: TextStyle(
-                              fontSize: 20,
-                              color: Colors.grey,
-                            ),
-                          ),
-                        ),
-                      ),
-                    ],
-                  ),
                   Container(
                     margin: EdgeInsets.only(left: 16, top: 8),
                     child: Text(
@@ -121,8 +95,10 @@ class AddPaymentPageState extends State<AddPaymentPage> {
                             newPayment.insert.then((value) {
                               print("Add snackbar/notif success: $value");
                               // ignore: deprecated_member_use
+                              Navigator.of(context).pushReplacementNamed('/allPayment');
+
                               var snackBar =
-                                  SnackBar(content: Text('Yay! It Success.'));
+                                  SnackBar(content: Text('It is added.'));
                               ScaffoldMessenger.of(context)
                                   .showSnackBar(snackBar);
                               setEmpty();

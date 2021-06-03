@@ -525,12 +525,9 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                               orderStatus: orderStatusController.text,
                               paymentId: paymentIdController.text);
                           newOrder.update;
-                          // Navigator.push(
-                          //     context,
-                          //     MaterialPageRoute(
-                          //         builder: (context) => AdminHome(index: 2)));
+                          Navigator.of(context).pushReplacementNamed('/allCompleteOrder');
                           var snackBar =
-                              SnackBar(content: Text('Yay! It Success.'));
+                              SnackBar(content: Text('It\'s updated'));
                           ScaffoldMessenger.of(context).showSnackBar(snackBar);
                         },
                         icon: Icon(Icons.edit),
@@ -587,9 +584,9 @@ class _DetailOrderViewState extends State<DetailOrderView> {
                       onPressed: () async {
                         await deleteOrder(context);
                         var snackBar =
-                            SnackBar(content: Text('Yay! It Success.'));
+                            SnackBar(content: Text('It\'s deleted.'));
                         ScaffoldMessenger.of(context).showSnackBar(snackBar);
-                        Navigator.pushNamed(context, '/allCompleteOrder');
+                        Navigator.of(context).pushReplacementNamed('/allCompleteOrder');
 
                       },
                     )

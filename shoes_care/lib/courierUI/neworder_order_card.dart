@@ -56,7 +56,7 @@ class EntryItem extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) {
+                            builder: (BuildContext bc) {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -96,6 +96,9 @@ class EntryItem extends StatelessWidget {
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) => CourierHome(index: 1)));
+                                              // Navigator.of(context).pushNamedAndRemoveUntil('/courierPickup', (Route<dynamic> route) => false);
+                                              // Navigator.pushNamed(context, '/courierPickup');
+
                                               var snackBar =
                                               SnackBar(content: Text('Yay! It Success.'));
                                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -150,7 +153,7 @@ class EntryItem extends StatelessWidget {
     // return  _buildTiles(entry);
     return FutureBuilder(
       future: _fetchUserData(entry.getCustomerId),
-      builder: (BuildContext context, AsyncSnapshot<String> snapshot) {
+      builder: (BuildContext bc, AsyncSnapshot<String> snapshot) {
         if(snapshot.hasData){
           print("customerName:" + snapshot.data);
           switch (snapshot.connectionState) {

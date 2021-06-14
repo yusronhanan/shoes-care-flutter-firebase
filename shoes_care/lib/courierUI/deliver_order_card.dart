@@ -163,8 +163,8 @@ class EntryItem extends StatelessWidget {
                                                   MaterialPageRoute(
                                                       builder: (context) => CourierHome(index: 0)));
 
-                                              // Navigator.of(context)
-                                              //     .pushNamedAndRemoveUntil('/courierHome0', (Route<dynamic> route) => false);
+                                              // Navigator.of(context).pushNamedAndRemoveUntil('/courierDeliver', (Route<dynamic> route) => false);
+                                              // Navigator.pushNamed(context, '/courierDeliver');
                                               var snackBar =
                                               SnackBar(content: Text('Yay! It Success.'));
                                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -219,7 +219,7 @@ class EntryItem extends StatelessWidget {
     // return  _buildTiles(entry);
     return FutureBuilder(
       future: _fetchUserData(entry.getCustomerId),
-      builder: (BuildContext context, AsyncSnapshot<List> snapshot) {
+      builder: (BuildContext bc, AsyncSnapshot<List> snapshot) {
         if(snapshot.hasData){
           print("customerData" + snapshot.data.toString());
           switch (snapshot.connectionState) {

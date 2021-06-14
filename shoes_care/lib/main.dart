@@ -61,8 +61,6 @@ class MyApp extends StatelessWidget {
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
 
-            '/courierHome0': (context) => CourierHome(index: 0),
-            '/courierHome1': (context) => CourierHome(index: 1),
 
             //for role admin
             '/addCourier': (context) => AddCourierPage(),
@@ -85,7 +83,10 @@ class MyApp extends StatelessWidget {
             '/adminHome1': (context) => AdminHome(index: 1),
             '/adminHome2': (context) => AdminHome(index: 2),
             '/adminHome3': (context) => AdminHome(index: 3),
-            '/adminHome4': (context) => AdminHome(index: 4)
+            '/adminHome4': (context) => AdminHome(index: 4),
+
+            '/courierDeliver': (context) => CourierHome(index: 0),
+            '/courierPickup': (context) => CourierHome(index: 1)
           },
           theme: ThemeData(
             brightness: Brightness.light,

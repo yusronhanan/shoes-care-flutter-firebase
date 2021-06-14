@@ -66,7 +66,7 @@ class EntryItem extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) {
+                            builder: (BuildContext bc) {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -146,15 +146,16 @@ class EntryItem extends StatelessWidget {
                                                   paymentId: root.getPaymentId,);
                                               currentOrder.update;
                                               courierIdController.clear();
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => AdminHome(index:0)),
-                                              );
+                                              Navigator.of(context).pop();
+                                              //  Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) => AdminHome(index:0)),
+                                              // );
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil('/adminHome0', (Route<dynamic> route) => false);
                                               courierIdController.clear();
-                                              var snackBar =
-                                              SnackBar(content: Text('Yay! It Success.'));
-                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                                             },
                                             child: Text(
                                               "Accept",
@@ -212,7 +213,7 @@ class EntryItem extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) {
+                            builder: (BuildContext bc) {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -247,15 +248,17 @@ class EntryItem extends StatelessWidget {
                                                 orderStatus: 'Pick up',
                                                 paymentId: root.getPaymentId,);
                                               currentOrder.update;
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => AdminHome(index:0)),
-                                              );
+                                              Navigator.of(context).pop();
+
+                                              //  Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) => AdminHome(index:0)),
+                                              // );
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil('/adminHome0', (Route<dynamic> route) => false);
                                               courierIdController.clear();
-                                              var snackBar =
-                                              SnackBar(content: Text('Yay! It Success.'));
-                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
                                             },
                                             child: Text(
                                               "Pick up",
@@ -314,7 +317,7 @@ class EntryItem extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) {
+                            builder: (BuildContext bc) {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -358,16 +361,17 @@ class EntryItem extends StatelessWidget {
                                                   orderStatus: 'Progress',
                                                   paymentId: root.getPaymentId,);
                                               currentOrder.update;
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => AdminHome(index:1)),
-                                              );
-                                              var snackBar =
-                                              SnackBar(content: Text(
-                                                  'Yay! It Success.'));
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(snackBar);
+                                              Navigator.of(context).pop();
+
+
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) => AdminHome(index:1)),
+                                              // );
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil('/adminHome1', (Route<dynamic> route) => false);
+
                                             },
                                             child: Text(
                                               "Yes",
@@ -429,7 +433,7 @@ class EntryItem extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) {
+                            builder: (BuildContext bc) {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -473,16 +477,15 @@ class EntryItem extends StatelessWidget {
                                                   orderStatus: 'Deliver',
                                                   paymentId: root.getPaymentId,);
                                               currentOrder.update;
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => AdminHome(index:2)),
-                                              );
-                                              var snackBar =
-                                              SnackBar(content: Text(
-                                                  'Yay! It Success.'));
-                                              ScaffoldMessenger.of(context)
-                                                  .showSnackBar(snackBar);
+                                              Navigator.of(context).pop();
+                                              // Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) => AdminHome(index:2)),
+                                              // );
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil('/adminHome2', (Route<dynamic> route) => false);
+
                                             },
                                             child: Text(
                                               "Yes",
@@ -544,7 +547,7 @@ class EntryItem extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) {
+                            builder: (BuildContext bc) {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -623,14 +626,16 @@ class EntryItem extends StatelessWidget {
                                                   paymentId: paymentIdController.text);
                                               currentOrder.update;
                                               paymentIdController.text = 'Cash'; //default to cash
-                                              Navigator.push(
-                                                context,
-                                                MaterialPageRoute(
-                                                    builder: (context) => AdminHome(index:3)),
-                                              );
-                                              var snackBar =
-                                              SnackBar(content: Text('Yay! It Success.'));
-                                              ScaffoldMessenger.of(context).showSnackBar(snackBar);
+                                              Navigator.of(context).pop();
+
+                                              //  Navigator.push(
+                                              //   context,
+                                              //   MaterialPageRoute(
+                                              //       builder: (context) => AdminHome(index:3)),
+                                              // );
+                                              Navigator.of(context)
+                                                  .pushNamedAndRemoveUntil('/adminHome3', (Route<dynamic> route) => false);
+
                                             },
                                             child: Text(
                                               "Update",

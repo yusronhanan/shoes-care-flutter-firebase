@@ -78,6 +78,11 @@ class MyApp extends StatelessWidget {
             '/allMenuOrder': (context) => MenuOrderSettingPage(),
 
             '/adminProfile': (context) => AdminProfilePage(),
+            '/adminHome0': (context) => AdminHome(index: 0),
+            '/adminHome1': (context) => AdminHome(index: 1),
+            '/adminHome2': (context) => AdminHome(index: 2),
+            '/adminHome3': (context) => AdminHome(index: 3),
+            '/adminHome4': (context) => AdminHome(index: 4)
           },
           theme: ThemeData(
             brightness: Brightness.light,

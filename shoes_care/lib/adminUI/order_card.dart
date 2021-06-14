@@ -146,7 +146,7 @@ class EntryItem extends StatelessWidget {
                                                   paymentId: root.getPaymentId,);
                                               currentOrder.update;
                                               courierIdController.clear();
-                                              Navigator.of(context).pop();
+                                              Navigator.of(context, rootNavigator: true).pop();
                                               //  Navigator.push(
                                               //   context,
                                               //   MaterialPageRoute(
@@ -173,7 +173,7 @@ class EntryItem extends StatelessWidget {
 
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Navigator.of(context, rootNavigator: true).pop();
                                             },
                                             child: Text(
                                               "Cancel",
@@ -248,7 +248,7 @@ class EntryItem extends StatelessWidget {
                                                 orderStatus: 'Pick up',
                                                 paymentId: root.getPaymentId,);
                                               currentOrder.update;
-                                              Navigator.of(context).pop();
+                                              Navigator.of(context, rootNavigator: true).pop();
 
                                               //  Navigator.push(
                                               //   context,
@@ -276,7 +276,7 @@ class EntryItem extends StatelessWidget {
 
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Navigator.of(context, rootNavigator: true).pop();
                                             },
                                             child: Text(
                                               "Cancel",
@@ -361,9 +361,7 @@ class EntryItem extends StatelessWidget {
                                                   orderStatus: 'Progress',
                                                   paymentId: root.getPaymentId,);
                                               currentOrder.update;
-                                              Navigator.of(context).pop();
-
-
+                                              Navigator.of(context, rootNavigator: true).pop();
                                               // Navigator.push(
                                               //   context,
                                               //   MaterialPageRoute(
@@ -391,7 +389,7 @@ class EntryItem extends StatelessWidget {
 
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Navigator.of(context, rootNavigator: true).pop();
                                             },
                                             child: Text(
                                               "No",
@@ -477,7 +475,8 @@ class EntryItem extends StatelessWidget {
                                                   orderStatus: 'Deliver',
                                                   paymentId: root.getPaymentId,);
                                               currentOrder.update;
-                                              Navigator.of(context).pop();
+                                              Navigator.of(context, rootNavigator: true).pop();
+
                                               // Navigator.push(
                                               //   context,
                                               //   MaterialPageRoute(
@@ -505,7 +504,7 @@ class EntryItem extends StatelessWidget {
 
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Navigator.of(context, rootNavigator: true).pop();
                                             },
                                             child: Text(
                                               "No",
@@ -626,7 +625,7 @@ class EntryItem extends StatelessWidget {
                                                   paymentId: paymentIdController.text);
                                               currentOrder.update;
                                               paymentIdController.text = 'Cash'; //default to cash
-                                              Navigator.of(context).pop();
+                                              Navigator.of(context, rootNavigator: true).pop();
 
                                               //  Navigator.push(
                                               //   context,
@@ -653,7 +652,7 @@ class EntryItem extends StatelessWidget {
 
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Navigator.of(context, rootNavigator: true).pop();
                                             },
                                             child: Text(
                                               "Cancel",

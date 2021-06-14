@@ -55,7 +55,7 @@ class EntryItem extends StatelessWidget {
                       onPressed: () {
                         showDialog(
                             context: context,
-                            builder: (BuildContext context) {
+                            builder: (BuildContext bc) {
                               return Dialog(
                                 shape: RoundedRectangleBorder(
                                     borderRadius:
@@ -90,10 +90,13 @@ class EntryItem extends StatelessWidget {
                                                   orderStatus: 'Progress',
                                                   paymentId: "");
                                               currentOrder.update;
+                                              Navigator.of(context, rootNavigator: true).pop();
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
                                                       builder: (context) => CourierHome(index: 1)));
+                                              // Navigator.of(context)
+                                              //     .pushNamedAndRemoveUntil('/courierHome1', (Route<dynamic> route) => false);
                                               var snackBar =
                                               SnackBar(content: Text('Yay! It Success.'));
                                               ScaffoldMessenger.of(context).showSnackBar(snackBar);
@@ -114,7 +117,7 @@ class EntryItem extends StatelessWidget {
 
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Navigator.of(context, rootNavigator: true).pop();
                                             },
                                             child: Text(
                                               "No",

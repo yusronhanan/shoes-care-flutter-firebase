@@ -61,6 +61,9 @@ class MyApp extends StatelessWidget {
             '/register': (context) => RegisterPage(),
             '/login': (context) => LoginPage(),
 
+            '/courierHome0': (context) => CourierHome(index: 0),
+            '/courierHome1': (context) => CourierHome(index: 1),
+
             //for role admin
             '/addCourier': (context) => AddCourierPage(),
             '/allCourier': (context) => AllCourierPage(),

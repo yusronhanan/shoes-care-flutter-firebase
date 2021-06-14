@@ -91,6 +91,7 @@ class EntryItem extends StatelessWidget {
                                                   orderStatus: 'Pick up',
                                                   paymentId: '');
                                               currentOrder.update;
+                                              Navigator.of(context, rootNavigator: true).pop();
                                               Navigator.push(
                                                   context,
                                                   MaterialPageRoute(
@@ -115,7 +116,7 @@ class EntryItem extends StatelessWidget {
 
                                           child: ElevatedButton(
                                             onPressed: () {
-                                              Navigator.pop(context);
+                                              Navigator.of(context, rootNavigator: true).pop();
                                             },
                                             child: Text(
                                               "No",

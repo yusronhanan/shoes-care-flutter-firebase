@@ -152,8 +152,7 @@ class EntryItem extends StatelessWidget {
                                               //   MaterialPageRoute(
                                               //       builder: (context) => AdminHome(index:0)),
                                               // );
-                                              Navigator.of(context)
-                                                  .pushNamedAndRemoveUntil('/adminHome0', (Route<dynamic> route) => false);
+                                              Navigator.of(context).pushNamedAndRemoveUntil('/adminHome0', (Route<dynamic> route) => false);
                                               courierIdController.clear();
 
                                             },

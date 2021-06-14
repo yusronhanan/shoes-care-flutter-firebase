@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:shoes_care/authentication_service.dart';
 import 'package:provider/provider.dart';
+import 'package:shoes_care/main.dart';
 import 'package:shoes_care/model/courier.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -104,10 +105,11 @@ class ProfilePageState extends State<ProfilePage> {
                                   color: Colors.black,
                                   textColor: Colors.white,
                                   onPressed: () {
-                                    context.read<AuthenticationService>().signOut();
                                     Navigator.of(context).pop();
-                                    Navigator.of(context)
-                                        .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+                                    context.read<AuthenticationService>().signOut();
+                                    // Navigator.of(context).pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
+                                    Navigator.pushAndRemoveUntil(
+                                        bc, MaterialPageRoute(builder: (context) => HomeController()), (Route<dynamic> route) => false);
                                   },
                                 )
                               ],

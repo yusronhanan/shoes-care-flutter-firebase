@@ -159,7 +159,7 @@ class EntryItem extends StatelessWidget {
                                               paymentIdController.text = defaultPayment; //default to cash
                                               Navigator.of(context, rootNavigator: true).pop();
                                               Navigator.push(
-                                                  context,
+                                                  bc,
                                                   MaterialPageRoute(
                                                       builder: (context) => CourierHome(index: 0)));
 

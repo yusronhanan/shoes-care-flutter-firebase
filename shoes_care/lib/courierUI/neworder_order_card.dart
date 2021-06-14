@@ -93,7 +93,7 @@ class EntryItem extends StatelessWidget {
                                               currentOrder.update;
                                               Navigator.of(context, rootNavigator: true).pop();
                                               Navigator.push(
-                                                  context,
+                                                  bc,
                                                   MaterialPageRoute(
                                                       builder: (context) => CourierHome(index: 1)));
                                               // Navigator.of(context).pushNamedAndRemoveUntil('/courierPickup', (Route<dynamic> route) => false);

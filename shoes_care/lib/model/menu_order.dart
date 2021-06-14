@@ -46,6 +46,7 @@ class MenuOrder {
   set setMenuOrderDuration(int newMenuOrderDuration) {
     menuOrderDuration = newMenuOrderDuration;
   }
+
   String getRandomString(int length)  {
     return String.fromCharCodes(Iterable.generate(
         length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));
@@ -74,7 +75,7 @@ class MenuOrder {
     return false;
   }
 
-  set syncData(String menuOrderId) {
+  void syncData(String menuOrderId) {
     //sync data w/ firebase and return all attribute data
     CollectionReference collection =
         FirebaseFirestore.instance.collection('menuorder');

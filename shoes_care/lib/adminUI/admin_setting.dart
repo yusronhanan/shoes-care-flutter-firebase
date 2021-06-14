@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shoes_care/adminUI/allCompleteOrder.dart';
 import 'package:shoes_care/app_theme.dart';
 import 'package:settings_ui/settings_ui.dart';
 import 'package:shoes_care/authentication_service.dart';
@@ -135,6 +136,7 @@ class AdminSettingPageState extends State<AdminSettingPage> {
                                   textColor: Colors.white,
                                   onPressed: () {
                                     context.read<AuthenticationService>().signOut();
+                                    Navigator.of(context).pop();
                                     Navigator.of(context)
                                         .pushNamedAndRemoveUntil('/home', (Route<dynamic> route) => false);
                                   },

@@ -739,8 +739,9 @@ class EntryItem extends StatelessWidget {
      if(root.getOrderStatus == "Pick up" || root.getOrderStatus == "New Order"){
        textOrder += "Pick up at "+root.getOrderPickupTime;
        if(root.getCourierId != ""){
-         textOrder+= " by "+courierName+ "\n";
+         textOrder+= " by "+courierName;
        }
+       textOrder += "\n";
      } else {
        textOrder += "Deliver";
        if(root.getOrderStatus == "Progress" || root.getOrderStatus == "Deliver") {

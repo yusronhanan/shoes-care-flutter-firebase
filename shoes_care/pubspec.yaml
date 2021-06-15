@@ -23,7 +23,6 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
   #setting UI
   settings_ui: 1.0.0
   #rule on forms
@@ -38,9 +37,14 @@ dependencies:
   provider: ^4.3.2+1
 
 dev_dependencies:
+  flutter_launcher_icons: "^0.8.0"
   flutter_test:
     sdk: flutter
-
+#flutter icons
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/icon.png"
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
 

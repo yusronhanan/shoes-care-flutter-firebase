@@ -9,6 +9,7 @@ import 'package:shoes_care/model/courier.dart';
 import 'package:shoes_care/model/customer.dart';
 import 'package:shoes_care/model/menu_order.dart';
 import 'package:shoes_care/model/order.dart';
+import 'package:shoes_care/model/payment.dart';
 
 final formatCurrency = new NumberFormat.simpleCurrency(locale: 'id_ID');
 Future<List> _fetchUserData(customerEmail) async {
@@ -34,12 +35,13 @@ class EntryItem extends StatelessWidget {
   final Order entry;
   final List courierList;
   final MenuOrder menuOrder;
-
-  const EntryItem(this.entry, this.courierList, this.menuOrder);
+  final List paymentList;
+  const EntryItem(this.entry, this.courierList, this.menuOrder, this.paymentList);
 
   Widget _buildTiles(context, Order root, customerData) {
     TextEditingController paymentIdController = TextEditingController();
-    paymentIdController.text = 'Cash';
+    var defaultPayment = Payment.fromSnapshot(paymentList[0]).getPaymentName;
+    paymentIdController.text = defaultPayment;
 
     TextEditingController courierIdController = TextEditingController();
 
@@ -588,16 +590,17 @@ class EntryItem extends StatelessWidget {
                                                         child: Icon(Icons
                                                             .payment), // myIcon is a 48px-wide widget.
                                                       ),
-                                                      suffixIcon: PopupMenuButton<String>(
+                                                      suffixIcon: PopupMenuButton<dynamic>(
                                                         icon: const Icon(Icons.arrow_drop_down),
-                                                        onSelected: (String value) {
+                                                        onSelected: (dynamic value) {
                                                           paymentIdController.text = value;
                                                         },
                                                         itemBuilder: (BuildContext context) {
-                                                          return <String>['Cash', 'Gopay', 'OVO', 'DANA']
-                                                              .map<PopupMenuItem<String>>((String value) {
+                                                          return paymentList.map<PopupMenuItem<dynamic>>((dynamic item) {
+                                                            var value = Payment.fromSnapshot(item);
                                                             return new PopupMenuItem(
-                                                                child: new Text(value), value: value);
+                                                                child: new Text(value.getPaymentName)
+                                                                , value: value.getPaymentName);
                                                           }).toList();
                                                         },
                                                       ),
@@ -801,7 +804,7 @@ class EntryItem extends StatelessWidget {
 }
 
 
-Widget buildOrderCard(BuildContext context, DocumentSnapshot document, List courierList, List menuOrderList) {
+Widget buildOrderCard(BuildContext context, DocumentSnapshot document, List courierList, List menuOrderList, List paymentList) {
   final Order order = Order.fromSnapshot(document);
   MenuOrder menuOrder = MenuOrder.fromSnapshot(menuOrderList[0]); //default = 0 if null
   for (var mo in menuOrderList) {
@@ -810,5 +813,5 @@ Widget buildOrderCard(BuildContext context, DocumentSnapshot document, List cour
       menuOrder = m;
     }
   }
-  return EntryItem(order, courierList, menuOrder);
+  return EntryItem(order, courierList, menuOrder, paymentList);
 }
